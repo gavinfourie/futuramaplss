@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express()
 
+app.set('views', './views')
+
+app.set('view engine', 'pug')
+
 
 app.get('/', (req, res) => {
     console.log("welcome")
@@ -11,7 +15,9 @@ app.get('/get', (req, res) => {
 })
 
 app.get('/redirect', (req, res) => {
-    console.log(req)
+    let code = req.query.code
+    console.log(code)
+    res.render('index', { title: 'Hey', message: code })
 })
 
 app.listen(process.env.PORT || 3000)
