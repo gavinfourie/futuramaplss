@@ -41,6 +41,8 @@ const zoho = axios.create({
 })
 
 app.get('/start', (req, res) => {
+    console.log("Zoho: ", zoho)
+    console.log("Token: ", token)
     zoho.get('workbooks')
         .then(function (response) {
             res.send(response)
