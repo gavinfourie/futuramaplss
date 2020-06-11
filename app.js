@@ -26,6 +26,7 @@ app.get('/token', (req, res) => {
         .then(function (response) {
             console.log(response.data)
             token = response.data.access_token
+            console.log("Access Token: ", token)
             res.redirect('/start')
         })
         .catch(function (error) {
