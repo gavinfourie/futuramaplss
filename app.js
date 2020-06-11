@@ -1,10 +1,9 @@
 const express = require('express')
 const app = express()
+const code
 
 app.set('views', './views')
-
 app.set('view engine', 'pug')
-
 
 app.get('/', (req, res) => {
     console.log("welcome")
@@ -15,9 +14,20 @@ app.get('/get', (req, res) => {
 })
 
 app.get('/redirect', (req, res) => {
-    let code = req.query.code
+    code = req.query.code
     console.log(code)
     res.render('index', { title: 'Hey', message: code })
+    res.redirect('/token')
+})
+
+app.get('/token', (req, res) => {
+    axios.post(`https://accounts.zoho.com/oauth/v2/token?code=${code}&grant_type=authorization_code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&client_secret=a78690fdc6ecf1e65395b462e5e484833f0fab18d3&redirect_uri=https://futurama-app.herokuapp.com/redirect`)
+        .then(function (response) {
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
 })
 
 app.listen(process.env.PORT || 3000)
