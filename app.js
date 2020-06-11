@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const code
+let code = null
 
 app.set('views', './views')
 app.set('view engine', 'pug')
