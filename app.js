@@ -23,6 +23,7 @@ app.get('/redirect', (req, res) => {
 app.get('/token', (req, res) => {
     axios.post(`https://accounts.zoho.com/oauth/v2/token?code=${code}&grant_type=authorization_code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&client_secret=a78690fdc6ecf1e65395b462e5e484833f0fab18d3&redirect_uri=https://futurama-app.herokuapp.com/redirect`)
         .then(function (response) {
+            console.log(response)
             res.send(response)
         })
         .catch(function (error) {
