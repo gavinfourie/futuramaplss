@@ -44,7 +44,7 @@ app.get('/start', (req, res) => {
     console.log("Token: ", token)
     zoho.get('workbooks?method=workbook.list')
         .then(function (response) {
-            res.send(response)
+            res.send(response.data)
         })
         .catch(function (error) {
             console.log(error)
