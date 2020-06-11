@@ -36,7 +36,7 @@ app.get('/token', (req, res) => {
 const zoho = axios.create({
     baseURL: 'https://sheet.zoho.com/api/v2/',
     timeout: 5000,
-    headers: {'Authorization:Zoho-oauthtoken': `${token}`}
+    headers: {'Authorization': `Zoho-oauthtoken ${token}`}
 })
 
 app.get('/start', (req, res) => {
