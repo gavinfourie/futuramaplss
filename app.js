@@ -16,7 +16,6 @@ app.get('/get', (req, res) => {
 app.get('/redirect', (req, res) => {
     code = req.query.code
     console.log(code)
-    res.render('index', { title: 'Hey', message: code })
     res.redirect('/token')
 })
 
