@@ -4,11 +4,10 @@ const app = express()
 let code = null
 let token = null
 
-app.set('views', './views')
-app.set('view engine', 'pug')
+app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
-    console.log("welcome")
+    res.render('index', {text: 'hello'})
 })
 
 app.get('/get', (req, res) => {
@@ -44,7 +43,7 @@ app.get('/start', (req, res) => {
     console.log("Token: ", token)
     zoho.get('workbooks?method=workbook.list')
         .then(function (response) {
-            res.send(response.data)
+            res.render('response', { data: response.data })
         })
         .catch(function (error) {
             console.log(error)
