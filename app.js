@@ -44,7 +44,7 @@ app.get('/start', (req, res) => {
     zoho.get('workbooks?method=workbook.list')
         .then(function (response) {
             console.log(response.data)
-            res.render('response', { data: response.data })
+            res.render('response', { data: response.data.workbooks[0] })
         })
         .catch(function (error) {
             console.log(error)
