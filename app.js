@@ -43,7 +43,7 @@ app.get('/start', (req, res) => {
     console.log("Token: ", token)
     zoho.get('accounts')
         .then(function (response) {
-            console.log(response.data[0])
+            console.log('responseFG:', response.data)
             res.render('response', { data: response.data })
         })
         .catch(function (error) {
