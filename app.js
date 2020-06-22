@@ -47,7 +47,7 @@ app.get('/start', (req, res) => {
             res.render('response', { data: response.data.accountId })
         })
         .catch(function (error) {
-            console.log(error)
+            console.log('error', error)
         })
 })
 
