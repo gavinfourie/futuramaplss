@@ -3,6 +3,7 @@ const axios = require('axios')
 const app = express()
 let code = null
 let token = null
+let accountId = 4965623000000008002
 
 app.set('view engine', 'ejs')
 
@@ -11,7 +12,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/get', (req, res) => {
-    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoMail.accounts.READ&redirect_uri=https://futurama-app.herokuapp.com/redirect')
+    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoMail.messages.READ&redirect_uri=https://futurama-app.herokuapp.com/redirect')
 })
 
 app.get('/redirect', (req, res) => {
@@ -35,13 +36,13 @@ app.get('/token', (req, res) => {
 
 app.get('/start', (req, res) => {
     const zoho = axios.create({
-        baseURL: 'http://mail.zoho.com/api/',
+        baseURL: `http://mail.zoho.com/api/account/${accountId}/messages/`,
         timeout: 10000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`}
     })
     console.log("Zoho: ", zoho)
     console.log("Token: ", token)
-    zoho.get('accounts')
+    zoho.get('view')
         .then(function (response) {
             console.log('responseFG:', response.data)
             res.render('response', { data: response.data })
