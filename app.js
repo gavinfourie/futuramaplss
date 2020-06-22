@@ -43,8 +43,8 @@ app.get('/start', (req, res) => {
     console.log("Token: ", token)
     zoho.get('accounts')
         .then(function (response) {
-            console.log(response.data)
-            res.render('response', { data: response.data.accountId })
+            console.log(response.data[0])
+            res.render('response', { data: response.data })
         })
         .catch(function (error) {
             console.log('error', error)
