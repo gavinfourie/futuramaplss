@@ -47,7 +47,7 @@ app.get('/start', (req, res) => {
             res.render('response', { data: response.data })
         })
         .catch(function (error) {
-            console.log('errorFG', error.data)
+            console.log('errorFG', error.response)
         })
 })
 
