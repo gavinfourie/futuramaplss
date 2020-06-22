@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/get', (req, res) => {
-    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoMail.messages.READ&redirect_uri=https://futurama-app.herokuapp.com/redirect')
+    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoMail.accounts&redirect_uri=https://futurama-app.herokuapp.com/redirect')
 })
 
 app.get('/redirect', (req, res) => {
