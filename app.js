@@ -36,7 +36,7 @@ app.get('/token', (req, res) => {
 
 app.get('/start', (req, res) => {
     const zoho = axios.create({
-        baseURL: `http://mail.zoho.com/api/account/${accountId}/messages/`,
+        baseURL: `http://mail.zoho.com/api/accounts/${accountId}/messages/`,
         timeout: 10000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`}
     })
