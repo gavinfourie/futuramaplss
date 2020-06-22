@@ -35,13 +35,13 @@ app.get('/token', (req, res) => {
 
 app.get('/start', (req, res) => {
     const zoho = axios.create({
-        baseURL: 'https://mail.zoho.com/api/accounts',
+        baseURL: 'https://mail.zoho.com/api/',
         timeout: 5000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`}
     })
     console.log("Zoho: ", zoho)
     console.log("Token: ", token)
-    zoho.get('')
+    zoho.get('accounts')
         .then(function (response) {
             console.log(response.data)
             res.render('response', { data: response.data.accountId })
