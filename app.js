@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/get', (req, res) => {
-    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoMail.accounts.READ&redirect_uri=https://futurama-app.herokuapp.com/redirect')
+    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoMail.folders.READ&redirect_uri=https://futurama-app.herokuapp.com/redirect')
 })
 
 app.get('/redirect', (req, res) => {
@@ -36,13 +36,13 @@ app.get('/token', (req, res) => {
 
 app.get('/start', (req, res) => {
     const zoho = axios.create({
-        baseURL: `http://mail.zoho.com/api/`,
+        baseURL: `http://mail.zoho.com/api/accounts/${accountId}/`,
         timeout: 10000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`}
     })
     console.log("Zoho: ", zoho)
     console.log("Token: ", token)
-    zoho.get('accounts')
+    zoho.get('folders')
         .then(function (response) {
             console.log('responseFG:', response.data )
             res.render('response', { data: response.data })
