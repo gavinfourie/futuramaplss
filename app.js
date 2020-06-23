@@ -44,7 +44,7 @@ app.get('/start', (req, res) => {
     console.log("Token: ", token)
     zoho.get('view')
         .then(function (response) {
-            console.log('responseFG:', response.data.data[0] )
+            console.log('responseFG:', response.data.data )
             res.render('response', { data: response.data })
         })
         .catch(function (error) {
