@@ -5,6 +5,7 @@ let code = null
 let token = null
 let accountId = 4965623000000008002n
 let folderId = 4965623000000008014n
+let emails
 
 app.set('view engine', 'ejs')
 
@@ -48,8 +49,9 @@ app.get('/start', (req, res) => {
     console.log("Token: ", token)
     zoho.get('view')
         .then(function (response) {
-            console.log('responseFG:', response.data.data[0] )
-            res.render('response', { data: response.data.data[1].subject })
+            emails = response.data.data
+            console.log('responseFG:', response.data.data )
+            res.render('response', { emails: emails })
         })
         .catch(function (error) {
             console.log('errorFG', error.response)

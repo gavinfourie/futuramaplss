@@ -7,6 +7,8 @@
 </head>
 <body>
     <h1>These are your emails:</h1>
-    <p><%= data %></p>
+    <% emails.forEach(function(email){ %>
+        <h2><%= email.subject %></h2>
+    <% }) %>
 </body>
 </html>
