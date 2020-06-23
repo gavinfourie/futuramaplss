@@ -3,7 +3,7 @@ const axios = require('axios')
 const app = express()
 let code = null
 let token = null
-let accountId = 4965623000000008002
+let accountId = 4965623000000008002n
 
 app.set('view engine', 'ejs')
 
