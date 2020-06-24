@@ -44,7 +44,7 @@ app.get('/start', (req, res) => {
     })
     console.log("Zoho: ", zoho)
     console.log("Token: ", token)
-    zoho.get('workbooks?method=workbook.list')
+    zoho.get('kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=workbook.list')
         .then(function (response) {
             emails = response.data
             console.log('responseFG:', response.data )
