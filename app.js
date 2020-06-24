@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/get', (req, res) => {
-    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoMail.messages.READ&redirect_uri=https://futurama-app.herokuapp.com/redirect')
+    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.READ&redirect_uri=https://futurama-app.herokuapp.com/redirect')
 })
 
 app.get('/redirect', (req, res) => {
@@ -38,7 +38,7 @@ app.get('/token', (req, res) => {
 
 app.get('/start', (req, res) => {
     const zoho = axios.create({
-        baseURL: `http://mail.zoho.com/api/accounts/${accountId}/messages/`,
+        baseURL: `https://sheet.zoho.com/api/v2/`,
         timeout: 10000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
         data: {
@@ -47,10 +47,10 @@ app.get('/start', (req, res) => {
     })
     console.log("Zoho: ", zoho)
     console.log("Token: ", token)
-    zoho.get('view')
+    zoho.get('workbooks?workbook.list')
         .then(function (response) {
-            emails = response.data.data
-            console.log('responseFG:', response.data.data )
+            emails = response.data
+            console.log('responseFG:', response.data )
             res.render('response', { emails: emails })
         })
         .catch(function (error) {
