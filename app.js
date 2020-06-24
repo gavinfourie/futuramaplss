@@ -39,7 +39,7 @@ app.get('/token', (req, res) => {
 app.get('/start', (req, res) => {
     const zoho = axios.create({
         baseURL: `https://sheet.zoho.com/api/v2/`,
-        timeout: 10000,
+        timeout: 20000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
     console.log("Zoho: ", zoho)
