@@ -38,13 +38,13 @@ app.get('/token', (req, res) => {
 
 app.get('/start', (req, res) => {
     const zoho = axios.create({
-        baseURL: `https://sheet.zoho.com/api/v2/`,
+        baseURL: `https://sheet.zoho.com/api/v2/kspsmb1b84b1d7c014acb8ed2ea1f2c374d47`,
         timeout: 10000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
     console.log("Zoho: ", zoho)
     console.log("Token: ", token)
-    zoho.get('workbooks?method=workbook.list')
+    zoho.get('?method=worksheet.list')
         .then(function (response) {
             emails = response.data.workbooks[0].workbook_name
             console.log('responseFG:', response.data )
