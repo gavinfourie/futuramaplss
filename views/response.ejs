@@ -7,11 +7,6 @@
 </head>
 <body>
     <h1>These are your emails:</h1>
-    <% emails.forEach(function(email){ %>
-        <h3><%= email.messageId %></h3>
-        <h3><%= email.sender %></h3>
-        <h2><%= email.subject %></h2>
-        <h3><%= email.summary %></h3>
-    <% }) %>
+    <h2><%= emails %></h2>
 </body>
 </html>
