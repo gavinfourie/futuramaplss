@@ -41,9 +41,6 @@ app.get('/start', (req, res) => {
         baseURL: `https://sheet.zoho.com/api/v2/`,
         timeout: 10000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
-        data: {
-            folderId: `${folderId}`,
-        }
     })
     console.log("Zoho: ", zoho)
     console.log("Token: ", token)
