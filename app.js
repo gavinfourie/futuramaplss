@@ -51,7 +51,7 @@ app.get('/start', (req, res) => {
             res.render('response', { emails: emails })
         })
         .catch(function (error) {
-            console.log('errorFG', error.response)
+            console.log('errorFG', error)
         })
 })
 
