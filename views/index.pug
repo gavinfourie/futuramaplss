@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+        title Home Page
+        script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    body
+        h1= text
+
+        p Please enter your Zoho client ID here:
+        input(type='text')
+        button(type="submit" onclick="MakeRequest()") Submit
+
+        script(
+            function MakeRequest() {
+                window.location.replace("https://futurama-app.herokuapp.com/get")
+        })

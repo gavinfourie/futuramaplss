@@ -8,7 +8,9 @@ let folderId = 4965623000000008014n
 let oldStock
 let newStock
 
-app.set('view engine', 'ejs')
+app.set('views', './views')
+
+app.set('view engine', 'pug')
 
 app.get('/', (req, res) => {
     res.render('index', {text: 'hello'})
@@ -43,8 +45,8 @@ app.get('/start', (req, res) => {
         timeout: 20000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
-    console.log("Zoho: ", zoho)
-    console.log("Token: ", token)
+    // console.log("Zoho: ", zoho)
+    // console.log("Token: ", token)
     zoho.get('kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=Price and stock sheet 27-05-202')
         .then(function (response) {
             oldStock = response.data
