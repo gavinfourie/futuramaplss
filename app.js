@@ -74,7 +74,6 @@ app.get('/newStock', (req, res) => {
 })
 
 app.get('/response', (req, res) => {
-    console.log('template rendered', oldStock)
     res.render('response')
 })
 
