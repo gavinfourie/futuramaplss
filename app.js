@@ -8,7 +8,7 @@ let folderId = 4965623000000008014n
 let oldStock
 let newStock
 let pricesChange
-let priceChanges = null
+let priceChanges = []
 
 app.set('views', './views')
 
