@@ -51,11 +51,11 @@ app.get('/start', (req, res) => {
         .then(function (response) {
             oldStock = response.data
             console.log('responseFG:', response.data )
-            res.render('response', { oldStock: oldStock })
         })
         .catch(function (error) {
             console.log('errorFG', error)
         })
+    res.render('response', { oldStock: oldStock})
 })
 
 app.listen(process.env.PORT || 3000)
