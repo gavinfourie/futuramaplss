@@ -6,8 +6,10 @@
     <title>Response</title>
 </head>
 <body>
-    <h1>These are your emails:</h1>
-    <h2><%= emails %></h2>
+    <h1>This is the stock:</h1>
+    <% oldStock.forEach(function(stock){ %>
+        <h2><%= stock.Item Number %></h2>
+    <% }); %>    
 
     <button onclick="makeRequest()">Again</button>
 

@@ -5,7 +5,8 @@ let code = null
 let token = null
 let accountId = 4965623000000008002n
 let folderId = 4965623000000008014n
-let emails
+let oldStock
+let newStock
 
 app.set('view engine', 'ejs')
 
@@ -46,9 +47,9 @@ app.get('/start', (req, res) => {
     console.log("Token: ", token)
     zoho.get('kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=Price and stock sheet 27-05-202')
         .then(function (response) {
-            emails = response.data
+            oldStock = response.data
             console.log('responseFG:', response.data )
-            res.render('response', { emails: emails })
+            res.render('response', { oldStock: oldStock })
         })
         .catch(function (error) {
             console.log('errorFG', error)
