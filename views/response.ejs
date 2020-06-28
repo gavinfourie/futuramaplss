@@ -7,8 +7,8 @@
 </head>
 <body>
     <h1>This is the stock:</h1>
-    <% oldStock.forEach(element => { %>
-        <%= element %>
+    <% oldStock.forEach(function(stock) { %>
+        <h2><%= stock.Stock %></h2>
     <% }) %>
 
     <button onclick="makeRequest()">Again</button>
