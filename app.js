@@ -50,7 +50,7 @@ app.get('/start', (req, res) => {
     zoho.get('kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=Price and stock sheet 27-05-202')
         .then(function (response) {
             oldStock = response.data
-            console.log('response received')
+            console.log('response received', response.data)
             res.redirect('/response')
         })
         .catch(function (error) {
