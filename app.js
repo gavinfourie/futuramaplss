@@ -86,13 +86,12 @@ app.get('/doCompare', (req, res) => {
             if (oldStock[i].price == newStock[i].price) {
                 pricesChange = false
             } else {
-                pricesChange = true
                 priceChanges.push(newStock[i])
             }
         }
-        res.render('compare', { length: true, change: pricesChange, prices: priceChanges })
+        res.render('compare', { length: true, change: true, prices: priceChanges })
     } else {
-        res.render('compare', { length: false, change: pricesChange, prices: null })
+        res.render('compare', { length: false, change: false, prices: null })
     }
 })
 
