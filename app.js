@@ -39,7 +39,7 @@ app.get('/token', (req, res) => {
         })
 })
 
-app.get('/start', async (req, res) => {
+app.get('/start', (req, res) => {
     const zoho = axios.create({
         baseURL: `https://sheet.zoho.com/api/v2/`,
         timeout: 20000,
@@ -49,14 +49,13 @@ app.get('/start', async (req, res) => {
     // console.log("Token: ", token)
     zoho.get('kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=Price and stock sheet 27-05-202')
         .then(function (response) {
-            await oldStock = response.data
+            oldStock = response.data
             console.log('response received')
             res.redirect('/response')
         })
         .catch(function (error) {
             console.log('errorFG', error)
         })
-    res.render('response', { oldStock: oldStock})
 })
 
 app.get('/response', (req, res) => {
