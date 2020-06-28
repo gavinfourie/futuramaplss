@@ -7,9 +7,9 @@
 </head>
 <body>
     <h1>This is the stock:</h1>
-    <% oldStock.forEach(function(stock){ %>
-        <h2><%= stock.Item Number %></h2>
-    <% }); %>    
+    <% oldStock.forEach(element => { %>
+        <h2><%= element %></h2> 
+    <% }) %>
 
     <button onclick="makeRequest()">Again</button>
 
