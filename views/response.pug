@@ -5,7 +5,7 @@ html
     body
         h1  This is the stock:
         ul
-            each stock in oldStock
+            each stock in oldStock.records
                 li= stock.row_index
 
         button(onclick="makeRequest()") Again
