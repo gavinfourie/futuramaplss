@@ -78,7 +78,11 @@ app.get('/response', (req, res) => {
 })
 
 app.get('/doCompare', (req, res) => {
-    res.render('compare')
+    if (oldStock.length === newStock.length) {
+        res.render('compare', { length: true })
+    } else {
+        res.render('compare', { length: false })
+    }
 })
 
 app.listen(process.env.PORT || 3000)
