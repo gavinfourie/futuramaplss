@@ -7,6 +7,8 @@ let accountId = 4965623000000008002n
 let folderId = 4965623000000008014n
 let oldStock
 let newStock
+let pricesChange
+let priceChanges
 
 app.set('views', './views')
 
@@ -79,9 +81,18 @@ app.get('/response', (req, res) => {
 
 app.get('/doCompare', (req, res) => {
     if (oldStock.length === newStock.length) {
-        res.render('compare', { length: true })
+        let i
+        for (i = 0; i < oldStock.length; i++) {
+            if (oldStock[i].price === newStock[i].price) {
+                pricesChange = false
+            } else {
+                pricesChange = true
+                priceChanges.push(newStock[i])
+            }
+        }
+        res.render('compare', { length: true, change: pricesChange, prices: priceChanges })
     } else {
-        res.render('compare', { length: false })
+        res.render('compare', { length: false, change: pricesChange, prices: null })
     }
 })
 
