@@ -8,7 +8,7 @@ let folderId = 4965623000000008014n
 let oldStock
 let newStock
 let pricesChange
-let priceChanges
+let priceChanges = null
 
 app.set('views', './views')
 
@@ -89,8 +89,10 @@ app.get('/doCompare', (req, res) => {
                 priceChanges.push(newStock[i])
             }
         }
+        console.log(priceChanges)
         res.render('compare', { length: true, change: true, prices: priceChanges })
     } else {
+        console.log(priceChanges)
         res.render('compare', { length: false, change: false, prices: null })
     }
 })
