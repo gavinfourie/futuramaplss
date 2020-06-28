@@ -50,12 +50,18 @@ app.get('/start', (req, res) => {
     zoho.get('kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=Price and stock sheet 27-05-202')
         .then(function (response) {
             oldStock = response.data
-            console.log('responseFG:', response.data )
+            console.log('response received')
+            res.redirect('/response')
         })
         .catch(function (error) {
             console.log('errorFG', error)
         })
     res.render('response', { oldStock: oldStock})
+})
+
+app.get('/response', (req, res) => {
+    console.log('template rendered')
+    res.render('response', { oldStock: oldStock })
 })
 
 app.listen(process.env.PORT || 3000)
