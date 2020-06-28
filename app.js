@@ -75,7 +75,11 @@ app.get('/newStock', (req, res) => {
 
 app.get('/response', (req, res) => {
     console.log('template rendered', oldStock)
-    res.render('response', { oldStock: oldStock })
+    res.render('response')
+})
+
+app.get('/doCompare', (req, res) => {
+    res.render('compare')
 })
 
 app.listen(process.env.PORT || 3000)
