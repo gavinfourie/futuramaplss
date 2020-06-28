@@ -59,7 +59,7 @@ app.get('/start', (req, res) => {
 })
 
 app.get('/response', (req, res) => {
-    console.log('template rendered')
+    console.log('template rendered', oldStock)
     res.render('response', { oldStock: oldStock })
 })
 
