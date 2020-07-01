@@ -15,3 +15,6 @@ html
                 h2 The prices haven't changed
         else
             h2 Length different.
+            ul
+                each ach price in prices
+                        li= 'Number: ' + price.ItemNumber + ', New Price: ' + price.Pricing
