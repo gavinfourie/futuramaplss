@@ -95,9 +95,14 @@ app.get('/doCompare', (req, res) => {
         }
         res.render('compare', { length: true, change: true, prices: priceChanges })
     } else {
-        if (newStock.some(item => oldStock.includes(item))) {
-            newItems.push(item)
-            console.log(item)
+        let i
+        for (i = 0; i < oldStock.length; i++) {
+            if (newStock.includes(oldStock[i])) {
+                
+            } else {
+                console.log("Item found")
+                newItems.push(oldStock[i])
+            }
         }
         res.render('compare', { length: false, change: false, prices: newItems })
     }
