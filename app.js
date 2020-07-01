@@ -86,17 +86,12 @@ app.get('/doCompare', (req, res) => {
             let ii
             for (ii = 0; ii < newStock.length; ii++) {
                 if (oldStock[i].ItemNumber === newStock[ii].ItemNumber) {
-                    if (oldStock[i].Pricing === newStock[ii].Pricing) {
-                        console.log("Prices match")
-                    } else {
+                    if (oldStock[i].Pricing !=== newStock[ii].Pricing) {
                         priceChanges.push(newStock[ii])
                     }
-                } else {
-                    console.log("Item number doesn't match")
                 }
             }
         }
-        console.log(priceChanges)
         res.render('compare', { length: true, change: true, prices: priceChanges })
     } else {
         console.log(priceChanges)
