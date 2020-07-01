@@ -97,6 +97,7 @@ app.get('/doCompare', (req, res) => {
     } else {
         if (newStock.some(item => oldStock.includes(item))) {
             newItems.push(item)
+            console.log(item)
         }
         res.render('compare', { length: false, change: false, prices: newItems })
     }
