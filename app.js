@@ -99,8 +99,6 @@ app.get('/doCompare', (req, res) => {
     } else {
         for (let i = 0; i < oldStock.length; i++) {
             if (newStock.includes(oldStock[i])) {
-                
-            } else {
                 console.log("Item found")
                 newItems.push(oldStock[i])
             }
