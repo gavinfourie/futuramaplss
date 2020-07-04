@@ -86,21 +86,18 @@ app.get('/response', (req, res) => {
 app.get('/doCompare', (req, res) => {
     console.log(oldStock)
     if (oldStock.length === newStock.length) {
-        let i
-        for (i = 0; i < oldStock.length; i++) {
-            let ii
-            for (ii = 0; ii < newStock.length; ii++) {
-                if (oldStock[i].ItemNumber === newStock[ii].ItemNumber) {
-                    if (oldStock[i].Pricing !== newStock[ii].Pricing) {
-                        priceChanges.push(newStock[ii])
+        for (let i = 0; i < oldStock.length; i++) {
+            for (let x = 0; x < newStock.length; x++) {
+                if (oldStock[i].ItemNumber === newStock[x].ItemNumber) {
+                    if (oldStock[i].Pricing !== newStock[x].Pricing) {
+                        priceChanges.push(newStock[x])
                     }
                 }
             }
         }
         res.render('compare', { length: true, change: true, prices: priceChanges })
     } else {
-        let i
-        for (i = 0; i < oldStock.length; i++) {
+        for (let i = 0; i < oldStock.length; i++) {
             if (newStock.includes(oldStock[i])) {
                 
             } else {
