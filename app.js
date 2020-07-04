@@ -9,6 +9,7 @@ let oldStock
 let newStock
 let newItems = []
 let priceChanges = []
+let worksheet_name = null
 
 app.set('views', './views')
 
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/get', (req, res) => {
+    worksheet_name = 'Lite Optec'
     res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.READ&redirect_uri=https://futurama-app.herokuapp.com/redirect')
 })
 
@@ -53,7 +55,7 @@ app.get('/start', (req, res) => {
     })
     // console.log("Zoho: ", zoho)
     // console.log("Token: ", token)
-    zoho.get('kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=Price and stock sheet 27-05-202')
+    zoho.get(`kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=${worksheet_name}`)
         .then(function (response) {
             oldStock = response.data.records
             res.redirect('/newStock')
