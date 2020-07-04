@@ -84,7 +84,6 @@ app.get('/response', (req, res) => {
 })
 
 app.get('/doCompare', (req, res) => {
-    console.log(oldStock)
     if (oldStock.length === newStock.length) {
         for (let i = 0; i < oldStock.length; i++) {
             for (let x = 0; x < newStock.length; x++) {
