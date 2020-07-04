@@ -18,3 +18,7 @@ html
             ul
                 each price in prices
                         li= 'Number: ' + price.ItemNumber + ', New Price: ' + price.Pricing
+        button(onclick="makeRequest()") Back to home
+
+        script
+            include comparejs.js
