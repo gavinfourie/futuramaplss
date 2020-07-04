@@ -15,6 +15,10 @@ app.set('views', './views')
 app.set('view engine', 'pug')
 
 app.get('/', (req, res) => {
+    oldStock = null
+    newStock = null
+    newItems = []
+    priceChanges = []
     res.render('index', {text: 'hello'})
 })
 
