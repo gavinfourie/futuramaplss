@@ -2,6 +2,7 @@ doctype html
 html
     head
         title Home Page
+        script ../js/index.js
         script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
     body
         h1= text
@@ -9,6 +10,3 @@ html
         p Please enter your Zoho client ID here:
         input(type='text')
         button(type="submit" onclick="MakeRequest()") Submit
-
-        script
-            include ../js/index.js
