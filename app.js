@@ -53,7 +53,7 @@ app.get('/start', (req, res) => {
         timeout: 20000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
-    zoho.get(`kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=${worksheet_name}`)
+    zoho.get('kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=Old Stock')
         .then(function (response) {
             oldStock = response.data.records
             res.redirect('/newStock')
@@ -69,7 +69,7 @@ app.get('/newStock', (req, res) => {
         timeout: 20000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
-    zoho.get('kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=Price and stock sheet 27-05_1')
+    zoho.get('kspsmb1b84b1d7c014acb8ed2ea1f2c374d47?method=worksheet.records.fetch&worksheet_name=New Stock')
         .then(function (response) {
             newStock = response.data.records
             res.redirect('/response')
