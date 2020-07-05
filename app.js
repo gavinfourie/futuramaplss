@@ -53,7 +53,7 @@ app.get('/getworkbook', (req, res) => {
     })
     zoho.get('workbooks?method=workbook.list')
         .then(function (response) {
-            console.log(response)
+            console.log(response.data.workbooks)
         })
         .catch(function (error) {
             console.log('errorFG', error)
