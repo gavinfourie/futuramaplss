@@ -118,7 +118,7 @@ router.get('/add', (req, res) => {
             res.render('compare', { length: true, change: true, prices: priceChanges })
         })
         .catch(function (error) {
-            console.log('Error From Final', error.response)
+            console.log('Error From Final', error.response.data)
         })
 })
 
