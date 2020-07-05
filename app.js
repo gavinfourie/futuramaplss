@@ -31,44 +31,7 @@ app.get('/prices', (req, res) => {
     res.render('prices')
 })
 
-app.get('/liteoptec', (req, res) => {
-    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.READ&redirect_uri=https://futurama-app.herokuapp.com/liteoptecres')
-})
 
-app.get('/liteoptecres', (req, res) => {
-    code = req.query.code
-    axios.post(`https://accounts.zoho.com/oauth/v2/token?code=${code}&grant_type=authorization_code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&client_secret=a78690fdc6ecf1e65395b462e5e484833f0fab18d3&redirect_uri=https://futurama-app.herokuapp.com/liteoptecres`)
-        .then(function (response) {
-            token = response.data.access_token
-            workbook_name = 'Lite Optec'
-            res.redirect('/getworkbook')
-        })
-        .catch(function (error) {
-            console.log(error)
-        })
-})
-
-app.get('/getworkbook', (req, res) => {
-    const zoho = axios.create({
-        baseURL: 'https://sheet.zoho.com/api/v2/',
-        timeout: 20000,
-        headers: {'Authorization': `Zoho-oauthtoken ${token}`},
-    })
-    zoho.get('workbooks?method=workbook.list')
-        .then(function (response) {
-            console.log(response.data.workbooks)
-            let workbooks = response.data.workbooks
-            for (let index = 0; index < workbooks.length; index++) {
-                if (workbooks[index].workbook_name === workbook_name) {
-                    currentWorkbook = workbooks[index].resource_id
-                    console.log(currentWorkbook)
-                }
-            }
-        })
-        .catch(function (error) {
-            console.log('errorFG', error)
-        })
-})
 
 app.get('/get', (req, res) => {
     worksheet_name = 'Old Stock'
