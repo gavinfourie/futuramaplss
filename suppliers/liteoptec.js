@@ -119,12 +119,14 @@ router.get('/delete', (req, res) => {
 })
 
 router.get('/add', (req, res) => {
+    let data = JSON.stringify(priceChanges)
+    console.log(data)
     const zoho = axios.create({
         baseURL: `https://sheet.zoho.com/api/v2/`,
         timeout: 20000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
-    zoho.get(`${currentWorkbook}?method=worksheet.records.add?worksheet_name=New or Removed?json_data=${priceChanges}`)
+    zoho.get(`${currentWorkbook}?method=worksheet.records.add?worksheet_name=New or Removed?json_data=${data}`)
         .then(function (response) {
             res.render('compare', { length: true, change: true, prices: priceChanges })
         })
