@@ -39,7 +39,6 @@ router.get('/workbook', (req, res) => {
             let workbooks = response.data.workbooks
             for (let index = 0; index < workbooks.length; index++) {
                 if (workbooks[index].workbook_name === workbook_name) {
-                    console.log(workbooks[index])
                     currentWorkbook = workbooks[index].resource_id
                     res.redirect('/liteoptec/start')
                 }
@@ -113,7 +112,7 @@ router.get('/add', (req, res) => {
         timeout: 20000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
-    zoho.get(`${currentWorkbook}?method=row.insert&worksheet_name=Price changes&row=2&json_data=${data}`)
+    zoho.get(`${currentWorkbook}?method=worksheet.records.add&worksheet_name=Price changes&json_data=${data}`)
         .then(function (response) {
             console.log(response.data)
             res.render('compare', { length: true, change: true, prices: priceChanges })
