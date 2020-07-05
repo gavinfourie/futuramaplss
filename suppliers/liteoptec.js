@@ -108,12 +108,12 @@ router.get('/add', (req, res) => {
     console.log(data)
     const zoho = axios.create({
         baseURL: `https://sheet.zoho.com/api/v2/`,
-        timeout: 40000,
+        timeout: 20000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
     zoho.get(`${currentWorkbook}?method=worksheet.records.add&worksheet_name=Price changes&json_data=${data}`)
         .then(function (response) {
-            console.log(response)
+            console.log(response.data)
             res.render('compare', { length: true, change: true, prices: priceChanges })
         })
         .catch(function (error) {
