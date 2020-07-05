@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     oldPrices = []
     newPrices = []
     priceChanges = []
-    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.READ&redirect_uri=https://futurama-app.herokuapp.com/liteoptec/redirect')
+    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.READ,ZohoSheetdataAPI.UPDATE&redirect_uri=https://futurama-app.herokuapp.com/liteoptec/redirect')
 })
 
 router.get('/redirect', (req, res) => {
