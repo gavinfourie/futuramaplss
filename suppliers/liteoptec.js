@@ -111,7 +111,7 @@ router.get('/add', (req, res) => {
         timeout: 20000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
-    zoho.get(`${currentWorkbook}?method=worksheet.records.add?worksheet_name=Price changes?json_data=${data}`)
+    zoho.get(`${currentWorkbook}?method=worksheet.records.add&worksheet_name=Price changes&json_data=${data}`)
         .then(function (response) {
             console.log(response)
             res.render('compare', { length: true, change: true, prices: priceChanges })
