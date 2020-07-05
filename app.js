@@ -57,8 +57,8 @@ app.get('/getworkbook', (req, res) => {
             console.log(response.data.workbooks)
             let workbooks = response.data.workbooks
             for (let index = 0; index < workbooks.length; index++) {
-                if (workbooks[i].workbook_name === workbook_name) {
-                    currentWorkbook = workbooks[i].resource_id
+                if (workbooks[index].workbook_name === workbook_name) {
+                    currentWorkbook = workbooks[index].resource_id
                     console.log(currentWorkbook)
                 }
             }
