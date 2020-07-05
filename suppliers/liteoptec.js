@@ -91,7 +91,7 @@ router.get('/end', (req, res) => {
                 }
             }
         }
-        res.render('compare', { length: true, change: true, prices: priceChanges })
+        res.redirect('/liteoptec/delete')
     } else {
         for (let i = 0; i < oldStock.length; i++) {
             if (newStock.includes(oldStock[i])) {
@@ -101,6 +101,36 @@ router.get('/end', (req, res) => {
         }
         res.render('compare', { length: false, change: false, prices: newItems })
     }
+})
+
+router.get('/delete', (req, res) => {
+    const zoho = axios.create({
+        baseURL: `https://sheet.zoho.com/api/v2/`,
+        timeout: 20000,
+        headers: {'Authorization': `Zoho-oauthtoken ${token}`},
+    })
+    zoho.get(`${currentWorkbook}?method=worksheet.records.delete?worksheet_name=New or Removed`)
+        .then(function (response) {
+            res.redirect('/liteoptec/add')
+        })
+        .catch(function (error) {
+            console.log("ErroFG", error)
+        })
+})
+
+router.get('/add', (req, res) => {
+    const zoho = axios.create({
+        baseURL: `https://sheet.zoho.com/api/v2/`,
+        timeout: 20000,
+        headers: {'Authorization': `Zoho-oauthtoken ${token}`},
+    })
+    zoho.get(`${currentWorkbook}?method=worksheet.records.add?worksheet_name=New or Removed?json_data=${priceChanges}`)
+        .then(function (response) {
+            res.render('compare', { length: true, change: true, prices: priceChanges })
+        })
+        .catch(function (error) {
+            console.log('Error From Final', error)
+        })
 })
 
 module.exports = router
