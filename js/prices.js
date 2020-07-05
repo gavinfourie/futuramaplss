@@ -1,3 +1,3 @@
 function LiteOptec() {
-    console.log("Found link")
+    window.location.replace("https://futurama-app.herokuapp.com/liteoptec")
 }

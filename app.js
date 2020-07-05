@@ -27,6 +27,14 @@ app.get('/prices', (req, res) => {
     res.render('prices')
 })
 
+app.get('/liteoptec', (req, res) => {
+    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.READ&redirect_uri=https://futurama-app.herokuapp.com/liteoptecres')
+})
+
+app.get('/liteoptecres', (req, res) => {
+    console.log(req)
+})
+
 app.get('/get', (req, res) => {
     worksheet_name = 'Old Stock'
     res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.READ&redirect_uri=https://futurama-app.herokuapp.com/redirect')
