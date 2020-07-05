@@ -104,7 +104,6 @@ router.get('/end', (req, res) => {
 })
 
 router.get('/add', (req, res) => {
-    console.log(priceChanges)
     let data = JSON.stringify(priceChanges)
     console.log(data)
     const zoho = axios.create({
