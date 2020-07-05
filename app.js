@@ -11,6 +11,7 @@ let newItems = []
 let priceChanges = []
 let worksheet_name = null
 let workbook_name = null
+let currentWorkbook = null
 
 app.set('views', './views')
 
@@ -54,6 +55,13 @@ app.get('/getworkbook', (req, res) => {
     zoho.get('workbooks?method=workbook.list')
         .then(function (response) {
             console.log(response.data.workbooks)
+            let workbooks = response.data.workbooks
+            for (let index = 0; index < workbooks.length; index++) {
+                if (workbooks[i].workbook_name === workbook_name) {
+                    currentWorkbook = workbooks[i].resource_id
+                    console.log(currentWorkbook)
+                }
+            }
         })
         .catch(function (error) {
             console.log('errorFG', error)
