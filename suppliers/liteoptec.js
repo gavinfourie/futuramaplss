@@ -1,5 +1,6 @@
 let express = require('express')
 const axios = require('axios')
+const { response } = require('express')
 let router = express.Router()
 let code = null
 let workbook_name = 'Lite Optec'
@@ -117,7 +118,9 @@ router.get('/add', (req, res) => {
             res.render('compare', { length: true, change: true, prices: priceChanges })
         })
         .catch(function (error) {
-            console.log('Error From Final', error.data)
+            console.log('Error From Final', error.response.config.transformRequest)
+            console.log(error.response.config.transformResponse)
+            console.log(error.response.config.data)
         })
 })
 
