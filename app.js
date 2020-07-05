@@ -10,6 +10,7 @@ let newStock
 let newItems = []
 let priceChanges = []
 let worksheet_name = null
+let workbook_name = null
 
 app.set('views', './views')
 
@@ -35,12 +36,27 @@ app.get('/liteoptecres', (req, res) => {
     code = req.query.code
     axios.post(`https://accounts.zoho.com/oauth/v2/token?code=${code}&grant_type=authorization_code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&client_secret=a78690fdc6ecf1e65395b462e5e484833f0fab18d3&redirect_uri=https://futurama-app.herokuapp.com/liteoptecres`)
         .then(function (response) {
-            console.log(response.data)
             token = response.data.access_token
-            // res.redirect('/start')
+            workbook_name = 'Lite Optec'
+            res.redirect('/getworkbook')
         })
         .catch(function (error) {
             console.log(error)
+        })
+})
+
+app.get('/getworkbook', (req, res) => {
+    const zoho = axios.create({
+        baseURL: 'https://sheet.zoho.com/api/v2/',
+        timeout: 20000,
+        headers: {'Authorization': `Zoho-oauthtoken ${token}`},
+    })
+    zoho.get('workbooks?method=workbook.list')
+        .then(function (response) {
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log('errorFG', error)
         })
 })
 
