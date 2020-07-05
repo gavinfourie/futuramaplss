@@ -86,7 +86,7 @@ router.get('/end', (req, res) => {
             for (let x = 0; x < newPrices.length; x++) {
                 if (oldPrices[i].ItemNumber === newPrices[x].ItemNumber) {
                     if (oldPrices[i].Pricing !== newPrices[x].Pricing) {
-                        priceChanges.push(newPrices[x])
+                        priceChanges.push({ItemNumber: newPrices[x].ItemNumber, Pricing: newPrices[x].Pricing })
                     }
                 }
             }
@@ -103,22 +103,8 @@ router.get('/end', (req, res) => {
     }
 })
 
-router.get('/delete', (req, res) => {
-    const zoho = axios.create({
-        baseURL: `https://sheet.zoho.com/api/v2/`,
-        timeout: 20000,
-        headers: {'Authorization': `Zoho-oauthtoken ${token}`},
-    })
-    zoho.get(`${currentWorkbook}?method=worksheet.records.delete?worksheet_name=New or Removed`)
-        .then(function (response) {
-            res.redirect('/liteoptec/add')
-        })
-        .catch(function (error) {
-            console.log("ErroFG", error)
-        })
-})
-
 router.get('/add', (req, res) => {
+    console.log(priceChanges)
     let data = JSON.stringify(priceChanges)
     console.log(data)
     const zoho = axios.create({
