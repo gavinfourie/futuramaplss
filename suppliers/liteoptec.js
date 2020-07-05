@@ -113,6 +113,7 @@ router.get('/add', (req, res) => {
     })
     zoho.get(`${currentWorkbook}?method=worksheet.records.add?worksheet_name=Price changes?json_data=${data}`)
         .then(function (response) {
+            console.log(response)
             res.render('compare', { length: true, change: true, prices: priceChanges })
         })
         .catch(function (error) {
