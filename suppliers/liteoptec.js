@@ -91,7 +91,7 @@ router.get('/end', (req, res) => {
                 }
             }
         }
-        res.redirect('/liteoptec/delete')
+        res.redirect('/liteoptec/add')
     } else {
         for (let i = 0; i < oldStock.length; i++) {
             if (newStock.includes(oldStock[i])) {
