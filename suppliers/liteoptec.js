@@ -21,6 +21,7 @@ router.get('/redirect', (req, res) => {
     axios.post(`https://accounts.zoho.com/oauth/v2/token?code=${code}&grant_type=authorization_code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&client_secret=a78690fdc6ecf1e65395b462e5e484833f0fab18d3&redirect_uri=https://futurama-app.herokuapp.com/liteoptec/redirect`)
         .then(function (response) {
             token = response.data.access_token
+            console.log('Old token: ', token)
             res.redirect('/liteoptec/workbook')
         })
         .catch(function (error) {
@@ -113,6 +114,7 @@ router.get('/newredirect', (req, res) => {
     axios.post(`https://accounts.zoho.com/oauth/v2/token?code=${code}&grant_type=authorization_code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&client_secret=a78690fdc6ecf1e65395b462e5e484833f0fab18d3&redirect_uri=https://futurama-app.herokuapp.com/liteoptec/newredirect`)
         .then(function (response) {
             token = response.data.access_token
+            console.log('New token: ', token)
             res.redirect('/liteoptec/add')
         })
         .catch(function (error) {
@@ -134,6 +136,7 @@ router.get('/add', (req, res) => {
             res.render('compare', { length: true, change: true, prices: priceChanges })
         })
         .catch(function (error) {
+            console.log('Zoho: ', zoho)
             console.log('Error From Final', error.response.data)
         })
 })
