@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     oldPrices = []
     newPrices = []
     priceChanges = []
-    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.READ,ZohoSheet.dataAPI.UPDATE&redirect_uri=https://futurama-app.herokuapp.com/liteoptec/redirect')
+    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.READ,ZohoSheet.dataAPI.UPDATE,ZohoSheet.dataAPI.CREATE&redirect_uri=https://futurama-app.herokuapp.com/liteoptec/redirect')
 })
 
 router.get('/redirect', (req, res) => {
@@ -112,7 +112,7 @@ router.get('/add', (req, res) => {
         timeout: 20000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
-    zoho.get(`${currentWorkbook}?method=worksheet.jsondata.append&worksheet_name=PriceChanges&json_data=[{"ItemNumber":"AF1037","Pricing":500}]`)
+    zoho.get(`${currentWorkbook}?method=worksheet.jsondata.append&worksheet_name=PriceChanges&json_data=${data}`)
         .then(function (response) {
             console.log(response.data)
             res.render('compare', { length: true, change: true, prices: priceChanges })
