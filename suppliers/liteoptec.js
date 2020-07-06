@@ -68,7 +68,7 @@ router.get('/start', (req, res) => {
 router.get('/continue', (req, res) => {
     const zoho = axios.create({
         baseURL: `https://sheet.zoho.com/api/v2/`,
-        timeout: 20000,
+        timeout: 40000,
         headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
     zoho.get(`${currentWorkbook}?method=worksheet.records.fetch&worksheet_name=New Prices`)
