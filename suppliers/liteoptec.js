@@ -136,7 +136,7 @@ router.get('/add', (req, res) => {
             res.render('compare', { length: true, change: true, prices: priceChanges })
         })
         .catch(function (error) {
-            console.log('Zoho: ', zoho)
+            console.log('Zoho: ', zoho.request)
             console.log('Error From Final', error.response.data)
         })
 })
