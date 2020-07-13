@@ -1,10 +1,17 @@
+const express = require('express');
+let router = express.Router()
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const request = require('request');
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 
 const TOKEN_PATH = 'token.json';
+
+router.get('/', (req, res) => {
+    res.render('indexg')
+})
 
 fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
