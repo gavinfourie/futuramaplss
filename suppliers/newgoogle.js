@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
     res.render('indexg')
 })
 
+/*
 fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
 
@@ -72,4 +73,4 @@ function listMajors(auth) {
             console.log('No data found.');
         }
     });
-}
+}*/
