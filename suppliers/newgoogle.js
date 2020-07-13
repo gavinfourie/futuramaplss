@@ -74,3 +74,5 @@ function listMajors(auth) {
         }
     });
 }*/
+
+module.exports = router
