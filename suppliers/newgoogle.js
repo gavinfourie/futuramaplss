@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', upload.single('old-sheet'), (req, res) => {
-    res.redirect('/after')
+    res.redirect('/newgoogle/after')
 })
 
 router.get('/after', (req, res) => {
