@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     res.render('indexg')
 })
 
-router.post('/', upload.single('old-sheet'), (req, res) => {
+router.post('/', upload.single('old-sheet'), function (req, res, next) {
     res.redirect('/newgoogle/after')
 })
 
