@@ -10,7 +10,7 @@ html
                 h2 These items have new prices
                 ul
                     each price in prices
-                        li= 'Number: ' + price.ItemNumber + ', New Price: ' + price.Pricing
+                        li= 'Number: ' + price['item number'] + ', New Price: ' + price.pricing
             else 
                 h2 The prices haven't changed
         else
