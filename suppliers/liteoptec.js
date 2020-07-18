@@ -1,144 +1,178 @@
-let express = require('express')
-const axios = require('axios')
-const { response } = require('express')
-let router = express.Router()
-let code = null
-let workbook_name = 'Lite Optec'
-let token = null
-let oldPrices = []
-let newPrices= []
+const express = require('express');
+let router = express.Router();
+const formidable = require('formidable');
+const excel = require('xlsx-to-json-lc');
+const toexcel = require('node-excel-export');
+let OldSheet
+let NewSheet
 let priceChanges = []
+let newItems = []
 
 router.get('/', (req, res) => {
-    oldPrices = []
-    newPrices = []
-    priceChanges = []
-    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.UPDATE,ZohoSheet.dataAPI.READ&redirect_uri=https://futurama-app.herokuapp.com/liteoptec/redirect')
+    res.render('indexg')
 })
 
-router.get('/redirect', (req, res) => {
-    code = req.query.code
-    axios.post(`https://accounts.zoho.com/oauth/v2/token?code=${code}&grant_type=authorization_code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&client_secret=a78690fdc6ecf1e65395b462e5e484833f0fab18d3&redirect_uri=https://futurama-app.herokuapp.com/liteoptec/redirect`)
-        .then(function (response) {
-            token = response.data.access_token
-            console.log('Old token: ', token)
-            res.redirect('/liteoptec/workbook')
-        })
-        .catch(function (error) {
-            console.log(error)
-        })
-})
+router.post('/', (req, res, next) => {
+    const form = formidable({ multiples: true })
+    let newFile = null
+    let jsonRes = null
 
-router.get('/workbook', (req, res) => {
-    const zoho = axios.create({
-        baseURL: 'https://sheet.zoho.com/api/v2/',
-        timeout: 20000,
-        headers: {'Authorization': `Zoho-oauthtoken ${token}`},
+    form.parse(req, (err, fields, files) => {
+        if (err) {
+            next(err)
+            return
+        }
     })
-    zoho.get('workbooks?method=workbook.list')
-        .then(function (response) {
-            let workbooks = response.data.workbooks
-            for (let index = 0; index < workbooks.length; index++) {
-                if (workbooks[index].workbook_name === workbook_name) {
-                    currentWorkbook = workbooks[index].resource_id
-                    res.redirect('/liteoptec/start')
-                }
+    form.on('file', (name, file) => {
+        newFile = file.path
+        excel({
+            input: newFile,
+            output: jsonRes,
+            lowerCaseHeaders: true
+        }, function(err, result) {
+            if (err) {
+                console.log(err)
+            } else {
+                OldSheet = result
+                res.redirect('/newgoogle/new')
+                console.log(result)
             }
         })
-        .catch(function (error) {
-            console.log('errorFG', error)
-        })
-})
-
-router.get('/start', (req, res) => {
-    const zoho = axios.create({
-        baseURL: `https://sheet.zoho.com/api/v2/`,
-        timeout: 20000,
-        headers: {'Authorization': `Zoho-oauthtoken ${token}`},
     })
-    zoho.get(`${currentWorkbook}?method=worksheet.records.fetch&worksheet_name=Old Prices`)
-        .then(function (response) {
-            oldPrices = response.data.records
-            res.redirect('/liteoptec/continue')
-        })
-        .catch(function (error) {
-            console.log('errorFG', error)
-        })
 })
 
-router.get('/continue', (req, res) => {
-    const zoho = axios.create({
-        baseURL: `https://sheet.zoho.com/api/v2/`,
-        timeout: 40000,
-        headers: {'Authorization': `Zoho-oauthtoken ${token}`},
+router.get('/new', (req, res) => {
+    res.render('indexgn')
+})
+
+router.post('/new', (req, res, next) => {
+    const form = formidable({ multiples: true })
+    let newFile = null
+    let jsonRes = null
+
+    form.parse(req, (err, fields, files) => {
+        if (err) {
+            next(err)
+            return
+        }
     })
-    zoho.get(`${currentWorkbook}?method=worksheet.records.fetch&worksheet_name=New Prices`)
-        .then(function (response) {
-            newPrices = response.data.records
-            res.redirect('/liteoptec/end')
+    form.on('file', (name, file) => {
+        newFile = file.path
+        excel({
+            input: newFile,
+            output: jsonRes,
+            lowerCaseHeaders: true
+        }, function(err, result) {
+            if (err) {
+                console.log(err)
+            } else {
+                NewSheet = result
+                res.redirect('/newgoogle/compare')
+                console.log(result)
+            }
         })
-        .catch(function (error) {
-            console.log('errorFG', error)
-        })
+    })
 })
 
-router.get('/end', (req, res) => {
-    if (oldPrices.length === newPrices.length) {
-        for (let i = 0; i < oldPrices.length; i++) {
-            for (let x = 0; x < newPrices.length; x++) {
-                if (oldPrices[i].ItemNumber === newPrices[x].ItemNumber) {
-                    if (oldPrices[i].Pricing !== newPrices[x].Pricing) {
-                        priceChanges.push({ItemNumber: newPrices[x].ItemNumber, Pricing: newPrices[x].Pricing })
+router.get('/compare', (req, res) => {
+    if (OldSheet.length === NewSheet.length) {
+        for (let i = 0; i < OldSheet.length; i++) {
+            for (let x = 0; x < NewSheet.length; x++) {
+                if (OldSheet[i]['item number'] === NewSheet[x]['item number']) {
+                    if (OldSheet[i].pricing !== NewSheet[x].pricing) {
+                        priceChanges.push(NewSheet[x])
                     }
                 }
             }
         }
-        res.redirect('/liteoptec/newCode')
-    } else {
-        for (let i = 0; i < oldStock.length; i++) {
-            if (newStock.includes(oldStock[i])) {
-                console.log("Item found")
-                newItems.push(oldStock[i])
+        const styles = {
+            headerDark: {
+              fill: {
+                fgColor: {
+                  rgb: 'FF000000'
+                }
+              },
+              font: {
+                color: {
+                  rgb: 'FFFFFFFF'
+                },
+                sz: 14,
+                bold: true,
+                underline: true
+              }
+            }
+        };
+        const specification = {
+            'item number': {
+                displayName: 'Item Number',
+                headerStyle: styles.headerDark,
+                width: 120
+            },
+            pricing: {
+                displayName: 'Pricing',
+                headerStyle: styles.headerDark,
+                width: 120
             }
         }
-        res.render('compare', { length: false, change: false, prices: newItems })
+        const sending = toexcel.buildExport(
+            [
+                {
+                    name: 'Export',
+                    specification: specification,
+                    data: priceChanges
+                }
+            ]
+        )
+        res.attachment('export.xlsx')
+        res.send(sending)
+    } else {
+        for (let i = 0; i < OldSheet.length; i++) {
+            if (NewSheet.includes(OldSheet[i])) {
+                console.log("Item found")
+                newItems.push(OldSheet[i])
+            }
+        }
+        const styles = {
+            headerDark: {
+              fill: {
+                fgColor: {
+                  rgb: 'FF000000'
+                }
+              },
+              font: {
+                color: {
+                  rgb: 'FFFFFFFF'
+                },
+                sz: 14,
+                bold: true,
+                underline: true
+              }
+            }
+        };
+        const specification = {
+            'item number': {
+                displayName: 'Item Number',
+                headerStyle: styles.headerDark,
+                width: 120
+            },
+            pricing: {
+                displayName: 'Pricing',
+                headerStyle: styles.headerDark,
+                width: 120
+            }
+        }
+        const sending = toexcel.buildExport(
+            [
+                {
+                    name: 'Exportf',
+                    specification: specification,
+                    data: newItems
+                }
+            ]
+        )
+        res.attachment('exportf.xlsx')
+        res.send(sending)
     }
-})
-
-router.get('/newCode', (req, res) => {
-    res.redirect('https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&scope=ZohoSheet.dataAPI.UPDATE,ZohoSheet.dataAPI.READ&redirect_uri=https://futurama-app.herokuapp.com/liteoptec/newredirect')
-})
-
-router.get('/newredirect', (req, res) => {
-    code = req.query.code
-    axios.post(`https://accounts.zoho.com/oauth/v2/token?code=${code}&grant_type=authorization_code&client_id=1000.MAUUUZO4JJ0D5UOS7NA1XJA6EIJADH&client_secret=a78690fdc6ecf1e65395b462e5e484833f0fab18d3&redirect_uri=https://futurama-app.herokuapp.com/liteoptec/newredirect`)
-        .then(function (response) {
-            token = response.data.access_token
-            console.log('New token: ', token)
-            res.redirect('/liteoptec/add')
-        })
-        .catch(function (error) {
-            console.log(error)
-        })
-})
-
-router.get('/add', (req, res) => {
-    let data = JSON.stringify(priceChanges)
-    console.log(data)
-    const zoho = axios.create({
-        baseURL: 'https://sheet.zoho.com/api/v2/',
-        timeout: 20000,
-        headers: {'Authorization': `Zoho-oauthtoken ${token}`},
-    })
-    zoho.post(`${currentWorkbook}?method=worksheet.jsondata.append&worksheet_name=PriceChanges&json_data=${data}`)
-        .then(function (response) {
-            console.log(response.data)
-            res.render('compare', { length: true, change: true, prices: priceChanges })
-        })
-        .catch(function (error) {
-            console.log('Zoho: ', zoho.request)
-            console.log('Error From Final', error.response.data)
-        })
 })
 
 module.exports = router
