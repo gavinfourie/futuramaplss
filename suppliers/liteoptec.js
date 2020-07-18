@@ -36,7 +36,6 @@ router.post('/', (req, res, next) => {
             } else {
                 OldSheet = result
                 res.redirect('/liteoptec/new')
-                console.log(result)
             }
         })
     })
@@ -69,7 +68,6 @@ router.post('/new', (req, res, next) => {
             } else {
                 NewSheet = result
                 res.redirect('/liteoptec/compare')
-                console.log(result)
             }
         })
     })
@@ -128,7 +126,7 @@ router.get('/compare', (req, res) => {
         res.send(sending)
     } else {
         const differences = _.intersection(OldSheet, NewSheet)
-        console.log(differences)
+        console.log('New items: ', differences)
         for (let i = 0; i < OldSheet.length; i++) {
             if (NewSheet.includes(OldSheet[i])) {
                 newItems.push(OldSheet[i])
