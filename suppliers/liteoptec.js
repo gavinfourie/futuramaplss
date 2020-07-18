@@ -34,7 +34,7 @@ router.post('/', (req, res, next) => {
                 console.log(err)
             } else {
                 OldSheet = result
-                res.redirect('/newgoogle/new')
+                res.redirect('/liteoptec/new')
                 console.log(result)
             }
         })
@@ -67,7 +67,7 @@ router.post('/new', (req, res, next) => {
                 console.log(err)
             } else {
                 NewSheet = result
-                res.redirect('/newgoogle/compare')
+                res.redirect('/liteoptec/compare')
                 console.log(result)
             }
         })
