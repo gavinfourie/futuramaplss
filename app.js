@@ -6,7 +6,6 @@ let token = null
 let accountId = 4965623000000008002n
 let folderId = 4965623000000008014n
 let liteoptec = require('./suppliers/liteoptec')
-let newgoogle = require('./suppliers/newgoogle')
 let oldStock
 let newStock
 let newItems = []
@@ -19,7 +18,6 @@ app.set('views', './views')
 app.set('view engine', 'pug')
 
 app.use('/liteoptec', liteoptec)
-app.use('/newgoogle', newgoogle)
 
 app.get('/', (req, res) => {
     oldStock = null
