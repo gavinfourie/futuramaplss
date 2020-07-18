@@ -3,6 +3,7 @@ let router = express.Router();
 const formidable = require('formidable');
 const excel = require('xlsx-to-json-lc');
 const toexcel = require('node-excel-export');
+const lodash = require('lodash');
 let OldSheet
 let NewSheet
 let priceChanges = []
@@ -126,9 +127,10 @@ router.get('/compare', (req, res) => {
         res.attachment('export.xlsx')
         res.send(sending)
     } else {
+        const differences = _.intersection(OldSheet, NewSheet)
+        console.log(differences)
         for (let i = 0; i < OldSheet.length; i++) {
             if (NewSheet.includes(OldSheet[i])) {
-                console.log("Item found")
                 newItems.push(OldSheet[i])
             }
         }
