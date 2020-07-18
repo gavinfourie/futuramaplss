@@ -74,7 +74,17 @@ router.post('/new', (req, res, next) => {
 })
 
 router.get('/compare', (req, res) => {
-    const differences = _.intersection(OldSheet['item number'], NewSheet['item number'])
+    let oldNumbers = []
+    for (let i = 0; i < OldSheet.length; i++) {
+        let itemCode = OldSheet[i]['item number']
+        oldNumbers.push(itemCode)
+    }
+    let newNumbers = []
+    for (let i = 0; i < NewSheet.length; i++) {
+        let itemCode = NewSheet[i]['item number']
+        newNumbers.push(itemCode)
+    }
+    const differences = _.difference(oldNumbers, newNumbers)
     console.log('New items: ', differences)
     for (let i = 0; i < OldSheet.length; i++) {
         for (let x = 0; x < NewSheet.length; x++) {
