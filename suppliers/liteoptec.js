@@ -74,105 +74,57 @@ router.post('/new', (req, res, next) => {
 })
 
 router.get('/compare', (req, res) => {
-    if (OldSheet.length === NewSheet.length) {
-        const differences = _.intersection(OldSheet, NewSheet)
-        console.log('New items: ', differences)
-        for (let i = 0; i < OldSheet.length; i++) {
-            for (let x = 0; x < NewSheet.length; x++) {
-                if (OldSheet[i]['item number'] === NewSheet[x]['item number']) {
-                    if (OldSheet[i].pricing !== NewSheet[x].pricing) {
-                        priceChanges.push(NewSheet[x])
-                    }
+    const differences = _.intersection(NewSheet, OldSheet)
+    console.log('New items: ', differences)
+    for (let i = 0; i < OldSheet.length; i++) {
+        for (let x = 0; x < NewSheet.length; x++) {
+            if (OldSheet[i]['item number'] === NewSheet[x]['item number']) {
+                if (OldSheet[i].pricing !== NewSheet[x].pricing) {
+                    priceChanges.push(NewSheet[x])
                 }
             }
         }
-        const styles = {
-            headerDark: {
-              fill: {
-                fgColor: {
-                  rgb: 'FF000000'
-                }
-              },
-              font: {
-                color: {
-                  rgb: 'FFFFFFFF'
-                },
-                sz: 14,
-                bold: true,
-                underline: true
-              }
-            }
-        };
-        const specification = {
-            'item number': {
-                displayName: 'Item Number',
-                headerStyle: styles.headerDark,
-                width: 120
-            },
-            pricing: {
-                displayName: 'Pricing',
-                headerStyle: styles.headerDark,
-                width: 120
-            }
-        }
-        const sending = toexcel.buildExport(
-            [
-                {
-                    name: 'Export',
-                    specification: specification,
-                    data: priceChanges
-                }
-            ]
-        )
-        res.attachment('export.xlsx')
-        res.send(sending)
-    } else {
-        for (let i = 0; i < OldSheet.length; i++) {
-            if (NewSheet.includes(OldSheet[i])) {
-                newItems.push(OldSheet[i])
-            }
-        }
-        const styles = {
-            headerDark: {
-              fill: {
-                fgColor: {
-                  rgb: 'FF000000'
-                }
-              },
-              font: {
-                color: {
-                  rgb: 'FFFFFFFF'
-                },
-                sz: 14,
-                bold: true,
-                underline: true
-              }
-            }
-        };
-        const specification = {
-            'item number': {
-                displayName: 'Item Number',
-                headerStyle: styles.headerDark,
-                width: 120
-            },
-            pricing: {
-                displayName: 'Pricing',
-                headerStyle: styles.headerDark,
-                width: 120
-            }
-        }
-        const sending = toexcel.buildExport(
-            [
-                {
-                    name: 'Exportf',
-                    specification: specification,
-                    data: newItems
-                }
-            ]
-        )
-        res.attachment('exportf.xlsx')
-        res.send(sending)
     }
+    const styles = {
+        headerDark: {
+            fill: {
+                fgColor: {
+                    rgb: 'FF000000'
+                }
+            },
+            font: {
+                color: {
+                  rgb: 'FFFFFFFF'
+                },
+                sz: 14,
+                bold: true,
+                underline: true
+              }
+            }
+        };
+    const specification = {
+        'item number': {
+            displayName: 'Item Number',
+            headerStyle: styles.headerDark,
+            width: 120
+        },
+        pricing: {
+            displayName: 'Pricing',
+            headerStyle: styles.headerDark,
+            width: 120
+        }
+    }
+    const sending = toexcel.buildExport(
+        [
+            {
+                name: 'Export',
+                specification: specification,
+                data: priceChanges
+            }
+        ]
+    )
+    res.attachment('export.xlsx')
+    res.send(sending)
 })
 
 module.exports = router
