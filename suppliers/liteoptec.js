@@ -84,8 +84,10 @@ router.get('/compare', (req, res) => {
         let itemCode = NewSheet[i]['item number']
         newNumbers.push(itemCode)
     }
-    const differences = _.difference(oldNumbers, newNumbers)
-    console.log('New items: ', differences)
+    const dropped = _.difference(oldNumbers, newNumbers)
+    console.log('Dropped items : ', dropped)
+    const added = _.difference(newNumbers, oldNumbers)
+    console.log('Added items :', added)
     for (let i = 0; i < OldSheet.length; i++) {
         for (let x = 0; x < NewSheet.length; x++) {
             if (OldSheet[i]['item number'] === NewSheet[x]['item number']) {
