@@ -90,14 +90,12 @@ router.get('/compare', (req, res) => {
         let item = { 'item number': dropped[i] }
         droppedFinal.push(item)
     }
-    console.log('Dropped items : ', droppedFinal)
     const added = _.difference(newNumbers, oldNumbers)
     const addedFinal = []
     for (let i = 0; i < added.length; i++) {
         let item = { 'item number': added[i] }
         addedFinal.push(item)
     }
-    console.log('Added items :', addedFinal)
     for (let i = 0; i < OldSheet.length; i++) {
         for (let x = 0; x < NewSheet.length; x++) {
             if (OldSheet[i]['item number'] === NewSheet[x]['item number']) {
@@ -121,9 +119,16 @@ router.get('/compare', (req, res) => {
                 sz: 14,
                 bold: true,
                 underline: true
-              }
             }
-        };
+        }
+    };
+    const specificationDA = {
+        'item number': {
+            displayName: 'Item Number',
+            headerStyle: styles.headerDark,
+            width: 120
+        }
+    }
     const specification = {
         'item number': {
             displayName: 'Item Number',
@@ -142,6 +147,16 @@ router.get('/compare', (req, res) => {
                 name: 'Export',
                 specification: specification,
                 data: priceChanges
+            },
+            {
+                name: 'Dropped',
+                specification: specificationDA,
+                data:droppedFinal
+            },
+            {
+                name: 'Added',
+                specification: specificationDA,
+                data: addedFinal
             }
         ]
     )
