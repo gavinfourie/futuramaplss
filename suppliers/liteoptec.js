@@ -3,7 +3,7 @@ let router = express.Router();
 const formidable = require('formidable');
 const excel = require('xlsx-to-json-lc');
 const toexcel = require('node-excel-export');
-const lodash = require('lodash');
+const _ = require('lodash');
 let OldSheet
 let NewSheet
 let priceChanges = []
