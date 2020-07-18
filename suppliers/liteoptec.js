@@ -144,7 +144,7 @@ router.get('/compare', (req, res) => {
     const sending = toexcel.buildExport(
         [
             {
-                name: 'Export',
+                name: 'Price Changes',
                 specification: specification,
                 data: priceChanges
             },
