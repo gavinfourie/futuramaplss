@@ -75,6 +75,8 @@ router.post('/new', (req, res, next) => {
 
 router.get('/compare', (req, res) => {
     if (OldSheet.length === NewSheet.length) {
+        const differences = _.intersection(OldSheet, NewSheet)
+        console.log('New items: ', differences)
         for (let i = 0; i < OldSheet.length; i++) {
             for (let x = 0; x < NewSheet.length; x++) {
                 if (OldSheet[i]['item number'] === NewSheet[x]['item number']) {
@@ -125,8 +127,6 @@ router.get('/compare', (req, res) => {
         res.attachment('export.xlsx')
         res.send(sending)
     } else {
-        const differences = _.intersection(OldSheet, NewSheet)
-        console.log('New items: ', differences)
         for (let i = 0; i < OldSheet.length; i++) {
             if (NewSheet.includes(OldSheet[i])) {
                 newItems.push(OldSheet[i])
