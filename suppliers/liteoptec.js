@@ -160,10 +160,9 @@ router.get('/compare', (req, res) => {
             }
         ]
     )
-    // res.attachment('export.xlsx')
-    // res.send(sending)
-    res.download(sending, 'export.xlsx')
-    res.redirect('/')
+    res.attachment('export.xlsx')
+    res.location('/')
+    res.send(sending)
 })
 
 module.exports = router
