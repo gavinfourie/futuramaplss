@@ -160,8 +160,11 @@ router.get('/compare', (req, res) => {
             }
         ]
     )
+    res.set({
+        'Location': "https://futurama-app.herokuapp.com"
+    })
     res.attachment('export.xlsx')
-    res.location('/').send(sending)
+    res.send(sending)
 })
 
 module.exports = router
