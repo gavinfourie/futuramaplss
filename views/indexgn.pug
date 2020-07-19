@@ -3,3 +3,10 @@ p Please upload the new price list here:
 form(action="/liteoptec/new", enctype="multipart/form-data", method="post")
     input(type="file", name="new-sheet", multiple="multiple")
     input(type="submit", value="Upload")
+br
+p Warning, do not click this button until the process has completed!
+br
+button(type="submit" onclick="home()") Back to home...
+
+script
+    include ../js/litehome.js
