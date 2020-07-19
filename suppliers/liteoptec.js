@@ -161,8 +161,7 @@ router.get('/compare', (req, res) => {
         ]
     )
     res.attachment('export.xlsx')
-    res.send(sending)
-    res.redirect('/')
+    res.send(sending).redirect('/')
 })
 
 module.exports = router
