@@ -11,4 +11,11 @@ body {
 button {
   background-color: black;
   color: white;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+button:hover {
+  background-color: white;
+  color: black;
 }
