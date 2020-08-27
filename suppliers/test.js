@@ -4,6 +4,8 @@ const formidable = require('formidable');
 const excel = require('xlsx-to-json-lc');
 const toexcel = require('node-excel-export');
 const _ = require('lodash');
+const XLSX = require('xlsx');
+const fs = require('fs');
 let OldSheet
 let NewSheet
 let priceChanges = []
@@ -26,18 +28,9 @@ router.post('/', (req, res, next) => {
     })
     form.on('file', (name, file) => {
         newFile = file.path
-        excel({
-            input: newFile,
-            output: jsonRes,
-            lowerCaseHeaders: true
-        }, function(err, result) {
-            if (err) {
-                console.log(err)
-            } else {
-                OldSheet = result
-                res.redirect('/main/new')
-            }
-        })
+        oldSheet = XLSX.read(newFile)
+        console.log(oldSheet)
+        res.redirect('/test/new')
     })
 })
 
