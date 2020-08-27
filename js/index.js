@@ -3,5 +3,9 @@ function MakeRequest() {
 }
 
 function PriceLists() {
-    window.location.replace("https://futurama-app.herokuapp.com/liteoptec")
+    window.location.replace("https://futurama-app.herokuapp.com/main")
+}
+
+function StartTest() {
+  window.location.replace("https://futurama-app.herokuapp.com/test")
 }

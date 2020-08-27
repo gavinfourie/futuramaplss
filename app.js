@@ -5,7 +5,8 @@ let code = null
 let token = null
 let accountId = 4965623000000008002n
 let folderId = 4965623000000008014n
-let liteoptec = require('./suppliers/liteoptec')
+let main = require('./suppliers/main')
+let test = require('./suppliers/test')
 let oldStock
 let newStock
 let newItems = []
@@ -17,7 +18,8 @@ let currentWorkbook = null
 app.set('views', './views')
 app.set('view engine', 'pug')
 
-app.use('/liteoptec', liteoptec)
+app.use('/main', main)
+app.use('/test', test)
 
 app.get('/', (req, res) => {
     oldStock = null

@@ -35,7 +35,7 @@ router.post('/', (req, res, next) => {
                 console.log(err)
             } else {
                 OldSheet = result
-                res.redirect('/liteoptec/new')
+                res.redirect('/main/new')
             }
         })
     })
@@ -67,7 +67,7 @@ router.post('/new', (req, res, next) => {
                 console.log(err)
             } else {
                 NewSheet = result
-                res.redirect('/liteoptec/compare')
+                res.redirect('/main/compare')
             }
         })
     })
@@ -76,30 +76,30 @@ router.post('/new', (req, res, next) => {
 router.get('/compare', (req, res) => {
     let oldNumbers = []
     for (let i = 0; i < OldSheet.length; i++) {
-        let itemCode = OldSheet[i]['item number']
+        let itemCode = OldSheet[i]['sku']
         oldNumbers.push(itemCode)
     }
     let newNumbers = []
     for (let i = 0; i < NewSheet.length; i++) {
-        let itemCode = NewSheet[i]['item number']
+        let itemCode = NewSheet[i]['sku']
         newNumbers.push(itemCode)
     }
     const dropped = _.difference(oldNumbers, newNumbers)
     const droppedFinal = []
     for (let i = 0; i < dropped.length; i++) {
-        let item = { 'item number': dropped[i] }
+        let item = { 'sku': dropped[i] }
         droppedFinal.push(item)
     }
     const added = _.difference(newNumbers, oldNumbers)
     const addedFinal = []
     for (let i = 0; i < added.length; i++) {
-        let item = { 'item number': added[i] }
+        let item = { 'sku': added[i] }
         addedFinal.push(item)
     }
     for (let i = 0; i < OldSheet.length; i++) {
         for (let x = 0; x < NewSheet.length; x++) {
-            if (OldSheet[i]['item number'] === NewSheet[x]['item number']) {
-                if (OldSheet[i].pricing !== NewSheet[x].pricing) {
+            if (OldSheet[i]['sku'] === NewSheet[x]['sku']) {
+                if (OldSheet[i]['cost ex vat'] !== NewSheet[x]['cost ex vat']) {
                     priceChanges.push(NewSheet[x])
                 }
             }
@@ -123,20 +123,20 @@ router.get('/compare', (req, res) => {
         }
     };
     const specificationDA = {
-        'item number': {
-            displayName: 'Item Number',
+        'sku': {
+            displayName: 'SKU',
             headerStyle: styles.headerDark,
             width: 120
         }
     }
     const specification = {
-        'item number': {
-            displayName: 'Item Number',
+        'sku': {
+            displayName: 'SKU',
             headerStyle: styles.headerDark,
             width: 120
         },
-        pricing: {
-            displayName: 'Pricing',
+        'cost ex vat': {
+            displayName: 'Cost ex VAT',
             headerStyle: styles.headerDark,
             width: 120
         }
