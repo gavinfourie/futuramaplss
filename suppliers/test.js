@@ -28,7 +28,7 @@ router.post('/', (req, res, next) => {
     })
     form.on('file', (name, file) => {
         newFile = file.path
-        oldSheet = XLSX.read(newFile)
+        oldSheet = XLSX.readFile(newFile)
         console.log(oldSheet)
         res.redirect('/test/new')
     })
