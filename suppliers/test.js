@@ -25,10 +25,7 @@ router.post('/', (req, res, next) => {
         jsonRes = XLSX.readFile(newFile)
         let first_sheet = jsonRes.SheetNames[0]
         let sheet = jsonRes.Sheets[first_sheet]
-        let address = 'A1'
-        let desiredCell = sheet[address]
-        let desired_value = (desiredCell ? desiredCell.v : undefined)
-        console.log(desired_value)
+        console.log(sheet)
         res.redirect('/test/new')
     })
 })
