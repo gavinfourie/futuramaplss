@@ -27,7 +27,7 @@ router.post('/', (req, res, next) => {
         let all_sheets = jsonRes.SheetNames
         let first_sheet = jsonRes.SheetNames[0]
         let ii = 0
-        while (ii < all_sheets) {
+        while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
           let sheet = jsonRes.Sheets[sheetName]
           let sheetToJson = XLSX.utils.sheet_to_json(sheet)
