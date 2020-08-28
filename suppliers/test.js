@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
     let jsonRes = null
 
     form.parse(req, (err, fields, files) => {
-        newFile = files[Object.keys(files)[0]]
+        newFile = files[0]
         jsonRes = XLSX.readFile(newFile.path)
         oldSheet = XLSX.utils.sheet_to_json(newFile.path, {header:"SKU"})
         console.log(oldSheet)
