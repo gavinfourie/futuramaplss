@@ -24,11 +24,11 @@ router.post('/', (req, res, next) => {
         newFile = files['old-sheet'].path
         jsonRes = XLSX.readFile(newFile)
         let numberSheets = jsonRes.Sheets
-        let all_sheets = jsonRes.SheetNames
+        let all_sheets = jsonRes.SheetNames.length
         let first_sheet = jsonRes.SheetNames[0]
         let sheet = jsonRes.Sheets[first_sheet]
         OldSheet = XLSX.utils.sheet_to_json(sheet)
-        console.log(all_sheets.length)
+        console.log(all_sheets)
         res.redirect('/test/new')
     })
 })
