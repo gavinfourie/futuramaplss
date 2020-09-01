@@ -42,7 +42,7 @@ router.post('/', (req, res, next) => {
         let wb = XLSX.utils.book_new()
         let Final = XLSX.utils.json_to_sheet(OldSheet)
         XLSX.utils.book_append_sheet(wb, Final, "Export")
-        let buf = XLSX.write(wb, {type:'buffer', bookType:"xlsx"})
+        let buf = XLSX.write(wb, {type:'buffer'})
         res.status(200).send(buf)
     })
 })
