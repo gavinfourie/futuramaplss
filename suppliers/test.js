@@ -23,9 +23,7 @@ router.post('/', (req, res, next) => {
     form.parse(req, (err, fields, files) => {
         newFile = files['old-sheet'].path
         jsonRes = XLSX.readFile(newFile)
-        let numberSheets = jsonRes.Sheets
         let all_sheets = jsonRes.SheetNames
-        let first_sheet = jsonRes.SheetNames[0]
         let ii = 0
         while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
@@ -42,7 +40,7 @@ router.post('/', (req, res, next) => {
         let wb = XLSX.utils.book_new()
         let Final = XLSX.utils.json_to_sheet(OldSheet)
         XLSX.utils.book_append_sheet(wb, Final, "Export")
-        let buf = XLSX.write(wb)
+        let buf = XLSX.writeFile(wb, "Export.xlsx")
         res.status(200).send(buf)
     })
 })
