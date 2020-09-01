@@ -39,9 +39,10 @@ router.post('/', (req, res, next) => {
         // console.log(OldSheet)
         // res.redirect('/test/new')
         // Testing
-        const name = "Price Changes"
-        const sending = XLSX.writeFile(OldSheet, name)
-        res.send(sending)
+        const Final = XLSX.utils.json_to_sheet(OldSheet)
+        // const name = "Price Changes"
+        // const sending = XLSX.writeFile(OldSheet, name)
+        res.send(Final)
     })
 })
 
