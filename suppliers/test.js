@@ -31,7 +31,7 @@ router.post('/', (req, res, next) => {
           let sheetName = jsonRes.SheetNames[ii]
           let sheet = jsonRes.Sheets[sheetName]
           let sheetToJson = XLSX.utils.sheet_to_json(sheet)
-          OldSheet.append(sheetToJson)
+          // OldSheet.append(sheetToJson)
           console.log(typeof OldSheet)
           ii += 1
         }
