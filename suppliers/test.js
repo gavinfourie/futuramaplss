@@ -36,8 +36,32 @@ router.post('/', (req, res, next) => {
         }
         // let sheet = jsonRes.Sheets[first_sheet]
         // OldSheet = XLSX.utils.sheet_to_json(sheet)
-        console.log(OldSheet)
-        res.redirect('/test/new')
+        // console.log(OldSheet)
+        // res.redirect('/test/new')
+        // Testing
+        const specification = {
+            'sku': {
+                displayName: 'SKU',
+                headerStyle: styles.headerDark,
+                width: 120
+            },
+            'cost ex vat': {
+                displayName: 'Cost ex VAT',
+                headerStyle: styles.headerDark,
+                width: 120
+            }
+        }
+        const sending = toexcel.buildExport(
+            [
+                {
+                    name: 'Price Changes',
+                    specification: specification,
+                    data: OldSheet
+                }
+            ]
+        )
+        res.attachment('export.xlsx')
+        res.send(sending)
     })
 })
 
