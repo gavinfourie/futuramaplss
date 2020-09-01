@@ -7,7 +7,7 @@ const _ = require('lodash');
 const XLSX = require('xlsx');
 const fs = require('fs');
 let OldSheet = []
-let NewSheet
+// let NewSheet
 let priceChanges = []
 let newItems = []
 
