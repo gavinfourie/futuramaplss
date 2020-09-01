@@ -41,7 +41,7 @@ router.post('/', (req, res, next) => {
         // Testing
         const Final = XLSX.utils.json_to_sheet(OldSheet)
         // const name = "Price Changes"
-        const sending = XLSX.write(Final)
+        const sending = XLSX.writeFile(Final)
         res.attachment('export.xlsx')
         res.send(sending)
     })
