@@ -57,13 +57,13 @@ router.post('/', (req, res, next) => {
             }
         }
         const specification = {
-            'sku': {
+            'SKU': {
                 displayName: 'SKU',
                 headerStyle: styles.headerDark,
                 width: 120
             },
-            'cost ex vat': {
-                displayName: 'Cost ex VAT',
+            'Cost (ex VAT)': {
+                displayName: 'Cost (ex VAT)',
                 headerStyle: styles.headerDark,
                 width: 120
             }
