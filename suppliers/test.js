@@ -39,6 +39,23 @@ router.post('/', (req, res, next) => {
         // console.log(OldSheet)
         // res.redirect('/test/new')
         // Testing
+        const styles = {
+            headerDark: {
+                fill: {
+                    fgColor: {
+                        rgb: 'FF000000'
+                    }
+                },
+                font: {
+                    color: {
+                      rgb: 'FFFFFFFF'
+                    },
+                    sz: 14,
+                    bold: true,
+                    underline: true
+                }
+            }
+        }
         const specification = {
             'sku': {
                 displayName: 'SKU',
