@@ -37,7 +37,8 @@ router.post('/', (req, res, next) => {
         }
         // let sheet = jsonRes.Sheets[first_sheet]
         // OldSheet = XLSX.utils.sheet_to_json(sheet)
-        console.log(OldSheet)
+        // console.log(OldSheet)
+        console.log("done")
         res.redirect('/test/new')
     })
 })
