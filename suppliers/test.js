@@ -6,7 +6,7 @@ const toexcel = require('node-excel-export');
 const _ = require('lodash');
 const XLSX = require('xlsx');
 const fs = require('fs');
-let OldSheet
+let OldSheet = []
 let NewSheet
 let priceChanges = []
 let newItems = []
