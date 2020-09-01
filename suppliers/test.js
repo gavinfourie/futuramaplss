@@ -39,45 +39,8 @@ router.post('/', (req, res, next) => {
         // console.log(OldSheet)
         // res.redirect('/test/new')
         // Testing
-        const styles = {
-            headerDark: {
-                fill: {
-                    fgColor: {
-                        rgb: 'FF000000'
-                    }
-                },
-                font: {
-                    color: {
-                      rgb: 'FFFFFFFF'
-                    },
-                    sz: 14,
-                    bold: true,
-                    underline: true
-                }
-            }
-        }
-        const specification = {
-            'SKU': {
-                displayName: 'SKU',
-                headerStyle: styles.headerDark,
-                width: 120
-            },
-            'Cost (ex VAT)': {
-                displayName: 'Cost (ex VAT)',
-                headerStyle: styles.headerDark,
-                width: 120
-            }
-        }
-        const sending = toexcel.buildExport(
-            [
-                {
-                    name: 'Price Changes',
-                    specification: specification,
-                    data: OldSheet
-                }
-            ]
-        )
-        res.attachment('export.xlsx')
+        const name = "Price Changes"
+        const sending = XLSX.writeFile(OldSheet, name)
         res.send(sending)
     })
 })
