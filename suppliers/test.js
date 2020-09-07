@@ -17,16 +17,14 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res, next) => {
     const form = new formidable.IncomingForm()
-    let newFile = null
-    let jsonRes = null
 
     form.parse(req, (err, fields, files) => {
-        newFile = files['old-sheet'].path
-        // wb = XLSX.utils.book_new()
-        // XLSX.writeFile(wb, newFile)
-        jsonRes = XLSX.readFile(newFile)
-        jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
-        console.log(newFile)
+        let newFile = files[Object.keys(files)[0]]
+        let wb = XLSX.readFile(newFile.path)
+        // newFile = files['old-sheet'].path
+        // jsonRes = XLSX.readFile(newFile)
+        // jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
+        console.log(wb)
         let all_sheets = jsonSheet.SheetNames
         let ii = 0
         /*while (ii < all_sheets.length) {
