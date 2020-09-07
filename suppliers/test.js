@@ -19,7 +19,7 @@ router.post('/', (req, res, next) => {
     const form = new formidable.IncomingForm()
 
     form.parse(req, (err, fields, files) => {
-        let newFile = files[Object.keys(files)[0]]
+        let newFile = files['old-sheet']
         let wb = XLSX.readFile(newFile.path)
         // newFile = files['old-sheet'].path
         // jsonRes = XLSX.readFile(newFile)
