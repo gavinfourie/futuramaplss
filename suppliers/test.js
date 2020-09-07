@@ -15,18 +15,18 @@ router.get('/', (req, res) => {
     res.render('indext')
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const form = new formidable.IncomingForm()
 
     form.parse(req, (err, fields, files) => {
         let newFile = files[Object.keys(files)[0]]
-        let wb = XLSX.readFile(newFile.path)
+        let wb = await XLSX.readFile(newFile.path)
         let jws = XLSX.utils.sheet_to_json(wb)
         // newFile = files['old-sheet'].path
         // jsonRes = XLSX.readFile(newFile)
         // jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
         console.log(jws)
-        let all_sheets = jsonSheet.SheetNames
+        // let all_sheets = jsonSheet.SheetNames
         let ii = 0
         /*while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
