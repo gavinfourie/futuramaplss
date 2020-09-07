@@ -23,21 +23,23 @@ router.post('/', (req, res, next) => {
     form.parse(req, (err, fields, files) => {
         newFile = files['old-sheet'].path
         jsonRes = XLSX.readFile(newFile)
-        let all_sheets = jsonRes.SheetNames
+        jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
+        console.log("Sheets", jsonSheet.SheetNames)
+        let all_sheets = jsonSheet.SheetNames
         let ii = 0
-        while (ii < all_sheets.length) {
+        /*while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
           let sheet = jsonRes.Sheets[sheetName]
-          let sheetToJson = XLSX.utils.sheet_to_json(sheet)
+          // let sheetToJson = XLSX.utils.sheet_to_json(sheet)
           OldSheet.push(sheetToJson)
           ii += 1
-        }
+        }*/
         // let sheet = jsonRes.Sheets[first_sheet]
         // OldSheet = XLSX.utils.sheet_to_json(sheet)
         // console.log(OldSheet)
         // res.redirect('/test/new')
         // Testing
-        console.log(OldSheet);
+        // console.log(OldSheet);
         let wb = XLSX.utils.book_new()
         let Final = XLSX.utils.json_to_sheet(OldSheet)
         XLSX.utils.book_append_sheet(wb, Final, "Export")
