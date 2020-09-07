@@ -21,10 +21,11 @@ router.post('/', (req, res, next) => {
     form.parse(req, (err, fields, files) => {
         let newFile = files[Object.keys(files)[0]]
         let wb = XLSX.readFile(newFile.path)
+        let jws = XLSX.utils.sheet_to_json(wb)
         // newFile = files['old-sheet'].path
         // jsonRes = XLSX.readFile(newFile)
         // jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
-        console.log(wb)
+        console.log(jws)
         let all_sheets = jsonSheet.SheetNames
         let ii = 0
         /*while (ii < all_sheets.length) {
