@@ -37,6 +37,7 @@ router.post('/', (req, res, next) => {
         // console.log(OldSheet)
         // res.redirect('/test/new')
         // Testing
+        console.console.log(OldSheet);
         let wb = XLSX.utils.book_new()
         let Final = XLSX.utils.json_to_sheet(OldSheet)
         XLSX.utils.book_append_sheet(wb, Final, "Export")
