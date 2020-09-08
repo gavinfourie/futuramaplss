@@ -31,7 +31,7 @@ router.post('/', (req, res, next) => {
           ii += 1
         }
         // let json = JSON.stringify(result, 2, 2);
-        // let data = JSON.parse(json)
+        let data = JSON.parse(result)
         // newFile = files['old-sheet'].path
         // jsonRes = XLSX.readFile(newFile)
         // jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
@@ -76,7 +76,7 @@ router.post('/', (req, res, next) => {
                 {
                     name: 'Price Changes',
                     specification: specification,
-                    data: result
+                    data: data
                 }
             ]
         )
