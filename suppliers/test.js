@@ -30,7 +30,6 @@ router.post('/', (req, res, next) => {
         // newFile = files['old-sheet'].path
         // jsonRes = XLSX.readFile(newFile)
         // jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
-        console.log(json)
         // let all_sheets = jsonSheet.SheetNames
         let name = 'export'
         let book = XLSX.utils.book_new()
