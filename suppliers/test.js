@@ -30,17 +30,57 @@ router.post('/', (req, res, next) => {
           result[sheetName] = toAdd
           ii += 1
         }
-        json = JSON.stringify(result, 2, 2);
+        let json = JSON.stringify(result, 2, 2);
         // newFile = files['old-sheet'].path
         // jsonRes = XLSX.readFile(newFile)
         // jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
         // let all_sheets = jsonSheet.SheetNames
-        let name = 'export'
-        let book = XLSX.utils.book_new()
-        let sheets = XLSX.utils.json_to_sheet(json)
-        XLSX.utils.book_append_sheet(book, sheets, name)
+        // let name = 'export'
+        // let book = XLSX.utils.book_new()
+        // let sheets = XLSX.utils.json_to_sheet(json)
+        // XLSX.utils.book_append_sheet(book, sheets, name)
+        // res.attachment('export.xlsx')
+        // res.send(book)
+        const styles = {
+            headerDark: {
+                fill: {
+                    fgColor: {
+                        rgb: 'FF000000'
+                    }
+                },
+                font: {
+                    color: {
+                      rgb: 'FFFFFFFF'
+                    },
+                    sz: 14,
+                    bold: true,
+                    underline: true
+                }
+            }
+        }
+        const specification = {
+            'sku': {
+                displayName: 'SKU',
+                headerStyle: styles.headerDark,
+                width: 120
+            },
+            'cost ex vat': {
+                displayName: 'Cost ex VAT',
+                headerStyle: styles.headerDark,
+                width: 120
+            }
+        }
+        const sending = toexcel.buildExport(
+            [
+                {
+                    name: 'Price Changes',
+                    specification: specification,
+                    data: json
+                }
+            ]
+        )
         res.attachment('export.xlsx')
-        res.send(book)
+        res.send(sending)
         /*while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
           let sheet = jsonRes.Sheets[sheetName]
