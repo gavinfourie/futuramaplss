@@ -23,7 +23,7 @@ router.post('/', (req, res, next) => {
         let wb = XLSX.readFile(newFile.path)
         var result = {};
         wb.SheetNames.forEach(function(sheetName) {
-          var roa = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {header:1});
+          var roa = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], {header:1});
           if(roa.length) result[sheetName] = roa;
         });
         json = JSON.stringify(result, 2, 2);
