@@ -21,10 +21,16 @@ router.post('/', (req, res, next) => {
     form.parse(req, (err, fields, files) => {
         let newFile = files['old-sheet']
         let wb = XLSX.readFile(newFile.path)
+        var result = {};
+        wb.SheetNames.forEach(function(sheetName) {
+          var roa = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {header:1});
+          if(roa.length) result[sheetName] = roa;
+        });
+        json = JSON.stringify(result, 2, 2);
         // newFile = files['old-sheet'].path
         // jsonRes = XLSX.readFile(newFile)
         // jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
-        console.log(wb.Sheets)
+        console.log(json)
         // let all_sheets = jsonSheet.SheetNames
         let ii = 0
         /*while (ii < all_sheets.length) {
