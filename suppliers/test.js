@@ -21,9 +21,9 @@ router.post('/', (req, res, next) => {
     form.parse(req, (err, fields, files) => {
         let newFile = files['old-sheet']
         let wb = XLSX.readFile(newFile.path)
-        var result = {};
+        let result = {};
         wb.SheetNames.forEach(function(sheetName) {
-          var roa = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], {header:1});
+          let roa = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], {header:1});
           if(roa.length) result[sheetName] = roa;
         });
         json = JSON.stringify(result, 2, 2);
@@ -32,7 +32,12 @@ router.post('/', (req, res, next) => {
         // jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
         console.log(json)
         // let all_sheets = jsonSheet.SheetNames
-        let ii = 0
+        let name = 'export'
+        let book = XLSX.utils.book_new()
+        let sheets = XLSX.utils.json_to_sheet(json)
+        XLSX.utils.book_append_sheet(book, sheets, name)
+        res.attachment('export.xlsx')
+        res.send(book)
         /*while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
           let sheet = jsonRes.Sheets[sheetName]
@@ -50,7 +55,7 @@ router.post('/', (req, res, next) => {
         // let Final = XLSX.utils.json_to_sheet(OldSheet)
         // XLSX.utils.book_append_sheet(wb, Final, "Export")
         // let buf = XLSX.writeFile(wb, "Export.xlsx")
-        res.status(200).send
+        // res.status(200).send
     })
 })
 
