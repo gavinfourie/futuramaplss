@@ -21,17 +21,17 @@ router.post('/', (req, res, next) => {
     form.parse(req, (err, fields, files) => {
         let newFile = files['old-sheet']
         let wb = XLSX.readFile(newFile.path)
-        let result = {}
+        let result = []
         let ii = 0
         while (ii < wb.SheetNames.length) {
           let sheetName = wb.SheetNames[ii]
           let sheet = wb.Sheets[sheetName]
           let toAdd = XLSX.utils.sheet_to_json(sheet, {header:1})
-          result[sheetName] = toAdd
+          result.push(toAdd)
           ii += 1
         }
         // let json = JSON.stringify(result, 2, 2);
-        let data = JSON.parse(result)
+        // let data = JSON.parse(result)
         // newFile = files['old-sheet'].path
         // jsonRes = XLSX.readFile(newFile)
         // jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
@@ -76,7 +76,7 @@ router.post('/', (req, res, next) => {
                 {
                     name: 'Price Changes',
                     specification: specification,
-                    data: data
+                    data: result
                 }
             ]
         )
