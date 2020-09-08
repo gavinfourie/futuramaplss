@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
           result[sheetName] = toAdd
           ii += 1
         }
-        let json = JSON.stringify(result, 2, 2);
+        let json = JSON.stringify(result);
         // let data = JSON.parse(result)
         // newFile = files['old-sheet'].path
         // jsonRes = XLSX.readFile(newFile)
