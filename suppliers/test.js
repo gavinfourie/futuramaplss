@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
     const form = new formidable.IncomingForm()
 
     form.parse(req, async (err, fields, files) => {
-        const workbook = new Excel.Workbook();
+        const workbook = new ExcelJS.Workbook();
         await workbook.xlsx.readFile(files['old-sheet'].path)
         console.log(workbook)
         // res.attachment('export.xlsx')
