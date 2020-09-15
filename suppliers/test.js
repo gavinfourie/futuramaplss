@@ -1,11 +1,12 @@
 const express = require('express');
 let router = express.Router();
 const formidable = require('formidable');
-const excel = require('xlsx-to-json-lc');
-const toexcel = require('node-excel-export');
+// const excel = require('xlsx-to-json-lc');
+// const toexcel = require('node-excel-export');
 const _ = require('lodash');
-const XLSX = require('xlsx');
+// const XLSX = require('xlsx');
 const fs = require('fs');
+const ExcelJS = require('exceljs');
 let OldSheet = []
 // let NewSheet
 let priceChanges = []
@@ -15,73 +16,18 @@ router.get('/', (req, res) => {
     res.render('indext')
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const form = new formidable.IncomingForm()
 
     form.parse(req, (err, fields, files) => {
-        let newFile = files['old-sheet']
-        let wb = XLSX.readFile(newFile.path)
-        let result = {}
-        let ii = 0
-        while (ii < wb.SheetNames.length) {
-          let sheetName = wb.SheetNames[ii]
-          let sheet = wb.Sheets[sheetName]
-          let toAdd = XLSX.utils.sheet_to_json(sheet, {header:1})
-          result[sheetName] = toAdd
-          ii += 1
-        }
-        let json = JSON.stringify(result);
-        // let data = JSON.parse(result)
-        // newFile = files['old-sheet'].path
-        // jsonRes = XLSX.readFile(newFile)
-        // jsonSheet = XLSX.utils.sheet_to_json(jsonRes);
-        // let all_sheets = jsonSheet.SheetNames
-        // let name = 'export'
-        // let book = XLSX.utils.book_new()
-        // let sheets = XLSX.utils.json_to_sheet(json)
-        // XLSX.utils.book_append_sheet(book, sheets, name)
+        const workbook = new Excel.Workbook();
+        await workbook.xlsx.readFile(files['old-sheet'].path)
+        console.log(workbook)
         // res.attachment('export.xlsx')
         // res.send(book)
-        const styles = {
-            headerDark: {
-                fill: {
-                    fgColor: {
-                        rgb: 'FF000000'
-                    }
-                },
-                font: {
-                    color: {
-                      rgb: 'FFFFFFFF'
-                    },
-                    sz: 14,
-                    bold: true,
-                    underline: true
-                }
-            }
-        }
-        const specification = {
-            'sku': {
-                displayName: 'SKU',
-                headerStyle: styles.headerDark,
-                width: 120
-            },
-            'cost ex vat': {
-                displayName: 'Cost ex VAT',
-                headerStyle: styles.headerDark,
-                width: 120
-            }
-        }
-        const sending = toexcel.buildExport(
-            [
-                {
-                    name: 'Price Changes',
-                    specification: specification,
-                    data: json
-                }
-            ]
-        )
-        res.attachment('export.xlsx')
-        res.send(sending)
+        //res.attachment('export.xlsx')
+        //res.send(sending)
+        res.status(200)
         /*while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
           let sheet = jsonRes.Sheets[sheetName]
