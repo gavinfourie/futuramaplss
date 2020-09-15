@@ -6,7 +6,7 @@ const formidable = require('formidable');
 const _ = require('lodash');
 // const XLSX = require('xlsx');
 const fs = require('fs');
-const ExcelJS = require('exceljs');
+const parseXlsx = require('excel');
 let OldSheet = []
 // let NewSheet
 let priceChanges = []
@@ -19,10 +19,10 @@ router.get('/', (req, res) => {
 router.post('/', (req, res, next) => {
     const form = new formidable.IncomingForm()
 
-    form.parse(req, async (err, fields, files) => {
-        const workbook = new ExcelJS.Workbook();
-        await workbook.xlsx.readFile(files['old-sheet'].path)
-        console.log(workbook)
+    form.parse(req, (err, fields, files) => {
+        parseXlsx(files['old-sheet'].path).then((data) => {
+          console.log(data);
+        });
         // res.attachment('export.xlsx')
         // res.send(book)
         //res.attachment('export.xlsx')
