@@ -16,10 +16,10 @@ router.get('/', (req, res) => {
     res.render('indext')
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', (req, res, next) => {
     const form = new formidable.IncomingForm()
 
-    form.parse(req, (err, fields, files) => {
+    async form.parse(req, (err, fields, files) => {
         const workbook = new Excel.Workbook();
         await workbook.xlsx.readFile(files['old-sheet'].path)
         console.log(workbook)
