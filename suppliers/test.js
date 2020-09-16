@@ -25,7 +25,8 @@ router.post('/', (req, res, next) => {
         let i = 0;
         while (i < wbl) {
           let current = workbook.SheetNames[i];
-          worksheet.push(workbook.Sheets[current])
+          worksheet.push(workbook.Sheets[current]);
+          i += 1;
         }
         XLSX.utils.sheet_to_json(worksheet);
         //res.attachment('export.xlsx')
