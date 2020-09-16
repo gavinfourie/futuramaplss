@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
     form.parse(req, (err, fields, files) => {
         let workbook = XLSX.readFile(files['old-sheet'].path)
         let wbl = workbook.SheetNames.length;
-        let worksheet;
+        let worksheet = [];
         let i = 0;
         while (i < wbl) {
           let current = workbook.SheetNames[i];
