@@ -27,10 +27,10 @@ router.post('/', (req, res, next) => {
           let current = workbook.SheetNames[i];
           worksheet.push(workbook.Sheets[current])
         }
-        console.log(XLSX.utils.sheet_to_json(worksheet));
+        XLSX.utils.sheet_to_json(worksheet);
         //res.attachment('export.xlsx')
         //res.send(sending)
-        res.status(200)
+        res.json(worksheet);
         /*while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
           let sheet = jsonRes.Sheets[sheetName]
