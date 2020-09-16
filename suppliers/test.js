@@ -21,8 +21,9 @@ router.post('/', (req, res, next) => {
     form.parse(req, (err, fields, files) => {
         let workbook = XLSX.readFile(files['old-sheet'].path)
         let first_sheet_name = workbook.SheetNames[0];
+        console.log(workbook.Sheets.length);
         let worksheet = workbook.Sheets[first_sheet_name];
-        console.log(XLSX.utils.sheet_to_json(worksheet));
+        //console.log(XLSX.utils.sheet_to_json(worksheet));
         // res.attachment('export.xlsx')
         // res.send(book)
         //res.attachment('export.xlsx')
