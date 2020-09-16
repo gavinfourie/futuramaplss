@@ -4,9 +4,8 @@ const formidable = require('formidable');
 // const excel = require('xlsx-to-json-lc');
 // const toexcel = require('node-excel-export');
 const _ = require('lodash');
-// const XLSX = require('xlsx');
+const XLSX = require('xlsx');
 const fs = require('fs');
-const parseXlsx = require('excel');
 let OldSheet = []
 // let NewSheet
 let priceChanges = []
@@ -20,9 +19,10 @@ router.post('/', (req, res, next) => {
     const form = new formidable.IncomingForm()
 
     form.parse(req, (err, fields, files) => {
-        parseXlsx(files['old-sheet'].path).then((data) => {
-          console.log(data);
-        });
+        let workbook = XLSX.readFile(files['old-sheet'].path)
+        let first_sheet_name = workbook.SheetNames[0];
+        let worksheet = workbook.Sheets[first_sheet_name];
+        console.log(XLSX.utils.sheet_to_json(worksheet));
         // res.attachment('export.xlsx')
         // res.send(book)
         //res.attachment('export.xlsx')
