@@ -28,8 +28,6 @@ router.post('/', (req, res, next) => {
           worksheet.push(workbook.Sheets[current])
         }
         console.log(XLSX.utils.sheet_to_json(worksheet));
-        // res.attachment('export.xlsx')
-        // res.send(book)
         //res.attachment('export.xlsx')
         //res.send(sending)
         res.status(200)
