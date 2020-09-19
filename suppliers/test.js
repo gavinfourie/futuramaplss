@@ -7,6 +7,7 @@ const toexcel = require('node-excel-export');
 let priceChanges = []
 let oldItems = []
 let newItems = []
+let duplicates = []
 
 router.get('/', (req, res) => {
     priceChanges = []
@@ -64,14 +65,20 @@ router.post('/new', (req, res, next) => {
 })
 
 router.get('/compare', (req, res) => {
+    let finalNew = _.uniqBy(newItems, 'SKU')
+    let newDuplicate = _.difference(newItems, finalNew)
+    duplicates.push(newDuplicate)
+    let finalOld = _.uniqBy(oldItems, 'SKU')
+    let oldDuplicate = _.difference(oldItems, finalOld)
+    duplicates.push(oldDuplicate)
     let oldNumbers = []
-    for (let i = 0; i < oldItems.length; i++) {
-        let itemCode = oldItems[i]['SKU']
+    for (let i = 0; i < finalOld.length; i++) {
+        let itemCode = finalOld[i]['SKU']
         oldNumbers.push(itemCode)
     }
     let newNumbers = []
-    for (let i = 0; i < newItems.length; i++) {
-        let itemCode = newItems[i]['SKU']
+    for (let i = 0; i < finalNew.length; i++) {
+        let itemCode = finalNew[i]['SKU']
         newNumbers.push(itemCode)
     }
     let dropped = _.difference(oldNumbers, newNumbers)
@@ -86,11 +93,11 @@ router.get('/compare', (req, res) => {
         let item = { 'SKU': added[i] }
         addedFinal.push(item)
     }
-    for (let i = 0; i < oldItems.length; i++) {
-        for (let x = 0; x < newItems.length; x++) {
-            if (oldItems[i]['SKU'] === newItems[x]['SKU']) {
-                if (oldItems[i]['Cost (ex VAT)'] !== newItems[x]['Cost (ex VAT)']) {
-                    priceChanges.push(newItems[x])
+    for (let i = 0; i < finalOld.length; i++) {
+        for (let x = 0; x < finalNew.length; x++) {
+            if (finalOld[i]['SKU'] === finalNew[x]['SKU']) {
+                if (finalOld[i]['Cost (ex VAT)'] !== finalNew[x]['Cost (ex VAT)']) {
+                    priceChanges.push(finalNew[x])
                 }
             }
         }
@@ -147,6 +154,11 @@ router.get('/compare', (req, res) => {
                 name: 'Added',
                 specification: specificationDA,
                 data: addedFinal
+            },
+            {
+              name: 'Duplicates',
+              specification: specificationDA,
+              data: duplicates
             }
         ]
     )
