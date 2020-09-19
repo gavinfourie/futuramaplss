@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
         })
         for (var sheet in jfile) {
           for (var item in sheet) {
-            items.push(item)
+            items.push(jfile[sheet][item])
           }
         }
         //res.attachment('export.xlsx')
