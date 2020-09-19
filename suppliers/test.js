@@ -4,7 +4,8 @@ const formidable = require('formidable');
 // const excel = require('xlsx-to-json-lc');
 // const toexcel = require('node-excel-export');
 const _ = require('lodash');
-const XLSX = require('xlsx');
+// const XLSX = require('xlsx');
+const xtj = require('convert-excel-to-json');
 const fs = require('fs');
 let OldSheet = []
 // let NewSheet
@@ -19,19 +20,13 @@ router.post('/', (req, res, next) => {
     const form = new formidable.IncomingForm()
 
     form.parse(req, (err, fields, files) => {
-        let workbook = XLSX.readFile(files['old-sheet'].path)
-        let wbl = workbook.SheetNames.length;
-        let worksheet = [];
-        let i = 0;
-        while (i < wbl) {
-          let current = workbook.SheetNames[i];
-          worksheet.push(workbook.Sheets[current]);
-          i += 1;
-        }
-        XLSX.utils.sheet_to_json(worksheet);
+        let sfile = files['old-sheet'].path
+        let jfile = xtj({
+          sourceFile: 'sfile'
+        })
         //res.attachment('export.xlsx')
         //res.send(sending)
-        res.json(worksheet);
+        res.json(jfile);
         /*while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
           let sheet = jsonRes.Sheets[sheetName]
