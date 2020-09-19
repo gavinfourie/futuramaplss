@@ -7,7 +7,6 @@ const toexcel = require('node-excel-export');
 let priceChanges = []
 let oldItems = []
 let newItems = []
-let duplicates = []
 
 router.get('/', (req, res) => {
     priceChanges = []
@@ -67,10 +66,8 @@ router.post('/new', (req, res, next) => {
 router.get('/compare', (req, res) => {
     let finalNew = _.uniqBy(newItems, 'SKU')
     let newDuplicate = _.difference(newItems, finalNew)
-    duplicates.push(newDuplicate)
     let finalOld = _.uniqBy(oldItems, 'SKU')
     let oldDuplicate = _.difference(oldItems, finalOld)
-    duplicates.push(oldDuplicate)
     let oldNumbers = []
     for (let i = 0; i < finalOld.length; i++) {
         let itemCode = finalOld[i]['SKU']
@@ -158,7 +155,7 @@ router.get('/compare', (req, res) => {
             {
               name: 'Duplicates',
               specification: specificationDA,
-              data: duplicates
+              data: newDuplicate
             }
         ]
     )
