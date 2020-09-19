@@ -11,6 +11,7 @@ let OldSheet = []
 // let NewSheet
 let priceChanges = []
 let newItems = []
+let items = {}
 
 router.get('/', (req, res) => {
     res.render('indext')
@@ -21,17 +22,18 @@ router.post('/', (req, res, next) => {
 
     form.parse(req, (err, fields, files) => {
         let sfile = files['old-sheet'].path
-        col1 = 'A'
-        col2 = 'C'
         let jfile = xtj({
           sourceFile: sfile,
           columnToKey: {
             '*': '{{columnHeader}}'
           }
         })
+        for (var sheet in jfile) {
+          items.push(sheet)
+        }
         //res.attachment('export.xlsx')
         //res.send(sending)
-        res.json(jfile['KESTREL']);
+        res.json(items);
         /*while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
           let sheet = jsonRes.Sheets[sheetName]
