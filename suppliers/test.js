@@ -26,8 +26,7 @@ router.post('/', (req, res, next) => {
         let jfile = xtj({
           sourceFile: sfile,
           columnToKey: {
-            'col1': 'SKU',
-            'col2': 'Cost (ex VAT)'
+            '*': '{{columnHeader}}'
           }
         })
         //res.attachment('export.xlsx')
