@@ -11,7 +11,7 @@ let OldSheet = []
 // let NewSheet
 let priceChanges = []
 let newItems = []
-let items = {}
+let items = []
 
 router.get('/', (req, res) => {
     res.render('indext')
