@@ -68,8 +68,8 @@ router.get('/compare', (req, res) => {
     let oldNumbers = []
     for (let i = 0; i < oldItems.length; i++) {
         let itemCode = oldItems[i]['SKU']
-        for (let i = 0; i < oldNumbers.length; i++) {
-          if (itemCode == oldNumbers[i]) {
+        for (let ii = 0; ii < oldNumbers.length; ii++) {
+          if (itemCode === oldNumbers[ii]) {
             duplicates.push(itemCode)
           } else {
             oldNumbers.push(itemCode)
@@ -79,8 +79,8 @@ router.get('/compare', (req, res) => {
     let newNumbers = []
     for (let i = 0; i < newItems.length; i++) {
         let itemCode = newItems[i]['SKU']
-        for (let i = 0; i < newNumbers.length; i++) {
-          if (itemCode == newNumbers[i]) {
+        for (let ii = 0; ii < newNumbers.length; ii++) {
+          if (itemCode === newNumbers[ii]) {
             duplicates.push(itemCode)
           } else {
             newNumbers.push(itemCode)
