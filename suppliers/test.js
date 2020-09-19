@@ -64,28 +64,15 @@ router.post('/new', (req, res, next) => {
 })
 
 router.get('/compare', (req, res) => {
-    let duplicates = []
     let oldNumbers = []
     for (let i = 0; i < oldItems.length; i++) {
         let itemCode = oldItems[i]['SKU']
-        for (let ii = 0; ii < oldNumbers.length; ii++) {
-          if (oldItems[i]['SKU'] === oldNumbers[ii]) {
-            duplicates.push(itemCode)
-          } else {
-            oldNumbers.push(itemCode)
-          }
-        }
+        oldNumbers.push(itemCode)
     }
     let newNumbers = []
     for (let i = 0; i < newItems.length; i++) {
         let itemCode = newItems[i]['SKU']
-        for (let ii = 0; ii < newNumbers.length; ii++) {
-          if (newItems[i]['SKU'] === newNumbers[ii]) {
-            duplicates.push(itemCode)
-          } else {
-            newNumbers.push(itemCode)
-          }
-        }
+        newNumbers.push(itemCode)
     }
     let dropped = _.difference(oldNumbers, newNumbers)
     let droppedFinal = []
@@ -160,11 +147,6 @@ router.get('/compare', (req, res) => {
                 name: 'Added',
                 specification: specificationDA,
                 data: addedFinal
-            },
-            {
-              name: 'Duplicates',
-              specification: specificationDA,
-              data: duplicates
             }
         ]
     )
