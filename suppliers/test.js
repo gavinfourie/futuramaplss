@@ -21,13 +21,13 @@ router.post('/', (req, res, next) => {
 
     form.parse(req, (err, fields, files) => {
         let sfile = files['old-sheet'].path
-        col1 = "A"
-        col2 = "C"
+        col1 = 'A'
+        col2 = 'C'
         let jfile = xtj({
           sourceFile: sfile,
           columnToKey: {
-            col1: 'SKU',
-            col2: 'Cost (ex VAT)'
+            'col1': 'SKU',
+            'col2': 'Cost (ex VAT)'
           }
         })
         //res.attachment('export.xlsx')
