@@ -3,6 +3,7 @@ let router = express.Router();
 const formidable = require('formidable');
 const _ = require('lodash');
 const xtj = require('convert-excel-to-json');
+const toexcel = require('node-excel-export');
 let priceChanges = []
 let oldItems = []
 let newItems = []
@@ -51,7 +52,7 @@ router.post('/new', (req, res, next) => {
       for (var sheet in jfile) {
         for (var item in jfile[sheet]) {
           if (jfile[sheet][item]['Cost (ex VAT)'] > 0){
-              oldItems.push(jfile[sheet][item])
+              newItems.push(jfile[sheet][item])
           }
         }
       }
@@ -70,14 +71,14 @@ router.get('/compare', (req, res) => {
         let itemCode = newItems[i]['SKU']
         newNumbers.push(itemCode)
     }
-    const dropped = _.difference(oldNumbers, newNumbers)
-    const droppedFinal = []
+    let dropped = _.difference(oldNumbers, newNumbers)
+    let droppedFinal = []
     for (let i = 0; i < dropped.length; i++) {
         let item = { 'SKU': dropped[i] }
         droppedFinal.push(item)
     }
-    const added = _.difference(newNumbers, oldNumbers)
-    const addedFinal = []
+    let added = _.difference(newNumbers, oldNumbers)
+    let addedFinal = []
     for (let i = 0; i < added.length; i++) {
         let item = { 'SKU': added[i] }
         addedFinal.push(item)
