@@ -30,7 +30,9 @@ router.post('/', (req, res, next) => {
         })
         for (var sheet in jfile) {
           for (var item in jfile[sheet]) {
-            items.push(jfile[sheet][item])
+            if (jfile[sheet][item]['Cost (ex VAT)'] > 0){
+                items.push(jfile[sheet][item])
+            }
           }
         }
         //res.attachment('export.xlsx')
