@@ -26,7 +26,7 @@ router.post('/', (req, res, next) => {
         })
         //res.attachment('export.xlsx')
         //res.send(sending)
-        res.json(jfile[0]);
+        res.json(jfile['KESTREL']);
         /*while (ii < all_sheets.length) {
           let sheetName = jsonRes.SheetNames[ii]
           let sheet = jsonRes.Sheets[sheetName]
