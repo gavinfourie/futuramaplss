@@ -1,17 +1,11 @@
 const express = require('express');
 let router = express.Router();
 const formidable = require('formidable');
-// const excel = require('xlsx-to-json-lc');
-// const toexcel = require('node-excel-export');
 const _ = require('lodash');
-// const XLSX = require('xlsx');
 const xtj = require('convert-excel-to-json');
-const fs = require('fs');
-let OldSheet = []
-// let NewSheet
 let priceChanges = []
+let oldItems = []
 let newItems = []
-let items = []
 
 router.get('/', (req, res) => {
     res.render('indext')
@@ -31,31 +25,11 @@ router.post('/', (req, res, next) => {
         for (var sheet in jfile) {
           for (var item in jfile[sheet]) {
             if (jfile[sheet][item]['Cost (ex VAT)'] > 0){
-                items.push(jfile[sheet][item])
+                oldItems.push(jfile[sheet][item])
             }
           }
         }
-        //res.attachment('export.xlsx')
-        //res.send(sending)
-        res.json(items);
-        /*while (ii < all_sheets.length) {
-          let sheetName = jsonRes.SheetNames[ii]
-          let sheet = jsonRes.Sheets[sheetName]
-          // let sheetToJson = XLSX.utils.sheet_to_json(sheet)
-          OldSheet.push(sheetToJson)
-          ii += 1
-        }*/
-        // let sheet = jsonRes.Sheets[first_sheet]
-        // OldSheet = XLSX.utils.sheet_to_json(sheet)
-        // console.log(OldSheet)
-        // res.redirect('/test/new')
-        // Testing
-        // console.log(OldSheet);
-        // let wb = XLSX.utils.book_new()
-        // let Final = XLSX.utils.json_to_sheet(OldSheet)
-        // XLSX.utils.book_append_sheet(wb, Final, "Export")
-        // let buf = XLSX.writeFile(wb, "Export.xlsx")
-        // res.status(200).send
+        res.redirect('/test/new')
     })
 })
 
