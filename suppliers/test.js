@@ -153,7 +153,12 @@ router.get('/compare', (req, res) => {
                 data: addedFinal
             },
             {
-              name: 'Duplicates',
+              name: 'Duplicates in Old',
+              specification: specificationDA,
+              data: oldDuplicate
+            },
+            {
+              name: 'Duplicates in New',
               specification: specificationDA,
               data: newDuplicate
             }
