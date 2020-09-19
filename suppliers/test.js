@@ -9,6 +9,9 @@ let oldItems = []
 let newItems = []
 
 router.get('/', (req, res) => {
+    priceChanges = []
+    oldItems = []
+    newItems = []
     res.render('indext')
 })
 
