@@ -6,11 +6,11 @@ html {
 body {
   height: 100vh;
   width: 100vw;
-  color: white;
+  color: black;
 }
 
 h1, p{
-  color: black;
+  color: white;
 }
 
 button {
@@ -48,8 +48,8 @@ button:hover {
 }
 
 input {
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
   margin-left: 5px;
   margin-right: 5px;
   padding-left: 10px;
@@ -59,6 +59,6 @@ input {
 }
 
 input:hover {
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
 }
