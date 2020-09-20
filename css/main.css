@@ -9,6 +9,10 @@ body {
   color: white;
 }
 
+h1, p{
+  color: black;
+}
+
 button {
   background-color: white;
   color: black;
