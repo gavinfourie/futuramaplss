@@ -19,7 +19,7 @@ button {
   color: black;
   text-decoration: none;
   padding: 10px 26px;
-  font-size: 10px;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -63,7 +63,7 @@ input[type=button], input[type=submit], input[type=reset] {
   color: black;
   text-decoration: none;
   padding: 10px 26px;
-  font-size: 10px;
+  font-size: 16px;
   text-align: center;
   cursor: pointer;
 }
