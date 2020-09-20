@@ -8,7 +8,7 @@ app.set('view engine', 'pug')
 app.use('/pricelists', pricelists)
 
 app.get('/', (req, res) => {
-    res.render('index', {text: 'Welcome!'})
+    res.render('home', {text: 'Welcome!'})
 })
 
 app.get('/doCompare', (req, res) => {
