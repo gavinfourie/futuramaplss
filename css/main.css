@@ -6,7 +6,7 @@ html {
 body {
   height: 100vh;
   width: 100vw;
-  color: black;
+  background-color: black;
 }
 
 h1, p{
