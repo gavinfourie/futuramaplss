@@ -57,7 +57,13 @@ input {
   padding-bottom: 2px;
 }
 
-input:hover {
+input[type=button], input[type=submit], input[type=reset] {
   background-color: white;
+  border: none;
   color: black;
+  text-decoration: none;
+  padding: 10px 26px;
+  font-size: 10px;
+  text-align: center;
+  cursor: pointer;
 }
