@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     priceChanges = []
     oldItems = []
     newItems = []
-    res.render('indext')
+    res.render('pricelisthome')
 })
 
 router.post('/', (req, res, next) => {
@@ -33,12 +33,12 @@ router.post('/', (req, res, next) => {
             }
           }
         }
-        res.redirect('/test/new')
+        res.redirect('/pricelists/new')
     })
 })
 
 router.get('/new', (req, res) => {
-    res.render('indexgnt')
+    res.render('pricelistnew')
 })
 
 router.post('/new', (req, res, next) => {
@@ -59,7 +59,7 @@ router.post('/new', (req, res, next) => {
           }
         }
       }
-      res.redirect('/test/compare')
+      res.redirect('/pricelists/compare')
   })
 })
 

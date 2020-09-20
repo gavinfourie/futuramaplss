@@ -1,11 +1,11 @@
 doctype html
 html
   head
-    title Old Price list
+    title Old Price List
       
   body
     h1 Old Price List
     p Please upload the old price list here:
-    form(action="/main", enctype="multipart/form-data", method="post")
+    form(action="/pricelists", enctype="multipart/form-data", method="post")
       input(type="file", name="old-sheet", multiple="multiple")
       input(type="submit", value="Upload")
