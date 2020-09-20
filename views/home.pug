@@ -4,13 +4,13 @@ html
         title Home Page
         style
           include ../css/main.css
-    body
-        img(src='../images/logo' alt='logo' style='width:100px; height:100px;')
-        h1 Welcome!
+    body.centered-wrapper
+        div.centered-content
+          h1 Welcome!
 
-        p To start, please click below:
-        br
-        button(type="submit" onclick="StartProcess()") Compare Price Lists Now!
+          p To start, please click below:
+          br
+          button(type="submit" onclick="StartProcess()") Compare Price Lists Now!
 
         script
             include ../js/home.js
