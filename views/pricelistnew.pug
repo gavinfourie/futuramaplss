@@ -4,16 +4,17 @@ html
     title New Price list
     style
       include ../css/main.css
-  body
-    h1 New Price List
-    p Please upload the new price list here:
-    form(action="/pricelists/new", enctype="multipart/form-data", method="post")
-      input(type="file", name="new-sheet", multiple="multiple")
-      input(type="submit", value="Upload")
-    br
-    p Warning, do not click the following button until the process has completed and your sheet has been downloaded!
-    br
-    button(type="submit" onclick="home()") Back to home...
+  body.centered-wrapper
+    div.centered-content
+      h1 New Price List
+      p Please upload the new price list here:
+      form(action="/pricelists/new", enctype="multipart/form-data", method="post")
+        input(type="file", name="new-sheet", multiple="multiple")
+        input(type="submit", value="Upload")
+      br
+      p Warning, do not click the following button until the process has completed and your sheet has been downloaded!
+      br
+      button(type="submit" onclick="home()") Back to home...
 
     script
       include ../js/pricelist.js

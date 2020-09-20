@@ -48,8 +48,8 @@ button:hover {
 }
 
 input {
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   margin-left: 5px;
   margin-right: 5px;
   padding-left: 10px;
@@ -59,6 +59,6 @@ input {
 }
 
 input:hover {
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
 }
