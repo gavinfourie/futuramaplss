@@ -81,7 +81,6 @@ router.get('/compare', (req, res) => {
     for (let i = 0; i < magentoInStock.length; i++) {
         let item = { 'SKU': magentoInStock[i].SKU }
         magentoSKU.push(item)
-        console.log(magentoInStock[i].SKU)
     }
     let dearInSKU = []
     for (let i = 0; i < dearInStock.length; i++) {
@@ -94,10 +93,10 @@ router.get('/compare', (req, res) => {
         dearOutSKU.push(item)
     }
     // Find Items to change to out of stock
-    for (let i = 0; i < dearOutSKU.length; i++) {
-        for (let x = 0; x < magentoSKU.length; x++) {
-            if (dearOutSKU[i] === magentoSKU[x]) {
-                changeToOut.push(magentoSKU[x])
+    for (let i = 0; i < dearOutStock.length; i++) {
+        for (let x = 0; x < magentoInStock.length; x++) {
+            if (dearOutStock[i].SKU === magentoInStock[x].SKU) {
+                changeToOut.push(magentoInStock[x].SKU)
                 console.log("Change something to out")
             }
         }
