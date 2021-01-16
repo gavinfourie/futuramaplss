@@ -36,6 +36,7 @@ router.post('/', (req, res, next) => {
             // Read all in stock items from Magento into an Array
             if (jfile[sheet][item]['In Stock'] === 'In Stock'){
                 magentoInStock.push(jfile[sheet][item])
+                console.log('Magento in stock')
             }
           }
         }
@@ -64,8 +65,10 @@ router.post('/dear', (req, res, next) => {
             // Find all items in stock in store and put in array
             if (jfile[sheet][item].OnHand > 0){
                 dearInStock.push(jfile[sheet][item])
+                console.log("dear in stock")
             } else {
                 dearOutStock.push(jfile[sheet][item])
+                console.log("dear no stock")
             }
         }
       }
@@ -96,6 +99,7 @@ router.get('/compare', (req, res) => {
         for (let x = 0; x < magentoSKU.length; x++) {
             if (dearOutSKU[i] === magentoSKU[x]) {
                 changeToOut.push(magentoSKU[x])
+                console.log("Change something to out")
             }
         }
     }
