@@ -79,10 +79,12 @@ router.post('/dear', (req, res, next) => {
 // Start comparison
 router.get('/compare', (req, res) => {
     // Pull just SKU's from Arrays
+    console.log("Compare called")
     let magentoSKU = []
     for (let i = 0; i < magentoInStock.length; i++) {
         let item = { 'SKU': magentoInStock[i].SKU }
         magentoSKU.push(item)
+        console.log(magentoInStock[i].SKU)
     }
     let dearInSKU = []
     for (let i = 0; i < dearInStock.length; i++) {
