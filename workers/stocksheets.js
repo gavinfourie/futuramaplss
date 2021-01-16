@@ -79,12 +79,11 @@ router.get('/compare', (req, res) => {
     for (let i = 0; i < dearOutStock.length; i++) {
         for (let x = 0; x < magentoInStock.length; x++) {
             if (dearOutStock[i].SKU === magentoInStock[x].SKU) {
-                changeToOut.push(magentoInStock[x].SKU)
-                console.log("Change something to out")
+                let item = { 'SKU': magentoInStock[i].SKU }
+                changeToOut.push(item)
             }
         }
     }
-    console.log("change to out", changeToOut)
     // Creating styles for excel sheet being output
     const styles = {
         headerDark: {
