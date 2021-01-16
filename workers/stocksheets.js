@@ -79,7 +79,7 @@ router.get('/compare', (req, res) => {
     for (let i = 0; i < dearOutStock.length; i++) {
         for (let x = 0; x < magentoInStock.length; x++) {
             if (dearOutStock[i].SKU === magentoInStock[x].SKU) {
-                let item = { 'SKU': magentoInStock[i].SKU }
+                let item = { 'SKU': magentoInStock[x].SKU }
                 changeToOut.push(item)
             }
         }
