@@ -138,7 +138,7 @@ router.get('/compare', (req, res) => {
         ]
     )
     // Send to browser to start download
-    res.attachment('export.xlsx')
+    res.attachment('exports.xlsx')
     res.send(sending)
 })
 
