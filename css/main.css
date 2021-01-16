@@ -28,6 +28,10 @@ button:hover {
   color: white;
 }
 
+.spaceAbove {
+  margin-top: 10px;
+}
+
 .centered-wrapper {
     position: relative;
     text-align: center;
