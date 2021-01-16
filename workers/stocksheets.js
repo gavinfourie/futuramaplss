@@ -36,7 +36,6 @@ router.post('/', (req, res, next) => {
             // Read all in stock items from Magento into an Array
             if (jfile[sheet][item]['In Stock'] === 'In Stock'){
                 magentoInStock.push(jfile[sheet][item])
-                console.log('Magento in stock')
             }
           }
         }
@@ -65,10 +64,8 @@ router.post('/dear', (req, res, next) => {
             // Find all items in stock in store and put in array
             if (jfile[sheet][item].OnHand > 0){
                 dearInStock.push(jfile[sheet][item])
-                console.log("dear in stock")
             } else {
                 dearOutStock.push(jfile[sheet][item])
-                console.log("dear no stock")
             }
         }
       }
