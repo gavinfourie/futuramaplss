@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    title Magento Stock Sheet
+    style
+      include ../css/main.css
+      
+  body.centered-wrapper
+    div.centered-content
+      h1 Magento
+      p Please upload the Magento stock sheet here:
+      form(action="/stocksheets", enctype="multipart/form-data", method="post")
+        input(type="file", name="magento-sheet", multiple="multiple")
+        input(type="submit", value="Upload")

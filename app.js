@@ -2,13 +2,15 @@
 const express = require('express')
 const app = express()
 let pricelists = require('./workers/pricelists')
+let stocksheets = require('./workers/stocksheets')
 
 // Load view templates
 app.set('views', './views')
 app.set('view engine', 'pug')
 
-// Setup workers
+// Setup routes
 app.use('/pricelists', pricelists)
+app.use('/stocksheets', stocksheets)
 
 // Visiting domain will render main homepage
 app.get('/', (req, res) => {
