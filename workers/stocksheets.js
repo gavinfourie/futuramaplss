@@ -37,6 +37,7 @@ router.post('/', (req, res, next) => {
         for (var item in jfile) {
             // Read all in stock items from Magento into an Array
             if (jfile[item]['In Stock'] === 'In Stock'){
+                console.log(jfile[item])
                 magentoInStock.push(jfile[item])
             }
         }
