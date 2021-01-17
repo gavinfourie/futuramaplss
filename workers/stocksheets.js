@@ -36,9 +36,9 @@ router.post('/', (req, res, next) => {
         }*/
         for (var sheet in jfile) {
           for (var item in jfile[sheet]) {
-            if (jfile[item]['In Stock'] === 'In Stock'){
-                magentoInStock.push(jfile[item])
-                console.log("Magento", jfile[item]['In Stock'])
+            if (jfile[sheet][item]['In Stock'] === 'In Stock'){
+                magentoInStock.push(jfile[sheet][item])
+                console.log("Magento", jfile[sheet][item]['In Stock'])
             }
           }
         }
