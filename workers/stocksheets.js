@@ -96,8 +96,12 @@ router.get('/compare', (req, res) => {
         let item = { 'SKU': inStock[i]['SKU'] }
         changeToIn.push(item)
     }
-    let myDate = DateTime.local().toLocaleString(DateTime.DATE_SHORT)
-    console.log(myDate)
+    let myDateDay = DateTime.local().day
+    let myDateMonth = DateTime.local().month
+    let myDateYear = DateTime.local().year
+    console.log("Day: ", myDateDay)
+    console.log("Month: ", myDateMonth)
+    console.log("Year: ", myDateYear)
     // Creating styles for excel sheet being output
     const styles = {
         headerDark: {
