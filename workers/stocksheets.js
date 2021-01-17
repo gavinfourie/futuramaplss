@@ -21,10 +21,10 @@ router.get('/', (req, res) => {
 })
 
 // Start the comparison by uploading old sheet first in formdata so that Formidable can handle it
-router.post('/', async (req, res, next) => {
+router.post('/', (req, res, next) => {
     const form = new formidable.IncomingForm()
     // Have formidable extract excel file into json array
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, async (err, fields, files) => {
         let sfile = files['magento-sheet'].path
         let jfile = []
         await csv().fromFile(sfile).then((jsonObj)=>{
