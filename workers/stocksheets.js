@@ -26,7 +26,7 @@ router.post('/', (req, res, next) => {
     // Have formidable extract excel file into json array
     form.parse(req, (err, fields, files) => {
         let sfile = files['magento-sheet'].path
-        let json = csvToJson.fieldDelimiter(',').getJsonFromCsv(sfile);
+        let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
         for (let i=0; i<json.length;i++) {
             console.log(json[i]);
         }
