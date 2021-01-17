@@ -5,6 +5,7 @@ const formidable = require('formidable');
 const _ = require('lodash');
 const xtj = require('convert-excel-to-json');
 let csvToJson = require('convert-csv-to-json');
+const csv = require("csvtojson");
 const toexcel = require('node-excel-export');
 let magentoInStock = []
 let dearInStock = []
@@ -26,10 +27,15 @@ router.post('/', (req, res, next) => {
     // Have formidable extract excel file into json array
     form.parse(req, (err, fields, files) => {
         let sfile = files['magento-sheet'].path
-        let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
+        let jfile = []
+        csv().fromFile(sfile).then((jsonObj)=>{
+            console.log(jsonObj)
+            jfile.push(jsonObj)
+        })
+        /*let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
         for (let i=0; i<json.length;i++) {
             console.log(json[i]);
-        }
+        }*/
         /*let jfile = xtj({
           sourceFile: sfile,
           columnToKey: {
