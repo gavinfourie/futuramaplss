@@ -53,10 +53,10 @@ router.get('/dear', (req, res) => {
 router.post('/dear', (req, res, next) => {
   const form = new formidable.IncomingForm()
 
-  form.parse(req, (err, fields, files) => {
+  form.parse(req, async (err, fields, files) => {
       let sfile = files['dear-sheet'].path
       let jfile = []
-      csv().fromFile(sfile).then((jsonObj)=>{
+      await csv().fromFile(sfile).then((jsonObj)=>{
         jfile.push(jsonObj)
        })
       for (var item in jfile) {
