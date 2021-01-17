@@ -34,11 +34,11 @@ router.post('/', (req, res, next) => {
         for (let i=0; i<json.length;i++) {
             console.log(json[i]);
         }*/
-        console.log(jfile)
         for (var item in jfile) {
             // Read all in stock items from Magento into an Array
             if (jfile[item]['In Stock'] === 'In Stock'){
                 magentoInStock.push(jfile[item])
+                console.log("Magento", jfile[item])
             }
         }
         res.redirect('/stocksheets/dear')
