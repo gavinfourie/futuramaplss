@@ -92,7 +92,7 @@ router.get('/compare', (req, res) => {
     let inStock = _.difference(magentoSKU, dearSKU)
     // Create items correctly
     for (let i = 0; i < inStock.length; i++) {
-        let item = { 'SKU': inStock[i] }
+        let item = { 'SKU': inStock[i]['SKU'] }
         changeToIn.push(item)
     }
     // Creating styles for excel sheet being output
