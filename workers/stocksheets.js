@@ -6,6 +6,7 @@ const _ = require('lodash');
 const xtj = require('convert-excel-to-json');
 const csv = require("csvtojson");
 const toexcel = require('node-excel-export');
+let { DateTime } = require('luxon');
 let magentoInStock = []
 let dearInStock = []
 let dearOutStock = []
@@ -95,6 +96,8 @@ router.get('/compare', (req, res) => {
         let item = { 'SKU': inStock[i]['SKU'] }
         changeToIn.push(item)
     }
+    let myDate = DateTime.local().toLocaleString(DateTime.DATE_FULL)
+    console.log(myDate)
     // Creating styles for excel sheet being output
     const styles = {
         headerDark: {
