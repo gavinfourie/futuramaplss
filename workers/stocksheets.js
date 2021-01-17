@@ -28,7 +28,7 @@ router.post('/', (req, res, next) => {
         let sfile = files['magento-sheet'].path
         let jfile = []
         await csv().fromFile(sfile).then((jsonObj)=>{
-            jfile.push(jsonObj)
+            await jfile.push(jsonObj)
         })
         /*let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
         for (let i=0; i<json.length;i++) {
