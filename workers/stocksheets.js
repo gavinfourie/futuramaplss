@@ -4,7 +4,6 @@ let router = express.Router();
 const formidable = require('formidable');
 const _ = require('lodash');
 const xtj = require('convert-excel-to-json');
-let csvToJson = require('convert-csv-to-json');
 const csv = require("csvtojson");
 const toexcel = require('node-excel-export');
 let magentoInStock = []
@@ -29,26 +28,17 @@ router.post('/', (req, res, next) => {
         let sfile = files['magento-sheet'].path
         let jfile = []
         csv().fromFile(sfile).then((jsonObj)=>{
-            console.log(jsonObj)
             jfile.push(jsonObj)
         })
         /*let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
         for (let i=0; i<json.length;i++) {
             console.log(json[i]);
         }*/
-        /*let jfile = xtj({
-          sourceFile: sfile,
-          columnToKey: {
-            '*': '{{columnHeader}}'
-          }
-        })*/
-        for (var sheet in jfile) {
-          for (var item in jfile[sheet]) {
+        for (var item in jfile) {
             // Read all in stock items from Magento into an Array
-            if (jfile[sheet][item]['In Stock'] === 'In Stock'){
-                magentoInStock.push(jfile[sheet][item])
+            if (jfile[item]['In Stock'] === 'In Stock'){
+                magentoInStock.push(jfile[item])
             }
-          }
         }
         res.redirect('/stocksheets/dear')
     })
@@ -64,20 +54,15 @@ router.post('/dear', (req, res, next) => {
 
   form.parse(req, (err, fields, files) => {
       let sfile = files['dear-sheet'].path
-      let jfile = xtj({
-        sourceFile: sfile,
-        columnToKey: {
-          '*': '{{columnHeader}}'
-        }
-      })
-      for (var sheet in jfile) {
-        for (var item in jfile[sheet]) {
-            // Find all items in stock in store and put in array
-            if (jfile[sheet][item].OnHand > 0){
-                dearInStock.push(jfile[sheet][item])
-            } else {
-                dearOutStock.push(jfile[sheet][item])
-            }
+      csv().fromFile(sfile).then((jsonObj)=>{
+        jfile.push(jsonObj)
+        })
+      for (var item in jfile) {
+        // Find all items in stock in store and put in array
+        if (jfile[item].OnHand > 0){
+            dearInStock.push(jfile[item])
+        } else {
+            dearOutStock.push(jfile[item])
         }
       }
       res.redirect('/stocksheets/compare')
