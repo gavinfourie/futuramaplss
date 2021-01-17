@@ -57,17 +57,18 @@ router.post('/dear', (req, res, next) => {
   form.parse(req, async (err, fields, files) => {
       let sfile = files['dear-sheet'].path
       let jfile = []
-      await csv().fromFile(sfile).then((jsonObj)=>{
-        jfile.push(jsonObj)
+      await csv().fromFile(sfile).then(async(jsonObj)=>{
+        await jfile.push(jsonObj)
        })
-      for (var item in jfile) {
-        // Find all items in stock in store and put in array
-        if (jfile[item].OnHand > 0){
-            dearInStock.push(jfile[item])
-        } else {
-            dearOutStock.push(jfile[item])
+      for (var sheet in jfile) {
+          for (var item in jfile[sheet]) {
+            if (jfile[sheet][item].OnHand > 0){
+                dearInStock.push(jfile[sheet][item])
+            } else {
+                dearOutStock.push(jfile[sheet][item])
+            }
+          }
         }
-      }
       res.redirect('/stocksheets/compare')
   })
 })
