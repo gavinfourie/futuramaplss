@@ -12,6 +12,7 @@ let dearInStock = []
 let dearOutStock = []
 let changeToOut = []
 let changeToIn = []
+let specialDates = []
 
 // Visiting stock sheet home clears all variables and renders home stocksheet page
 router.get('/', (req, res) => {
@@ -20,6 +21,7 @@ router.get('/', (req, res) => {
     dearOutStock = []
     changeToOut = []
     changeToIn = []
+    specialDates = []
     res.render('stocksheethome')
 })
 
@@ -102,8 +104,9 @@ router.get('/compare', (req, res) => {
     for (var sheet in magentoInStock) {
           for (var item in magentoInStock[sheet]) {
             if (magentoInStock[sheet][item]['Special Price To Date'] !== null) {
-                let specialSKU = magentoInStock[sheet][item]
-                console.log(specialSKU)
+                let item = { 'SKU': magentoInStock[sheet][item]['SKU'],
+                'Date': magentoInStock[sheet][item]['Special Price To Date'] }
+                specialDates.push(item)
             }
         }
     }
