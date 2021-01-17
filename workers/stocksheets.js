@@ -10,6 +10,7 @@ let magentoInStock = []
 let dearInStock = []
 let dearOutStock = []
 let changeToOut = []
+let changeToIn = []
 
 // Visiting stock sheet home clears all variables and renders home stocksheet page
 router.get('/', (req, res) => {
@@ -17,6 +18,7 @@ router.get('/', (req, res) => {
     dearInStock = []
     dearOutStock = []
     changeToOut = []
+    changeToIn = []
     res.render('stocksheethome')
 })
 
@@ -38,7 +40,6 @@ router.post('/', (req, res, next) => {
           for (var item in jfile[sheet]) {
             if (jfile[sheet][item]['In Stock'] === 'In Stock'){
                 magentoInStock.push(jfile[sheet][item])
-                console.log("Magento", jfile[sheet][item]['In Stock'])
             }
           }
         }
@@ -84,6 +85,16 @@ router.get('/compare', (req, res) => {
             }
         }
     }
+    // Make arrays of only SKU row
+    let magentoSKU = _.uniqBy(magentoInStock, 'SKU')
+    let dearSKU = _.uniqBy(dearInStock, 'SKU')
+    // Find array of items to make in stock
+    let inStock = _.difference(dearSKU, magentoSKU)
+    // Create items correctly
+    for (let i = 0; i < inStock.length; i++) {
+        let itemCode = inStock[i]['SKU']
+        changeToIn.push(itemCode)
+    }
     // Creating styles for excel sheet being output
     const styles = {
         headerDark: {
@@ -116,6 +127,11 @@ router.get('/compare', (req, res) => {
                 name: 'Now Out Of Stock',
                 specification: specification,
                 data: changeToOut
+            },
+            {
+                name: 'Now In Stock',
+                specification: specification,
+                data: changeToIn
             }
         ]
     )
