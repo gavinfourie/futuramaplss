@@ -54,9 +54,10 @@ router.post('/dear', (req, res, next) => {
 
   form.parse(req, (err, fields, files) => {
       let sfile = files['dear-sheet'].path
+      let jfile = []
       csv().fromFile(sfile).then((jsonObj)=>{
         jfile.push(jsonObj)
-        })
+       })
       for (var item in jfile) {
         // Find all items in stock in store and put in array
         if (jfile[item].OnHand > 0){
