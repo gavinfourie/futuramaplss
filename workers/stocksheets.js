@@ -104,13 +104,13 @@ router.get('/compare', (req, res) => {
     for (var sheet in magentoInStock) {
           for (var item in magentoInStock[sheet]) {
             if (magentoInStock[sheet][item]['Special Price'] != '') {
+                console.log(magentoInStock[sheet][item]['SKU'])
                 let itemFound = { 'SKU': magentoInStock[sheet][item]['SKU'],
                 'Date': magentoInStock[sheet][item]['Special Price To Date'] }
                 specialDates.push(itemFound)
             }
         }
     }
-    console.log(specialDates)
     // Creating styles for excel sheet being output
     const styles = {
         headerDark: {
