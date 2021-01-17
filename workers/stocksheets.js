@@ -102,7 +102,8 @@ router.get('/compare', (req, res) => {
     for (var sheet in magentoInStock) {
           for (var item in magentoInStock[sheet]) {
             if (magentoInStock[sheet][item]['Special Price To Date']) {
-                console.log(magentoInStock[sheet][item]['Special Price To Date'])
+                let specialSKU = magentoInStock[sheet][item]
+                console.log(specialSKU)
             }
         }
     }
