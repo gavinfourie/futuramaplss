@@ -103,7 +103,7 @@ router.get('/compare', (req, res) => {
     let myDateYear = DateTime.local().year
     for (var sheet in magentoInStock) {
           for (var item in magentoInStock[sheet]) {
-            if (magentoInStock[sheet][item]['Special Price To Date'] !== '') {
+            if (magentoInStock[sheet][item]['Special Price'] > 0) {
                 let itemFound = { 'SKU': magentoInStock[sheet][item]['SKU'],
                 'Date': magentoInStock[sheet][item]['Special Price To Date'] }
                 specialDates.push(itemFound)
