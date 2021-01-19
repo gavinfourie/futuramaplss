@@ -103,6 +103,7 @@ router.get('/compare', (req, res) => {
         myDateDay = "0" + myDateDay
     }
     let myDateMonth = DateTime.local().month
+    console.log("length: ", myDateMonth.length)
     if (myDateMonth.length < 2) {
         console.log("called")
         myDateMonth = "0" + myDateMonth
