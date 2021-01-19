@@ -98,8 +98,14 @@ router.get('/compare', (req, res) => {
         let item = { 'SKU': inStock[i]['SKU'] }
         changeToIn.push(item)
     }
-    let myDateDay = DateTime.local().day
-    let myDateMonth = DateTime.local().month
+    let myDateDayUF = DateTime.local().day
+    if (myDateDayUF.length < 2) {
+        let myDateDay = _.padStart(myDateDayUF, 1, '0')
+    }
+    let myDateMonthUF = DateTime.local().month
+    if (myDateMonthUF.length < 2) {
+        let myDateMonth = _.padStart(myDateMonthUF, 1, '0')
+    }
     let myDateYear = DateTime.local().year
     console.log(myDateMonth)
     for (var item in magentoInStock) {
