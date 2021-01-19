@@ -13,6 +13,7 @@ let dearOutStock = []
 let changeToOut = []
 let changeToIn = []
 let specialDates = []
+let expiredDates = []
 
 // Visiting stock sheet home clears all variables and renders home stocksheet page
 router.get('/', (req, res) => {
@@ -22,6 +23,7 @@ router.get('/', (req, res) => {
     changeToOut = []
     changeToIn = []
     specialDates = []
+    expiredDates = []
     res.render('stocksheethome')
 })
 
@@ -110,10 +112,19 @@ router.get('/compare', (req, res) => {
     }
     for (var i = 0; i < specialDates.length; i++) {
         let magentoYear = specialDates[i]['Date'].slice(0, 4)
+        magentoYear = Number(magentoYear)
         let magentoMonth = specialDates[i]['Date'].slice(5, 7)
         magentoMonth = Number(magentoMonth)
-        console.log(magentoMonth)
         let magentoDay = specialDates[i]['Date'].slice(8, 10)
+        magentoDay = Number(magentoDay)
+        if (magentoYear <= myDateYear) {
+            if (magentoMonth <= myDateMonth) {
+                if (magentoDay < myDateDay) {
+                    let itemFound = { 'SKU': specialDates[i]['SKU'] }
+                    expiredDates.push(itemFound)
+                }
+            }
+        }
     }
     // Creating styles for excel sheet being output
     const styles = {
@@ -152,6 +163,11 @@ router.get('/compare', (req, res) => {
                 name: 'Now In Stock',
                 specification: specification,
                 data: changeToIn
+            },
+            {
+                name: 'Special Pricing Ended',
+                specification: specification,
+                data: expiredDates
             }
         ]
     )
