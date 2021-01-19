@@ -100,11 +100,11 @@ router.get('/compare', (req, res) => {
     }
     let myDateDay = DateTime.local().day
     if (myDateDay.length < 2) {
-        myDateDay = _.padStart(myDateDay, 1, '0')
+        myDateDay = "0" + myDateDay
     }
     let myDateMonth = DateTime.local().month
     if (myDateMonth.length < 2) {
-        myDateMonth = _.padStart(myDateMonth, 1, '0')
+        myDateMonth = "0" + myDateMonth
     }
     let myDateYear = DateTime.local().year
     console.log(myDateMonth)
