@@ -104,7 +104,7 @@ router.get('/compare', (req, res) => {
     }
     let myDateMonth = DateTime.local().month
     if (myDateMonth.length < 2) {
-        let myDateMonth = _.padStart(myDateMonth, 1, '0')
+        myDateMonth = _.padStart(myDateMonth, 1, '0')
     }
     let myDateYear = DateTime.local().year
     console.log(myDateMonth)
