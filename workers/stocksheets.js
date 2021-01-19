@@ -109,7 +109,9 @@ router.get('/compare', (req, res) => {
         }
     }
     for (var i = 0; i < specialDates.length; i++) {
-        let magentoYear = specialDates[i]['Date'].slice(0, 3)
+        let magentoYear = specialDates[i]['Date'].slice(0, 4)
+        let magentoMonth = specialDates[i]['Date'].slice(5, 7)
+        let magentoDay = specialDates[i]['Date'].slice(9, 10)
         console.log(magentoYear)
     }
     // Creating styles for excel sheet being output
