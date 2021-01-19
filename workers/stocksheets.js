@@ -99,18 +99,18 @@ router.get('/compare', (req, res) => {
         changeToIn.push(item)
     }
     let myDateDay = DateTime.local().day
+    myDateDay = String(myDateDay)
     if (myDateDay.length < 2) {
         myDateDay = "0" + myDateDay
     }
     let myDateMonth = DateTime.local().month
     myDateMonth = String(myDateMonth)
-    console.log("length: ", myDateMonth.length)
     if (myDateMonth.length < 2) {
-        console.log("called")
         myDateMonth = "0" + myDateMonth
+        myDateMonth = parseInt(myDateMonth)
     }
-    let myDateYear = DateTime.local().year
     console.log(myDateMonth)
+    let myDateYear = DateTime.local().year
     for (var item in magentoInStock) {
         if (magentoInStock[item]['Special Price']) {
             let itemFound = { 'SKU': magentoInStock[item]['SKU'], 
