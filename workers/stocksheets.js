@@ -98,13 +98,13 @@ router.get('/compare', (req, res) => {
         let item = { 'SKU': inStock[i]['SKU'] }
         changeToIn.push(item)
     }
-    let myDateDayUF = DateTime.local().day
-    if (myDateDayUF.length < 2) {
-        let myDateDay = _.padStart(myDateDayUF, 1, '0')
+    let myDateDay = DateTime.local().day
+    if (myDateDay.length < 2) {
+        myDateDay = _.padStart(myDateDay, 1, '0')
     }
-    let myDateMonthUF = DateTime.local().month
-    if (myDateMonthUF.length < 2) {
-        let myDateMonth = _.padStart(myDateMonthUF, 1, '0')
+    let myDateMonth = DateTime.local().month
+    if (myDateMonth.length < 2) {
+        let myDateMonth = _.padStart(myDateMonth, 1, '0')
     }
     let myDateYear = DateTime.local().year
     console.log(myDateMonth)
