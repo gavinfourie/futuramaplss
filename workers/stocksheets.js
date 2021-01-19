@@ -111,6 +111,7 @@ router.get('/compare', (req, res) => {
             }
         }
     }
+    console.log("Special dates", specialDates)
     // Creating styles for excel sheet being output
     const styles = {
         headerDark: {
