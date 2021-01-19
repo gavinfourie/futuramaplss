@@ -117,13 +117,9 @@ router.get('/compare', (req, res) => {
         magentoMonth = Number(magentoMonth)
         let magentoDay = specialDates[i]['Date'].slice(8, 10)
         magentoDay = Number(magentoDay)
-        if (magentoYear <= myDateYear) {
-            if (magentoMonth <= myDateMonth) {
-                if (magentoDay < myDateDay) {
-                    let itemFound = { 'SKU': specialDates[i]['SKU'] }
-                    expiredDates.push(itemFound)
-                }
-            }
+        if (magentoYear <= myDateYear && magentoMonth <= myDateMonth && magentoDay < myDateDay) {
+            let itemFound = { 'SKU': specialDates[i]['SKU'] }
+            expiredDates.push(itemFound)
         }
     }
     // Creating styles for excel sheet being output
