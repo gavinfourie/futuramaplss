@@ -101,15 +101,16 @@ router.get('/compare', (req, res) => {
     let myDateDay = DateTime.local().day
     let myDateMonth = DateTime.local().month
     let myDateYear = DateTime.local().year
-    console.log(myDateYear)
-    console.log(myDateMonth)
-    console.log(myDateDay)
     for (var item in magentoInStock) {
         if (magentoInStock[item]['Special Price']) {
             let itemFound = { 'SKU': magentoInStock[item]['SKU'], 
             'Date': magentoInStock[item]['Special Price To Date'] }
             specialDates.push(itemFound)
         }
+    }
+    for (var i = 0; i < specialDates.length; i++) {
+        let magentoYear = specialDates[i]['Date'].slice(0, 3)
+        console.log(magentoYear)
     }
     // Creating styles for excel sheet being output
     const styles = {
