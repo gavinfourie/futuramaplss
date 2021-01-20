@@ -119,7 +119,13 @@ router.get('/compare', (req, res) => {
         magentoMonth = Number(magentoMonth)
         let magentoDay = specialDates[i]['Date'].slice(8, 10)
         magentoDay = Number(magentoDay)
-        if (magentoYear <= myDateYear && magentoMonth <= myDateMonth && magentoDay < myDateDay) {
+        if (magentoYear < myDateYear) {
+            let itemFound = { 'SKU': specialDates[i]['SKU'] }
+            expiredDates.push(itemFound)
+        } else if (magentoYear <= myDateYear && magentoMonth < myDateMonth) {
+            let itemFound = { 'SKU': specialDates[i]['SKU'] }
+            expiredDates.push(itemFound)
+        } else if (magentoYear <= myDateYear && magentoMonth <= myDateMonth && magentoDay < myDateDay) {
             let itemFound = { 'SKU': specialDates[i]['SKU'] }
             expiredDates.push(itemFound)
         }
