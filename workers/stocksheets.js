@@ -157,7 +157,7 @@ router.get('/compare', (req, res) => {
             headerStyle: styles.headerDark,
             width: 240
         }
-    },
+    }
     // Build excel file to export all data
     const sending = toexcel.buildExport(
         [
