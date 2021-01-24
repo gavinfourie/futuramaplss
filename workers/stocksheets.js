@@ -95,10 +95,9 @@ router.get('/compare', (req, res) => {
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
     // Find array of items to make in stock
     let inStock = _.difference(dearSKU, magentoSKU)
-    console.log('in', inStock)
     // Create items correctly
     for (let i = 0; i < inStock.length; i++) {
-        let item = { 'SKU': inStock[i]['SKU'] }
+        let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['ProductName'] }
         changeToIn.push(item)
     }
     let myDateDay = DateTime.local().day
@@ -158,7 +157,7 @@ router.get('/compare', (req, res) => {
             headerStyle: styles.headerDark,
             width: 240
         }
-    }
+    },
     // Build excel file to export all data
     const sending = toexcel.buildExport(
         [
