@@ -81,12 +81,11 @@ router.post('/dear', (req, res, next) => {
 
 // Start comparison
 router.get('/compare', (req, res) => {
-    console.log('mageIn', magentoInStock)
     // Find Items to change to out of stock
     for (let i = 0; i < dearOutStock.length; i++) {
         for (let x = 0; x < magentoInStock.length; x++) {
             if (dearOutStock[i].SKU === magentoInStock[x].SKU) {
-                let item = { 'SKU': magentoInStock[x].SKU }
+                let item = { 'SKU': magentoInStock[x].SKU, 'Description': magentoInStock[x].title }
                 changeToOut.push(item)
             }
         }
@@ -96,6 +95,7 @@ router.get('/compare', (req, res) => {
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
     // Find array of items to make in stock
     let inStock = _.difference(dearSKU, magentoSKU)
+    console.log('in', inStock)
     // Create items correctly
     for (let i = 0; i < inStock.length; i++) {
         let item = { 'SKU': inStock[i]['SKU'] }
@@ -152,6 +152,11 @@ router.get('/compare', (req, res) => {
             displayName: 'SKU',
             headerStyle: styles.headerDark,
             width: 120
+        },
+        'Description': {
+            displayName: 'Description',
+            headerStyle: styles.headerDark,
+            width: 240
         }
     }
     // Build excel file to export all data
