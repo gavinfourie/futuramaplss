@@ -81,6 +81,7 @@ router.post('/dear', (req, res, next) => {
 
 // Start comparison
 router.get('/compare', (req, res) => {
+    console.log('mageIn', magentoInStock)
     // Find Items to change to out of stock
     for (let i = 0; i < dearOutStock.length; i++) {
         for (let x = 0; x < magentoInStock.length; x++) {
@@ -103,7 +104,6 @@ router.get('/compare', (req, res) => {
     let myDateDay = DateTime.local().day
     let myDateMonth = DateTime.local().month
     let myDateYear = DateTime.local().year
-    console.log(typeof myDateYear)
     for (var item in magentoInStock) {
         if (magentoInStock[item]['Special Price To Date']) {
             let itemFound = { 'SKU': magentoInStock[item]['SKU'], 
@@ -114,7 +114,6 @@ router.get('/compare', (req, res) => {
     for (var i = 0; i < specialDates.length; i++) {
         let magentoYear = specialDates[i]['Date'].slice(0, 4)
         magentoYear = Number(magentoYear)
-        console.log(typeof magentoYear)
         let magentoMonth = specialDates[i]['Date'].slice(5, 7)
         magentoMonth = Number(magentoMonth)
         let magentoDay = specialDates[i]['Date'].slice(8, 10)
