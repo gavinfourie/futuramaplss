@@ -105,26 +105,45 @@ router.get('/compare', (req, res) => {
     let myDateYear = DateTime.local().year
     for (var item in magentoInStock) {
         if (magentoInStock[item]['Special Price To Date']) {
-            let itemFound = { 'SKU': magentoInStock[item]['SKU'], 
-            'Date': magentoInStock[item]['Special Price To Date'] }
+            let itemFound = { 'SKU': magentoInStock[item]['SKU'],
+            'Description': magentoInStock[item].title,
+            'Normal Price': magentoInStock[item].Price,
+            'Special Price': magentoInStock[item]['Special Price'],
+            'Start Date': magentoInStock[item]['Special Price From Date'],
+            'End Date': magentoInStock[item]['Special Price To Date'] }
             specialDates.push(itemFound)
         }
     }
     for (var i = 0; i < specialDates.length; i++) {
-        let magentoYear = specialDates[i]['Date'].slice(0, 4)
+        let magentoYear = specialDates[i]['End Date'].slice(0, 4)
         magentoYear = Number(magentoYear)
-        let magentoMonth = specialDates[i]['Date'].slice(5, 7)
+        let magentoMonth = specialDates[i]['End Date'].slice(5, 7)
         magentoMonth = Number(magentoMonth)
-        let magentoDay = specialDates[i]['Date'].slice(8, 10)
+        let magentoDay = specialDates[i]['End Date'].slice(8, 10)
         magentoDay = Number(magentoDay)
         if (magentoYear < myDateYear) {
-            let itemFound = { 'SKU': specialDates[i]['SKU'] }
+            let itemFound = { 'SKU': specialDates[i]['SKU'],
+            'Description': specialDates[i].Description,
+            'Normal Price': specialDates[i]['Normal Price'],
+            'Special Price': specialDates[i]['Special Price'],
+            'Start Date': specialDates[i]['Start Date'],
+            'End Date': specialDates[i]['End Date'] }
             expiredDates.push(itemFound)
         } else if (magentoYear <= myDateYear && magentoMonth < myDateMonth) {
-            let itemFound = { 'SKU': specialDates[i]['SKU'] }
+            let itemFound = { 'SKU': specialDates[i]['SKU'],
+            'Description': specialDates[i].Description,
+            'Normal Price': specialDates[i]['Normal Price'],
+            'Special Price': specialDates[i]['Special Price'],
+            'Start Date': specialDates[i]['Start Date'],
+            'End Date': specialDates[i]['End Date'] }
             expiredDates.push(itemFound)
         } else if (magentoYear <= myDateYear && magentoMonth <= myDateMonth && magentoDay < myDateDay) {
-            let itemFound = { 'SKU': specialDates[i]['SKU'] }
+            let itemFound = { 'SKU': specialDates[i]['SKU'],
+            'Description': specialDates[i].Description,
+            'Normal Price': specialDates[i]['Normal Price'],
+            'Special Price': specialDates[i]['Special Price'],
+            'Start Date': specialDates[i]['Start Date'],
+            'End Date': specialDates[i]['End Date'] }
             expiredDates.push(itemFound)
         }
     }
@@ -150,12 +169,44 @@ router.get('/compare', (req, res) => {
         'SKU': {
             displayName: 'SKU',
             headerStyle: styles.headerDark,
-            width: 120
+            width: 240
         },
         'Description': {
             displayName: 'Description',
             headerStyle: styles.headerDark,
+            width: 480
+        }
+    }
+    const specificationP = {
+        'SKU': {
+            displayName: 'SKU',
+            headerStyle: styles.headerDark,
             width: 240
+        },
+        'Description': {
+            displayName: 'Description',
+            headerStyle: styles.headerDark,
+            width: 480
+        },
+        'Normal Price': {
+            displayName: 'Normal Price',
+            headerStyle: styles.headerDark,
+            width: 120
+        },
+        'Special Price': {
+            displayName: 'Special Price',
+            headerStyle: styles.headerDark,
+            width: 120
+        },
+        'Start Date': {
+            displayName: 'Start Date',
+            headerStyle: styles.headerDark,
+            width: 240
+        },
+        'End Date': {
+            displayName: 'End Date',
+            headerStyle: styles.headerDark,
+            width: 480
         }
     }
     // Build excel file to export all data
@@ -173,7 +224,7 @@ router.get('/compare', (req, res) => {
             },
             {
                 name: 'Special Pricing Ended',
-                specification: specification,
+                specification: specificationP,
                 data: expiredDates
             }
         ]
