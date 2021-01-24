@@ -201,12 +201,12 @@ router.get('/compare', (req, res) => {
         'Start Date': {
             displayName: 'Start Date',
             headerStyle: styles.headerDark,
-            width: 120
+            width: 160
         },
         'End Date': {
             displayName: 'End Date',
             headerStyle: styles.headerDark,
-            width: 120
+            width: 160
         }
     }
     // Build excel file to export all data
