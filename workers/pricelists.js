@@ -6,6 +6,8 @@ const _ = require('lodash');
 const xtj = require('convert-excel-to-json');
 const toexcel = require('node-excel-export');
 let priceChanges = []
+let oldJfile
+let newJfile
 let oldItems = []
 let newItems = []
 
@@ -23,27 +25,25 @@ router.post('/', (req, res, next) => {
     // Have formidable extract excel file into json array
     form.parse(req, (err, fields, files) => {
         let sfile = files['old-sheet'].path
-        let jfile = xtj({
+        oldJfile = xtj({
           sourceFile: sfile,
           columnToKey: {
             '*': '{{columnHeader}}'
           }
         })
-        // Newly added
-        res.send('Starting first sheet')
-        for (var sheet in jfile) {
-          for (var item in jfile[sheet]) {
-            // Look for any item with a price of more than 0 (Items with a price of zero are generally discontinued)
-            if (jfile[sheet][item]['Cost (ex VAT)'] > 0){
-                oldItems.push(jfile[sheet][item])
-            }
-          }
-        }
         res.redirect('/pricelists/new')
     })
 })
 
 router.get('/new', (req, res) => {
+    for (var sheet in oldJfile) {
+          for (var item in oldJfile[sheet]) {
+            // Look for any item with a price of more than 0 (Items with a price of zero are generally discontinued)
+            if (oldJfile[sheet][item]['Cost (ex VAT)'] > 0){
+                oldItems.push(oldJfile[sheet][item])
+            }
+        }
+    }
     res.render('pricelistnew')
 })
 
@@ -53,23 +53,25 @@ router.post('/new', (req, res, next) => {
 
   form.parse(req, (err, fields, files) => {
       let sfile = files['new-sheet'].path
-      let jfile = xtj({
+      newJfile = xtj({
         sourceFile: sfile,
         columnToKey: {
           '*': '{{columnHeader}}'
         }
       })
-      // Newly added
-      res.send('Starting second sheet')
-      for (var sheet in jfile) {
-        for (var item in jfile[sheet]) {
-          if (jfile[sheet][item]['Cost (ex VAT)'] > 0){
-              newItems.push(jfile[sheet][item])
+      res.redirect('/pricelists/newprocess')
+  })
+})
+
+router.get('/newprocess', (req, res) => {
+    for (var sheet in newJfile) {
+        for (var item in newJfile[sheet]) {
+          if (newJfile[sheet][item]['Cost (ex VAT)'] > 0){
+              newItems.push(newJfile[sheet][item])
           }
         }
       }
-      res.redirect('/pricelists/compare')
-  })
+    res.redirect('/pricelists/compare')
 })
 
 // Start comparison
@@ -81,8 +83,6 @@ router.get('/compare', (req, res) => {
     let finalOld = _.uniqBy(oldItems, 'SKU')
     let oldDuplicate = _.difference(oldItems, finalOld)
     let oldNumbers = []
-    // Newly added
-    res.send('Starting comparison')
     // Create new array without the duplicates
     for (let i = 0; i < finalOld.length; i++) {
         let itemCode = finalOld[i]['SKU']
