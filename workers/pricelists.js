@@ -29,6 +29,8 @@ router.post('/', (req, res, next) => {
             '*': '{{columnHeader}}'
           }
         })
+        // Newly added
+        res.send('Starting first sheet')
         for (var sheet in jfile) {
           for (var item in jfile[sheet]) {
             // Look for any item with a price of more than 0 (Items with a price of zero are generally discontinued)
@@ -57,6 +59,8 @@ router.post('/new', (req, res, next) => {
           '*': '{{columnHeader}}'
         }
       })
+      // Newly added
+      res.send('Starting second sheet')
       for (var sheet in jfile) {
         for (var item in jfile[sheet]) {
           if (jfile[sheet][item]['Cost (ex VAT)'] > 0){
@@ -77,6 +81,8 @@ router.get('/compare', (req, res) => {
     let finalOld = _.uniqBy(oldItems, 'SKU')
     let oldDuplicate = _.difference(oldItems, finalOld)
     let oldNumbers = []
+    // Newly added
+    res.send('Starting comparison')
     // Create new array without the duplicates
     for (let i = 0; i < finalOld.length; i++) {
         let itemCode = finalOld[i]['SKU']
