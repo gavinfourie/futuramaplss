@@ -52,12 +52,20 @@ router.post('/', (req, res, next) => {
             }
           }
         }
-        res.redirect('/stocksheets/dear')
+        res.redirect('/stocksheets/choice')
     })
+})
+
+router.get('/choice', (req, res) => {
+    res.render('choice')
 })
 
 router.get('/dear', (req, res) => {
     res.render('stocksheetdear')
+})
+
+router.get('/dylan', (req, res) => {
+    res.render('stocksheetdylan')
 })
 
 // Start uploading new sheet
@@ -73,6 +81,31 @@ router.post('/dear', (req, res, next) => {
       for (var sheet in jfile) {
           for (var item in jfile[sheet]) {
             if (jfile[sheet][item].Available > 0){
+                dearInStock.push(jfile[sheet][item])
+            } else {
+                dearOutStock.push(jfile[sheet][item])
+            }
+          }
+        }
+      res.redirect('/stocksheets/compare')
+  })
+})
+
+// Start uploading new sheet
+router.post('/dylan', (req, res, next) => {
+  const form = new formidable.IncomingForm()
+
+  form.parse(req, async (err, fields, files) => {
+      let sfile = files['dylan-sheet'].path
+      let jfile = xtj({
+        sourceFile: sfile,
+        columnToKey: {
+            '*': '{{columnHeader}}'
+        }
+        })
+      for (var sheet in jfile) {
+          for (var item in jfile[sheet]) {
+            if (jfile[sheet][item].SOH > 0){
                 dearInStock.push(jfile[sheet][item])
             } else {
                 dearOutStock.push(jfile[sheet][item])

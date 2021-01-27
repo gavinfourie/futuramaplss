@@ -1,0 +1,18 @@
+doctype html
+html
+    head
+        title Choose
+        style
+          include ../css/main.css
+    body.centered-wrapper
+        div.centered-content
+          h1 Are you uploading the dear sheet or Dylan's sheet?
+
+          p Please select an option below:
+          br
+          button(type="submit" onclick="ChooseDear()") The Dear Sheet
+          br
+          button.spaceAbove(type="submit" onclick="ChooseDylan()") Dylan's Sheet
+
+        script
+            include ../js/choice.js
