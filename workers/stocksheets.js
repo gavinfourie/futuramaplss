@@ -101,6 +101,7 @@ router.get('/compare', (req, res) => {
         let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['ProductName'] }
         changeToIn.push(item)
     }
+    console.log("Length: ", changeToIn.length)
     let myDateDay = DateTime.local().day
     let myDateMonth = DateTime.local().month
     let myDateYear = DateTime.local().year
