@@ -72,7 +72,7 @@ router.post('/dear', (req, res, next) => {
        })
       for (var sheet in jfile) {
           for (var item in jfile[sheet]) {
-            if (jfile[sheet][item].OnHand > 0){
+            if (jfile[sheet][item].Available > 0){
                 dearInStock.push(jfile[sheet][item])
             } else {
                 dearOutStock.push(jfile[sheet][item])
@@ -94,18 +94,17 @@ router.get('/compare', (req, res) => {
             }
         }
     }
-    // Make arrays of only SKU row
+    // Make arrays of no duplicates
     let magentoSKU = _.uniqBy(magentoInStock, 'SKU')
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
     // Find array of items to make in stock
-    let inStock = _.difference(dearSKU, magentoSKU)
+    let inStock = _.differenceBy(magentoSKU, dearSKU)
     // Create items correctly
     for (let i = 0; i < inStock.length; i++) {
         let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['ProductName'] }
         tempChangeToIn.push(item)
     }
     changeToIn = _.uniqBy(tempChangeToIn, 'SKU')
-    console.log("Length: ", changeToIn.length)
     let myDateDay = DateTime.local().day
     let myDateMonth = DateTime.local().month
     let myDateYear = DateTime.local().year
