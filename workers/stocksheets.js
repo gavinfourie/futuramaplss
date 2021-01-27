@@ -11,6 +11,7 @@ let magentoInStock = []
 let dearInStock = []
 let dearOutStock = []
 let changeToOut = []
+let tempChangeToIn = []
 let changeToIn = []
 let specialDates = []
 let expiredDates = []
@@ -24,6 +25,7 @@ router.get('/', (req, res) => {
     changeToIn = []
     specialDates = []
     expiredDates = []
+    tempChangeToIn = []
     res.render('stocksheethome')
 })
 
@@ -99,8 +101,9 @@ router.get('/compare', (req, res) => {
     // Create items correctly
     for (let i = 0; i < inStock.length; i++) {
         let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['ProductName'] }
-        changeToIn.push(item)
+        tempChangeToIn.push(item)
     }
+    let changeToIn = _.uniqBy(tempChangeToIn, 'SKU')
     console.log("Length: ", changeToIn.length)
     let myDateDay = DateTime.local().day
     let myDateMonth = DateTime.local().month
