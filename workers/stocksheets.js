@@ -97,7 +97,6 @@ router.get('/compare', (req, res) => {
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
     // Find array of items to make in stock
     let inStock = _.difference(dearSKU, magentoSKU)
-    console.log(inStock)
     // Create items correctly
     for (let i = 0; i < inStock.length; i++) {
         let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['ProductName'] }
