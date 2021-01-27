@@ -15,6 +15,7 @@ let tempChangeToIn = []
 let changeToIn = []
 let specialDates = []
 let expiredDates = []
+let finalExpiredDates = []
 
 // Visiting stock sheet home clears all variables and renders home stocksheet page
 router.get('/', (req, res) => {
@@ -26,6 +27,7 @@ router.get('/', (req, res) => {
     specialDates = []
     expiredDates = []
     tempChangeToIn = []
+    finalExpiredDates = []
     res.render('stocksheethome')
 })
 
@@ -102,7 +104,7 @@ router.get('/compare', (req, res) => {
         let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['ProductName'] }
         tempChangeToIn.push(item)
     }
-    let changeToIn = _.uniqBy(tempChangeToIn, 'SKU')
+    changeToIn = _.uniqBy(tempChangeToIn, 'SKU')
     console.log("Length: ", changeToIn.length)
     let myDateDay = DateTime.local().day
     let myDateMonth = DateTime.local().month
@@ -151,6 +153,7 @@ router.get('/compare', (req, res) => {
             expiredDates.push(itemFound)
         }
     }
+    finalExpiredDates = _.uniqBy(expiredDates, 'SKU')
     // Creating styles for excel sheet being output
     const styles = {
         headerDark: {
@@ -229,7 +232,7 @@ router.get('/compare', (req, res) => {
             {
                 name: 'Special Pricing Ended',
                 specification: specificationP,
-                data: expiredDates
+                data: finalExpiredDates
             }
         ]
     )
