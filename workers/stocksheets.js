@@ -101,7 +101,7 @@ router.get('/compare', (req, res) => {
     let inStock = _.differenceBy(magentoSKU, dearSKU)
     // Create items correctly
     for (let i = 0; i < inStock.length; i++) {
-        let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['ProductName'] }
+        let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['title'] }
         tempChangeToIn.push(item)
     }
     changeToIn = _.uniqBy(tempChangeToIn, 'SKU')
