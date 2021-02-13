@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title Second Sheet
+    style
+      include ../css/main.css
+  body.centered-wrapper
+    div.centered-content
+      h1 Second Sheet
+      p Please upload the second stock sheet output here:
+      form(action="/stocksheetcompare/second", enctype="multipart/form-data", method="post")
+        input(type="file", name="second-sheet", multiple="multiple")
+        input(type="submit", value="Upload")
+      br
+      p Warning, do not click the following button until the process has completed and your sheet has been downloaded!
+      br
+      button(type="submit" onclick="home()") Back to home...
+
+    script
+      include ../js/pricelist.js

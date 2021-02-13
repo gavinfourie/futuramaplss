@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    title First Output
+    style
+      include ../css/main.css
+      
+  body.centered-wrapper
+    div.centered-content
+      h1 First Output
+      p Please upload the first stock sheet output here:
+      form(action="/stocksheetcompare", enctype="multipart/form-data", method="post")
+        input(type="file", name="first-sheet", multiple="multiple")
+        input(type="submit", value="Upload")
