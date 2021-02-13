@@ -16,6 +16,7 @@ let changeToIn = []
 let specialDates = []
 let expiredDates = []
 let finalExpiredDates = []
+let schalkIn = []
 
 // Visiting stock sheet home clears all variables and renders home stocksheet page
 router.get('/', (req, res) => {
@@ -28,6 +29,7 @@ router.get('/', (req, res) => {
     expiredDates = []
     tempChangeToIn = []
     finalExpiredDates = []
+    schalkIn = []
     res.render('stocksheethome')
 })
 
@@ -87,7 +89,7 @@ router.post('/dear', (req, res, next) => {
             }
           }
         }
-      res.redirect('/stocksheets/compare')
+      res.redirect('/stocksheets/schalk')
   })
 })
 
@@ -112,8 +114,30 @@ router.post('/dylan', (req, res, next) => {
             }
           }
         }
-      res.redirect('/stocksheets/compare')
+      res.redirect('/stocksheets/schalk')
   })
+})
+
+router.get('/schalk', (req, res) => {
+    res.render('schalk')
+})
+
+router.post('/schalk', (req, res) => {
+    let sfile = files['schalk-sheet'].path
+    let jfile = xtj({
+        sourceFile: sfile,
+        columnToKey: {
+            '*': '{{columnHeader}}'
+        }
+    })
+    for (var sheet in jfile) {
+        for (var item in jfile[sheet]) {
+            if (jfile[sheet][item].Quantity > 0){
+                schalkIn.push(jfile[sheet][item])
+            }
+        }
+    }
+    res.redirect('/stocksheets/compare')
 })
 
 // Start comparison
@@ -133,9 +157,22 @@ router.get('/compare', (req, res) => {
     // Find array of items to make in stock
     let inStock = _.differenceBy(dearSKU, magentoSKU, 'SKU')
     // Create items correctly
+    for (let i = 0; i < schalkIn.length; i++) {
+        for (let x = 0; x < inStock.length; x++) {
+            if (schalkIn[i].SKU === inStock[x].SKU) {
+                if (inStock[x].Available) {
+                    inStock[x].Available = inStock[x].Available - schalkIn[i].Quantity
+                } else {
+                    inStock[x].SOH = inStock[x].SOH - schalkIn[i].Quantity
+                }
+            }
+        }
+    }
     for (let i = 0; i < inStock.length; i++) {
-        let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['Description'] }
-        tempChangeToIn.push(item)
+        if (inStock[i].Available > 0 || inStock[i].SOH > 0) {
+            let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['Description'] }
+            tempChangeToIn.push(item)
+        }
     }
     changeToIn = _.uniqBy(tempChangeToIn, 'SKU')
     let myDateDay = DateTime.local().day
