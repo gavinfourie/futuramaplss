@@ -122,22 +122,26 @@ router.get('/schalk', (req, res) => {
     res.render('schalk')
 })
 
-router.post('/schalk', (req, res) => {
-    let sfile = files['schalk-sheet'].path
-    let jfile = xtj({
-        sourceFile: sfile,
-        columnToKey: {
-            '*': '{{columnHeader}}'
-        }
-    })
-    for (var sheet in jfile) {
-        for (var item in jfile[sheet]) {
-            if (jfile[sheet][item].Quantity > 0){
-                schalkIn.push(jfile[sheet][item])
+router.post('/schalk', (req, res, next) => {
+    const form = new formidable.IncomingForm()
+
+    form.parse(req, async (err, fields, files) => {
+        let sfile = files['schalk-sheet'].path
+        let jfile = xtj({
+            sourceFile: sfile,
+            columnToKey: {
+                '*': '{{columnHeader}}'
+            }
+        })
+        for (var sheet in jfile) {
+            for (var item in jfile[sheet]) {
+                if (jfile[sheet][item].Quantity > 0){
+                    schalkIn.push(jfile[sheet][item])
+                }
             }
         }
-    }
-    res.redirect('/stocksheets/compare')
+        res.redirect('/stocksheets/compare')
+    })
 })
 
 // Start comparison
