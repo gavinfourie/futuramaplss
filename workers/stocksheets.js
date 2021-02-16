@@ -174,8 +174,13 @@ router.get('/compare', (req, res) => {
     }
     for (let i = 0; i < inStock.length; i++) {
         if (inStock[i].Available > 0 || inStock[i].SOH > 0) {
-            let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['Description'] }
-            tempChangeToIn.push(item)
+            if (inStock[i].ProductName) {
+                let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i].ProductName }
+                tempChangeToIn.push(item)
+            } else if (inStock[i]['Product Name']) {
+                let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['Product Name'] }
+                tempChangeToIn.push(item)
+            }
         }
     }
     changeToIn = _.uniqBy(tempChangeToIn, 'SKU')
