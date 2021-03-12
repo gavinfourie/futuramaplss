@@ -160,7 +160,7 @@ router.get('/compare', (req, res) => {
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
     // Find array of items to make in stock
     let inStock = _.differenceBy(dearSKU, magentoSKU, 'SKU')
-    console.log(magentoSKU)
+    console.log(dearSKU)
     // Create items correctly
     /**for (let i = 0; i < schalkIn.length; i++) {
         for (let x = 0; x < inStock.length; x++) {
