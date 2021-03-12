@@ -114,7 +114,7 @@ router.post('/dylan', (req, res, next) => {
             }
           }
         }
-      res.redirect('/stocksheets/schalk')
+      res.redirect('/stocksheets/compare')
   })
 })
 
@@ -161,7 +161,7 @@ router.get('/compare', (req, res) => {
     // Find array of items to make in stock
     let inStock = _.differenceBy(dearSKU, magentoSKU, 'SKU')
     // Create items correctly
-    for (let i = 0; i < schalkIn.length; i++) {
+    /**for (let i = 0; i < schalkIn.length; i++) {
         for (let x = 0; x < inStock.length; x++) {
             if (schalkIn[i].SKU === inStock[x].SKU) {
                 if (inStock[x].Available) {
@@ -171,7 +171,7 @@ router.get('/compare', (req, res) => {
                 }
             }
         }
-    }
+    }**/
     for (let i = 0; i < inStock.length; i++) {
         if (inStock[i].Available > 0 || inStock[i].SOH > 0) {
             if (inStock[i].ProductName) {
