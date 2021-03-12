@@ -89,7 +89,7 @@ router.post('/dear', (req, res, next) => {
             }
           }
         }
-      res.redirect('/stocksheets/schalk')
+      res.redirect('/stocksheets/compare')
   })
 })
 
