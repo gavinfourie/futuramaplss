@@ -17,6 +17,7 @@ let specialDates = []
 let expiredDates = []
 let finalExpiredDates = []
 let schalkIn = []
+let removals = []
 
 // Visiting stock sheet home clears all variables and renders home stocksheet page
 router.get('/', (req, res) => {
@@ -30,6 +31,7 @@ router.get('/', (req, res) => {
     tempChangeToIn = []
     finalExpiredDates = []
     schalkIn = []
+    removals = []
     res.render('stocksheethome')
 })
 
@@ -87,6 +89,28 @@ router.post('/dear', (req, res, next) => {
             } else {
                 dearOutStock.push(jfile[sheet][item])
             }
+          }
+        }
+      res.redirect('/stocksheets/removals')
+  })
+})
+
+router.get('/removals', (req, res) => {
+    res.render('removals')
+})
+
+router.post('/removals', (req, res, next) => {
+  const form = new formidable.IncomingForm()
+
+  form.parse(req, async (err, fields, files) => {
+      let sfile = files['removals-sheet'].path
+      let jfile = []
+      await csv().fromFile(sfile).then(async(jsonObj)=>{
+        await jfile.push(jsonObj)
+       })
+      for (var sheet in jfile) {
+          for (var item in jfile[sheet]) {
+            removals.push(jfile[sheet][item])
           }
         }
       res.redirect('/stocksheets/compare')
@@ -155,12 +179,13 @@ router.get('/compare', (req, res) => {
             }
         }
     }
+    let finalOut = _.uniqBy(changeToOut, 'SKU')
     // Make arrays of no duplicates
     let magentoSKU = _.uniqBy(magentoInStock, 'SKU')
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
     // Find array of items to make in stock
     let inStock = _.differenceBy(dearSKU, magentoSKU, 'SKU')
-    console.log(dearSKU)
+    inStock = _.differenceBy(inStock, removals, 'SKU')
     // Create items correctly
     /**for (let i = 0; i < schalkIn.length; i++) {
         for (let x = 0; x < inStock.length; x++) {
@@ -301,7 +326,7 @@ router.get('/compare', (req, res) => {
             {
                 name: 'Now Out Of Stock',
                 specification: specification,
-                data: changeToOut
+                data: finalOut
             },
             {
                 name: 'Now In Stock',
