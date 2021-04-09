@@ -91,6 +91,7 @@ router.post('/dear', (req, res, next) => {
             }
           }
         }
+        console.log("dear", dearOutStock)
       res.redirect('/stocksheets/removals')
   })
 })
@@ -180,7 +181,6 @@ router.get('/compare', (req, res) => {
         }
     }
     let finalOut = _.uniqBy(changeToOut, 'SKU')
-    console.log("Out of stock", finalOut)
     // Make arrays of no duplicates
     let magentoSKU = _.uniqBy(magentoInStock, 'SKU')
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
