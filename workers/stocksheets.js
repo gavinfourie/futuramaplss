@@ -53,6 +53,7 @@ router.post('/', (req, res, next) => {
           for (var item in jfile[sheet]) {
             if (jfile[sheet][item]['In Stock'] === 'In Stock'){
                 magentoInStock.push(jfile[sheet][item])
+                console.log('mageInStock', magentoInStock)
             }
           }
         }
@@ -134,8 +135,10 @@ router.post('/dylan', (req, res, next) => {
           for (var item in jfile[sheet]) {
             if (jfile[sheet][item].SOH > 0 && jfile[sheet][item]['Product Name'].length > 1){
                 dearInStock.push(jfile[sheet][item])
+                console.log('Dylan In', dearInStock)
             } else {
                 dearOutStock.push(jfile[sheet][item])
+                console.log('Dylan Out', dearOutStock)
             }
           }
         }
