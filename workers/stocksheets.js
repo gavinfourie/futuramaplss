@@ -182,8 +182,15 @@ router.get('/compare', (req, res) => {
     }**/
     let tempChangeToOut = _.intersectionBy(dearOutStock, magentoInStock, 'SKU')
     for (let i = 0; i < tempChangeToOut.length; i++) {
-        let item = { 'SKU': tempChangeToOut[i].SKU, 'Description': tempChangeToOut[i].title }
-        changeToOut.push(item)
+        if (tempChangeToOut[i].title) {
+            let item = { 'SKU': tempChangeToOut[i]['SKU'], 'Description': tempChangeToOut[i].title }
+            changeToOut.push(item)
+        } else if (tempChangeToOut[i]['Product Name']) {
+            let item = { 'SKU': tempChangeToOut[i]['SKU'], 'Description': tempChangeToOut[i]['Product Name'] }
+            changeToOut.push(item)
+        }
+        //let item = { 'SKU': tempChangeToOut[i].SKU, 'Description': tempChangeToOut[i].title }
+        //changeToOut.push(item)
     }
     let finalOut = _.uniqBy(changeToOut, 'SKU')
     // Make arrays of no duplicates
