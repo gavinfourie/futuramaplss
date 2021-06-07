@@ -68,7 +68,7 @@ router.post('/', (req, res, next) => {
         }*/
         for (var sheet in tempMagentoInStock) {
             for (var item in tempMagentoInStock[sheet]) {
-                if (tempMagentoInStock[sheet][item]['In Stock'] == 'In Stock') {
+                if (tempMagentoInStock[sheet][item]['In Stock'] === 'In Stock') {
                     magentoInStock.push(tempMagentoInStock[item])
                 }
             }
