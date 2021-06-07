@@ -151,10 +151,8 @@ router.post('/dylan', (req, res, next) => {
           for (var item in jfile[sheet]) {
             if (jfile[sheet][item].SOH > 0 && jfile[sheet][item]['Product Name'].length > 1){
                 dearInStock.push(jfile[sheet][item])
-                console.log('Dylan In', dearInStock)
             } else {
                 dearOutStock.push(jfile[sheet][item])
-                console.log('Dylan Out', dearOutStock)
             }
           }
         }
@@ -200,7 +198,6 @@ router.get('/compare', (req, res) => {
         }
     }**/
     let tempChangeToOut = _.intersectionBy(dearOutStock, magentoInStock, 'SKU')
-    console.log('tempChangeToOut', tempChangeToOut)
     for (let i = 0; i < tempChangeToOut.length; i++) {
         if (tempChangeToOut[i].title) {
             let item = { 'SKU': tempChangeToOut[i]['SKU'], 'Description': tempChangeToOut[i].title }
