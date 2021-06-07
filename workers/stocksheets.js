@@ -46,7 +46,7 @@ router.post('/', (req, res, next) => {
         /**await csv().fromFile(sfile).then(async(jsonObj)=>{
             await jfile.push(jsonObj)
         })**/
-        let tempMagentoInStock
+        let tempMagentoInStock = []
         let jfile = await csv({
             delimiter: ';',
             ignoreEmpty: true,
