@@ -174,7 +174,8 @@ router.get('/compare', (req, res) => {
     // Find Items to change to out of stock
     for (let i = 0; i < dearOutStock.length; i++) {
         for (let x = 0; x < magentoInStock.length; x++) {
-            if (dearOutStock[i].SKU === magentoInStock[x].SKU) {
+            // if (dearOutStock[i].SKU === magentoInStock[x].SKU) {
+            if (dearOutStock[i].SKU == magentoInStock[x].SKU) {
                 let item = { 'SKU': magentoInStock[x].SKU, 'Description': magentoInStock[x].title }
                 changeToOut.push(item)
             }
@@ -185,8 +186,8 @@ router.get('/compare', (req, res) => {
     let magentoSKU = _.uniqBy(magentoInStock, 'SKU')
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
     // Find array of items to make in stock
-    let inStockPre = _.differenceBy(dearSKU, magentoSKU, 'SKU')
-    let inStock = _.differenceBy(inStockPre, removals, 'SKU')
+    let inStock = _.differenceBy(dearSKU, magentoSKU, 'SKU')
+    // let inStock = _.differenceBy(inStockPre, removals, 'SKU')
     // Create items correctly
     /**for (let i = 0; i < schalkIn.length; i++) {
         for (let x = 0; x < inStock.length; x++) {
@@ -201,8 +202,8 @@ router.get('/compare', (req, res) => {
     }**/
     for (let i = 0; i < inStock.length; i++) {
         if (inStock[i].Available > 0 || inStock[i].SOH > 0) {
-            if (inStock[i].ProductName) {
-                let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i].ProductName }
+            if (inStock[i].title) {
+                let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i].title }
                 tempChangeToIn.push(item)
             } else if (inStock[i]['Product Name']) {
                 let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['Product Name'] }
