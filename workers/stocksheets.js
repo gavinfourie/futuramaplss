@@ -172,21 +172,26 @@ router.post('/schalk', (req, res, next) => {
 // Start comparison
 router.get('/compare', (req, res) => {
     // Find Items to change to out of stock
-    for (let i = 0; i < dearOutStock.length; i++) {
+    /**for (let i = 0; i < dearOutStock.length; i++) {
         for (let x = 0; x < magentoInStock.length; x++) {
-            // if (dearOutStock[i].SKU === magentoInStock[x].SKU) {
-            if (dearOutStock[i].SKU == magentoInStock[x].SKU) {
+            if (dearOutStock[i].SKU === magentoInStock[x].SKU) {
                 let item = { 'SKU': magentoInStock[x].SKU, 'Description': magentoInStock[x].title }
                 changeToOut.push(item)
             }
         }
+    }**/
+    let tempChangeToOut = _.intersectionBy(dearOutStock, magentoInStock, 'SKU')
+    for (let i = 0; i < tempChangeToOut.length; i++) {
+        let item = { 'SKU': tempChangeToOut[i].SKU, 'Description': tempChangeToOut[i].title }
+        changeToOut.push(item)
     }
     let finalOut = _.uniqBy(changeToOut, 'SKU')
     // Make arrays of no duplicates
     let magentoSKU = _.uniqBy(magentoInStock, 'SKU')
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
     // Find array of items to make in stock
-    let inStock = _.differenceBy(dearSKU, magentoSKU, 'SKU')
+    let tempInStock = _.differenceBy(dearSKU, magentoSKU, 'SKU')
+    let inStock = _.pullAllBy(tempInStock, magentoSKU, 'SKU')
     // let inStock = _.differenceBy(inStockPre, removals, 'SKU')
     // Create items correctly
     /**for (let i = 0; i < schalkIn.length; i++) {
