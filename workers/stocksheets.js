@@ -5,6 +5,7 @@ const formidable = require('formidable');
 const _ = require('lodash');
 const xtj = require('convert-excel-to-json');
 const csv = require("csvtojson");
+let csvToJson = require('convert-csv-to-json');
 const toexcel = require('node-excel-export');
 let { DateTime } = require('luxon');
 let magentoInStock = []
@@ -42,9 +43,10 @@ router.post('/', (req, res, next) => {
     form.parse(req, async (err, fields, files) => {
         let sfile = files['magento-sheet'].path
         let jfile = []
-        await csv().fromFile(sfile).then(async(jsonObj)=>{
+        /**await csv().fromFile(sfile).then(async(jsonObj)=>{
             await jfile.push(jsonObj)
-        })
+        })**/
+        jfile = csvToJson.getJsonFromCsv(sfile)
         /*let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
         for (let i=0; i<json.length;i++) {
             console.log(json[i]);
