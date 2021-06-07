@@ -66,12 +66,13 @@ router.post('/', (req, res, next) => {
             }
           }
         }*/
+        console.log('tempMageStock', tempMagentoInStock)
         for (var item in tempMagentoInStock) {
-            if (tempMagentoInStock[item]['In Stock'] == 'In Stock') {
+            if (tempMagentoInStock[item]['In Stock'] === 'In Stock') {
                 magentoInStock.push(tempMagentoInStock[item])
             }
-            console.log('mageStock', magentoInStock)
         }
+        console.log('mageStock', magentoInStock)
         res.redirect('/stocksheets/choice')
     })
 })
