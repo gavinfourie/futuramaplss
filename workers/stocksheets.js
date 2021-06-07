@@ -73,7 +73,6 @@ router.post('/', (req, res, next) => {
                 }
             }
         }
-        console.log('mageStock', magentoInStock)
         res.redirect('/stocksheets/choice')
     })
 })
