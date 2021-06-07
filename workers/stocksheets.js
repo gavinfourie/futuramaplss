@@ -46,7 +46,10 @@ router.post('/', (req, res, next) => {
         /**await csv().fromFile(sfile).then(async(jsonObj)=>{
             await jfile.push(jsonObj)
         })**/
-        let jfile = await csv().fromFile(sfile)
+        const converter = csv({
+            delimiter: ";"
+        })
+        let jfile = await converter().fromFile(sfile)
         // jfile = csvToJson.getJsonFromCsv(sfile)
         /*let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
         for (let i=0; i<json.length;i++) {
