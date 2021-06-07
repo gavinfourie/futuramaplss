@@ -49,20 +49,23 @@ router.post('/', (req, res, next) => {
         let jfile = await csv({
             delimiter: ';',
             ignoreEmpty: true,
-        }).fromFile(sfile)
+        }).fromFile(sfile).then((jsonObj)=>{
+            magentoInStock.push(jsonObj)
+        })
         // jfile = csvToJson.getJsonFromCsv(sfile)
         /*let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
         for (let i=0; i<json.length;i++) {
             console.log(json[i]);
         }*/
-        for (var sheet in jfile) {
+        /*for (var sheet in jfile) {
           for (var item in jfile[sheet]) {
             if (jfile[sheet][item]) {
                 magentoInStock.push(jfile[sheet][item])
-                console.log('mageInStock', magentoInStock)
+                //console.log('mageInStock', magentoInStock)
             }
           }
-        }
+        }*/
+        console.log('mageStock', magentoInStock)
         res.redirect('/stocksheets/choice')
     })
 })
