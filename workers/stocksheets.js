@@ -46,7 +46,9 @@ router.post('/', (req, res, next) => {
         /**await csv().fromFile(sfile).then(async(jsonObj)=>{
             await jfile.push(jsonObj)
         })**/
-        let jfile = await csv().fromFile(sfile).then((jsonObj)=>{
+        let jfile = await csv({
+            delimiter: ';',
+        }).fromFile(sfile).then((jsonObj)=>{
             console.log(jsonObj)
         })
         // jfile = csvToJson.getJsonFromCsv(sfile)
