@@ -49,7 +49,7 @@ router.post('/', (req, res, next) => {
         const converter = csv({
             delimiter: ";",
         })
-        let jfile = await converter().fromFile(sfile)
+        let jfile = await csv(converter).fromFile(sfile)
         // jfile = csvToJson.getJsonFromCsv(sfile)
         /*let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
         for (let i=0; i<json.length;i++) {
