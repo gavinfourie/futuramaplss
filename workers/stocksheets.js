@@ -49,9 +49,7 @@ router.post('/', (req, res, next) => {
         let jfile = await csv({
             delimiter: ';',
             ignoreEmpty: true,
-        }).fromFile(sfile).then((jsonObj)=>{
-            console.log(jsonObj)
-        })
+        }).fromFile(sfile)
         // jfile = csvToJson.getJsonFromCsv(sfile)
         /*let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
         for (let i=0; i<json.length;i++) {
@@ -61,7 +59,7 @@ router.post('/', (req, res, next) => {
           for (var item in jfile[sheet]) {
             if (jfile[sheet][item]) {
                 magentoInStock.push(jfile[sheet][item])
-                //console.log('mageInStock', magentoInStock)
+                console.log('mageInStock', magentoInStock)
             }
           }
         }
