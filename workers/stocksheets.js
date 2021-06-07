@@ -47,7 +47,7 @@ router.post('/', (req, res, next) => {
             await jfile.push(jsonObj)
         })**/
         const converter = csv({
-            delimiter: ";"
+            delimiter: ";",
         })
         let jfile = await converter().fromFile(sfile)
         // jfile = csvToJson.getJsonFromCsv(sfile)
