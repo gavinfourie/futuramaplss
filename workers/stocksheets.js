@@ -46,11 +46,12 @@ router.post('/', (req, res, next) => {
         /**await csv().fromFile(sfile).then(async(jsonObj)=>{
             await jfile.push(jsonObj)
         })**/
+        let tempMagentoInStock
         let jfile = await csv({
             delimiter: ';',
             ignoreEmpty: true,
         }).fromFile(sfile).then((jsonObj)=>{
-            magentoInStock.push(jsonObj)
+            tempMagentoInStock.push(jsonObj)
         })
         // jfile = csvToJson.getJsonFromCsv(sfile)
         /*let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
@@ -65,6 +66,11 @@ router.post('/', (req, res, next) => {
             }
           }
         }*/
+        for (var item in tempMagentoInStock) {
+            if (item['In Stock'] === 'In Stock') {
+                magentoInStock.push(item)
+            }
+        }
         console.log('mageStock', magentoInStock)
         res.redirect('/stocksheets/choice')
     })
