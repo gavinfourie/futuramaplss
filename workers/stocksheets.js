@@ -67,9 +67,11 @@ router.post('/', (req, res, next) => {
           }
         }*/
         console.log('tempMageStock', tempMagentoInStock)
-        for (var item in tempMagentoInStock) {
-            if (tempMagentoInStock[item]['In Stock'] === 'In Stock') {
-                magentoInStock.push(tempMagentoInStock[item])
+        for (var sheet in tempMagentoInStock) {
+            for (var item in tempMagentoInStock[sheet]) {
+                if (tempMagentoInStock[sheet][item]['In Stock'] === 'In Stock') {
+                    magentoInStock.push(tempMagentoInStock[item])
+                }
             }
         }
         console.log('mageStock', magentoInStock)
