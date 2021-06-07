@@ -48,6 +48,7 @@ router.post('/', (req, res, next) => {
         })**/
         let jfile = await csv({
             delimiter: ';',
+            ignoreEmpty: true,
         }).fromFile(sfile).then((jsonObj)=>{
             console.log(jsonObj)
         })
