@@ -42,21 +42,12 @@ router.post('/', (req, res, next) => {
     // Have formidable extract excel file into json array
     form.parse(req, async (err, fields, files) => {
         let sfile = files['magento-sheet'].path
-        // let jfile = []
-        /**await csv().fromFile(sfile).then(async(jsonObj)=>{
-            await jfile.push(jsonObj)
-        })**/
         let tempMagentoInStock = []
         let jfile = await csv({
             ignoreEmpty: true,
         }).fromFile(sfile).then((jsonObj)=>{
             tempMagentoInStock.push(jsonObj)
         })
-        // jfile = csvToJson.getJsonFromCsv(sfile)
-        /*let json = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sfile);
-        for (let i=0; i<json.length;i++) {
-            console.log(json[i]);
-        }*/
         /*for (var sheet in jfile) {
           for (var item in jfile[sheet]) {
             if (jfile[sheet][item]) {
@@ -214,7 +205,6 @@ router.get('/compare', (req, res) => {
     // Find array of items to make in stock
     let tempInStock = _.differenceBy(dearSKU, magentoSKU, 'SKU')
     let inStock = tempInStock
-    _.pullAllBy(inStock, magentoSKU, 'SKU')
     // let inStock = _.differenceBy(inStockPre, removals, 'SKU')
     // Create items correctly
     /**for (let i = 0; i < schalkIn.length; i++) {
@@ -229,11 +219,8 @@ router.get('/compare', (req, res) => {
         }
     }**/
     for (let i = 0; i < inStock.length; i++) {
-        if (inStock[i].Available > 0 || inStock[i].SOH > 0) {
-            if (inStock[i].title) {
-                let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i].title }
-                tempChangeToIn.push(item)
-            } else if (inStock[i]['Product Name']) {
+        if (inStock[i].SOH > 0) {
+            if (inStock[i]['Product Name']) {
                 let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['Product Name'] }
                 tempChangeToIn.push(item)
             }
