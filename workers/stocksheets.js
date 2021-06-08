@@ -186,14 +186,12 @@ router.get('/compare', (req, res) => {
         }
     }**/
     let tempChangeToOut = magentoInStock
-    _.pullAllBy(dearOutStock, tempChangeToOut, 'SKU')
-    for (let i = 0; i < dearOutStock.length; i++) {
-        if (dearOutStock[i]['Product Name']) {
-            let item = { 'SKU': dearOutStock[i]['SKU'], 'Description': dearOutStock[i]['Product Name'] }
+    let protoOut = _.pullAllBy(tempChangeToOut, dearOutStock, 'SKU')
+    for (let i = 0; i < protoOut.length; i++) {
+        if (protoOut[i]['Product Name']) {
+            let item = { 'SKU': protoOut[i]['SKU'], 'Description': protoOut[i]['Product Name'] }
             changeToOut.push(item)
         }
-        //let item = { 'SKU': tempChangeToOut[i].SKU, 'Description': tempChangeToOut[i].title }
-        //changeToOut.push(item)
     }
     let finalOut = _.uniqBy(changeToOut, 'SKU')
     // Make arrays of no duplicates
@@ -204,23 +202,10 @@ router.get('/compare', (req, res) => {
     let inStock = tempInStock
     // let inStock = _.differenceBy(inStockPre, removals, 'SKU')
     // Create items correctly
-    /**for (let i = 0; i < schalkIn.length; i++) {
-        for (let x = 0; x < inStock.length; x++) {
-            if (schalkIn[i].SKU === inStock[x].SKU) {
-                if (inStock[x].Available) {
-                    inStock[x].Available = inStock[x].Available - schalkIn[i].Quantity
-                } else {
-                    inStock[x].SOH = inStock[x].SOH - schalkIn[i].Quantity
-                }
-            }
-        }
-    }**/
     for (let i = 0; i < inStock.length; i++) {
-        if (inStock[i].SOH > 0) {
-            if (inStock[i]['Product Name']) {
-                let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['Product Name'] }
-                tempChangeToIn.push(item)
-            }
+        if (inStock[i].title) {
+            let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i].title }
+            tempChangeToIn.push(item)
         }
     }
     changeToIn = _.uniqBy(tempChangeToIn, 'SKU')
