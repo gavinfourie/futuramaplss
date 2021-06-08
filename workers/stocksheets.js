@@ -71,6 +71,7 @@ router.post('/', (req, res, next) => {
                 magentoInStock.push(tempMagentoInStock[sheet][item])
             }
         }
+        console.log("mageIn", magentoInStock)
         res.redirect('/stocksheets/choice')
     })
 })
