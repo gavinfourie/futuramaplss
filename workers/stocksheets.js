@@ -196,6 +196,7 @@ router.get('/compare', (req, res) => {
         }
     }**/
     let tempChangeToOut = _.intersectionBy(dearOutStock, magentoInStock, 'SKU')
+    console.log("Temp Out", tempChangeToOut)
     for (let i = 0; i < tempChangeToOut.length; i++) {
         if (tempChangeToOut[i].title) {
             let item = { 'SKU': tempChangeToOut[i]['SKU'], 'Description': tempChangeToOut[i].title }
