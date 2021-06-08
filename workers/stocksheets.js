@@ -48,7 +48,6 @@ router.post('/', (req, res, next) => {
         })**/
         let tempMagentoInStock = []
         let jfile = await csv({
-            delimiter: ';',
             ignoreEmpty: true,
         }).fromFile(sfile).then((jsonObj)=>{
             tempMagentoInStock.push(jsonObj)
