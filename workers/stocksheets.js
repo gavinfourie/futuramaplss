@@ -71,7 +71,6 @@ router.post('/', (req, res, next) => {
             }
         }
         res.redirect('/stocksheets/choice')
-        console.log("Mage In", magentoInStock)
     })
 })
 
@@ -195,10 +194,8 @@ router.get('/compare', (req, res) => {
             }
         }
     }**/
-    console.log("Dear Out", dearOutStock)
     let tempChangeToOut = magentoInStock
     _.pullAllBy(tempChangeToOut, dearOutStock, 'SKU')
-    console.log("Temp Out", tempChangeToOut)
     for (let i = 0; i < tempChangeToOut.length; i++) {
         if (tempChangeToOut[i].title) {
             let item = { 'SKU': tempChangeToOut[i]['SKU'], 'Description': tempChangeToOut[i].title }
@@ -216,7 +213,8 @@ router.get('/compare', (req, res) => {
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
     // Find array of items to make in stock
     let tempInStock = _.differenceBy(dearSKU, magentoSKU, 'SKU')
-    let inStock = _.pullAllBy(tempInStock, magentoSKU, 'SKU')
+    let inStock = tempInStock
+    _.pullAllBy(inStock, magentoSKU, 'SKU')
     // let inStock = _.differenceBy(inStockPre, removals, 'SKU')
     // Create items correctly
     /**for (let i = 0; i < schalkIn.length; i++) {
