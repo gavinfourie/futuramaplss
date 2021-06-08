@@ -70,7 +70,6 @@ router.post('/', (req, res, next) => {
                 magentoInStock.push(tempMagentoInStock[sheet][item])
             }
         }
-        console.log("mageIn", magentoInStock)
         res.redirect('/stocksheets/choice')
     })
 })
@@ -195,7 +194,8 @@ router.get('/compare', (req, res) => {
             }
         }
     }**/
-    let tempChangeToOut = _.intersectionBy(dearOutStock, magentoInStock, 'SKU')
+    console.log("Dear Out", dearOutStock)
+    let tempChangeToOut = _.intersectionBy(magentoInStock, dearOutStock, 'SKU')
     console.log("Temp Out", tempChangeToOut)
     for (let i = 0; i < tempChangeToOut.length; i++) {
         if (tempChangeToOut[i].title) {
