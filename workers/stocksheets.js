@@ -185,8 +185,14 @@ router.get('/compare', (req, res) => {
             }
         }
     }**/
-    let tempChangeToOut = magentoInStock
-    let protoOut = _.pullAllBy(tempChangeToOut, dearOutStock, 'SKU')
+    let protoOut = []
+    for (let i = 0; i < dearOutStock.length; i++) {
+        for (let x = 0; x < magentoInStock.length; x++) {
+            if (dearOutStock[i].SKU == magentoInStock[x].SKU) {
+                protoOut.push(magentoInStock[x])
+            }
+        }
+    }
     for (let i = 0; i < protoOut.length; i++) {
         if (protoOut[i].title) {
             let item = { 'SKU': protoOut[i]['SKU'], 'Description': protoOut[i].title }
