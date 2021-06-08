@@ -186,13 +186,10 @@ router.get('/compare', (req, res) => {
         }
     }**/
     let tempChangeToOut = magentoInStock
-    _.pullAllBy(tempChangeToOut, dearOutStock, 'SKU')
-    for (let i = 0; i < tempChangeToOut.length; i++) {
-        if (tempChangeToOut[i].title) {
-            let item = { 'SKU': tempChangeToOut[i]['SKU'], 'Description': tempChangeToOut[i].title }
-            changeToOut.push(item)
-        } else if (tempChangeToOut[i]['Product Name']) {
-            let item = { 'SKU': tempChangeToOut[i]['SKU'], 'Description': tempChangeToOut[i]['Product Name'] }
+    _.pullAllBy(dearOutStock, tempChangeToOut, 'SKU')
+    for (let i = 0; i < dearOutStock.length; i++) {
+        if (dearOutStock[i]['Product Name']) {
+            let item = { 'SKU': dearOutStock[i]['SKU'], 'Description': dearOutStock[i]['Product Name'] }
             changeToOut.push(item)
         }
         //let item = { 'SKU': tempChangeToOut[i].SKU, 'Description': tempChangeToOut[i].title }
