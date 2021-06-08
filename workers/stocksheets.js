@@ -149,7 +149,7 @@ router.post('/dylan', (req, res, next) => {
           for (var item in jfile[sheet]) {
             if (jfile[sheet][item].SOH > 0 && jfile[sheet][item]['Product Name'].length > 1) {
                 dearInStock.push(jfile[sheet][item])
-            } else if (jfile[sheet][item].SOH <= 0 && jfile[sheet][item]['Product Name'].length > 1) {
+            } else if (jfile[sheet][item].SOH <= 0 && jfile[sheet][item].SKU.length > 1) {
                 dearOutStock.push(jfile[sheet][item])
             }
           }
