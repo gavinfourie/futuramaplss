@@ -71,6 +71,7 @@ router.post('/', (req, res, next) => {
             }
         }
         res.redirect('/stocksheets/choice')
+        console.log("Mage In", magentoInStock)
     })
 })
 
