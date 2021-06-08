@@ -188,8 +188,8 @@ router.get('/compare', (req, res) => {
     let tempChangeToOut = magentoInStock
     let protoOut = _.pullAllBy(tempChangeToOut, dearOutStock, 'SKU')
     for (let i = 0; i < protoOut.length; i++) {
-        if (protoOut[i]['Product Name']) {
-            let item = { 'SKU': protoOut[i]['SKU'], 'Description': protoOut[i]['Product Name'] }
+        if (protoOut[i].title) {
+            let item = { 'SKU': protoOut[i]['SKU'], 'Description': protoOut[i].title }
             changeToOut.push(item)
         }
     }
@@ -203,8 +203,8 @@ router.get('/compare', (req, res) => {
     // let inStock = _.differenceBy(inStockPre, removals, 'SKU')
     // Create items correctly
     for (let i = 0; i < inStock.length; i++) {
-        if (inStock[i].title) {
-            let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i].title }
+        if (inStock[i]['Product Name']) {
+            let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['Product Name'] }
             tempChangeToIn.push(item)
         }
     }
