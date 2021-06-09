@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Dear Stock Sheet
+    style
+      include ../css/main.css
+  body.centered-wrapper
+    div.centered-content
+      h1 Dear
+      p Please upload the Dear stock sheet here:
+      form(action="/stocksheetcompare/dear", enctype="multipart/form-data", method="post")
+        input(type="file", name="dear-sheet", multiple="multiple")
+        input(type="submit", value="Upload")
+
+    script
+      include ../js/pricelist.js

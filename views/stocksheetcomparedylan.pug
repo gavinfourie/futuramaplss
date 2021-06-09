@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Dylan's Stock Sheet
+    style
+      include ../css/main.css
+  body.centered-wrapper
+    div.centered-content
+      h1 Dylan
+      p Please upload the Dylan stock sheet here:
+      form(action="/stocksheetcompare/dylan", enctype="multipart/form-data", method="post")
+        input(type="file", name="dylan-sheet", multiple="multiple")
+        input(type="submit", value="Upload")
+
+    script
+      include ../js/pricelist.js
