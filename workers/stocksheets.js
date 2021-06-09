@@ -206,7 +206,7 @@ router.get('/compare', (req, res) => {
     let inStock = []
     for (let i = 0; i < dearSKU.length; i++) {
         for (let x = 0; x < magentoSKU.length; x++) {
-            if (dearSKU[i].SKU !== magentoSKU[x].SKU) {
+            if (dearSKU[i].SKU != magentoSKU[x].SKU) {
                 inStock.push(dearSKU[i])
             }
         }
