@@ -208,6 +208,7 @@ router.get('/compare', (req, res) => {
         for (let x = 0; x < magentoSKU.length; x++) {
             if (dearSKU[i].SKU != magentoSKU[x].SKU) {
                 inStock.push(dearSKU[i])
+                console.log(dearSKU[i])
             }
         }
     }
