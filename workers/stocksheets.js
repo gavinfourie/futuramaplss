@@ -203,9 +203,14 @@ router.get('/compare', (req, res) => {
     // Make arrays of no duplicates
     let magentoSKU = _.uniqBy(magentoInStock, 'SKU')
     let dearSKU = _.uniqBy(dearInStock, 'SKU')
+    for (let i = 0; i < dearSKU.length; i++) {
+        for (let x = 0; x < magentoSKU.length; x++) {
+            if (dearSKU[i].SKU !== magentoSKU[x].SKU) {
+                inStock.push(dearSKU[i])
+            }
+        }
+    }
     // Find array of items to make in stock
-    let tempInStock = _.differenceBy(dearSKU, magentoSKU, 'SKU')
-    let inStock = tempInStock
     // let inStock = _.differenceBy(inStockPre, removals, 'SKU')
     // Create items correctly
     for (let i = 0; i < inStock.length; i++) {
