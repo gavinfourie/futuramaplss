@@ -123,7 +123,6 @@ router.post('/schalk', (req, res, next) => {
                 }
             }
         }
-        console.log(nightvisionIn)
         res.redirect('/stocksheetcompare/compare')
     })
 })
@@ -139,6 +138,7 @@ router.get('/compare', (req, res) => {
             }
         }
     }
+    console.log(protoDearOut)
 
     // Find items to change to out of stock from dylan
     let protoDylanOut = []
