@@ -98,7 +98,6 @@ router.post('/dylan', (req, res, next) => {
                 }
             }
         }
-        console.log(dylanOutStock)
         res.redirect('/stocksheetcompare/schalk')
     })
 })
@@ -124,6 +123,7 @@ router.post('/schalk', (req, res, next) => {
                 }
             }
         }
+        console.log(nightvisionIn)
         res.redirect('/stocksheetcompare/compare')
     })
 })
