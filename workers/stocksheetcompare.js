@@ -42,7 +42,6 @@ router.post('/', (req, res, next) => {
                 magento.push(tempMagentoInStock[sheet][item])
             }
         }
-        console.log(magento)
         res.redirect('/stocksheetcompare/dear')
     })
 })
@@ -71,6 +70,7 @@ router.post('/dear', (req, res, next) => {
                 }
             }
         }
+        console.log(dearInStock)
         res.redirect('/stocksheetcompare/dylan')
     })
 })
