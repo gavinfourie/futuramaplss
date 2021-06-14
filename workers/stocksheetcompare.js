@@ -42,6 +42,7 @@ router.post('/', (req, res, next) => {
                 magento.push(tempMagentoInStock[sheet][item])
             }
         }
+        console.log(magento)
         res.redirect('/stocksheetcompare/dear')
     })
 })
@@ -166,7 +167,6 @@ router.get('/compare', (req, res) => {
         if (protoChangeToOut[i].title) {
             let item = { 'SKU': protoChangeToOut[i]['SKU'], 'Description': protoChangeToOut[i].title }
             changeToOut.push(item)
-            console.log(item)
         }
     }
 
