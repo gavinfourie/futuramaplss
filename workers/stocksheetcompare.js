@@ -149,8 +149,6 @@ router.get('/compare', (req, res) => {
         }
     }
 
-    console.log(protoDylanOut)
-
     let protoChangeToOut = []
     let protoChangeToOutDear = []
     for (let i = 0; i < protoDearOut.length; i++) {
@@ -189,6 +187,7 @@ router.get('/compare', (req, res) => {
     let protoAllInStock = dylanInStock + nightvisionIn
     let protoDylanInStock = _.uniqBy(protoAllInStock, 'SKU')
     let inStock = _.differenceBy(protoDylanInStock, protoMagentoInStock, 'SKU')
+    console.log(inStock)
     let tempChangeToIn = []
     for (let i = 0; i < inStock.length; i++) {
         if (inStock[i]['Product Name']) {
