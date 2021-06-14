@@ -166,6 +166,7 @@ router.get('/compare', (req, res) => {
         if (protoChangeToOut[i].title) {
             let item = { 'SKU': protoChangeToOut[i]['SKU'], 'Description': protoChangeToOut[i].title }
             changeToOut.push(item)
+            console.log(item)
         }
     }
 
