@@ -70,7 +70,7 @@ router.post('/dear', (req, res, next) => {
                 }
             }
         }
-        console.log(dearInStock)
+        console.log(dearOutStock)
         res.redirect('/stocksheetcompare/dylan')
     })
 })
