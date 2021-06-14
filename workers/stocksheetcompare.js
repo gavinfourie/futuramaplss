@@ -98,7 +98,7 @@ router.post('/dylan', (req, res, next) => {
                 }
             }
         }
-        console.log(dylanInStock)
+        console.log(dylanOutStock)
         res.redirect('/stocksheetcompare/schalk')
     })
 })
