@@ -138,7 +138,6 @@ router.get('/compare', (req, res) => {
             }
         }
     }
-    console.log(protoDearOut)
 
     // Find items to change to out of stock from dylan
     let protoDylanOut = []
@@ -149,6 +148,8 @@ router.get('/compare', (req, res) => {
             }
         }
     }
+
+    console.log(protoDylanOut)
 
     let protoChangeToOut = []
     let protoChangeToOutDear = []
