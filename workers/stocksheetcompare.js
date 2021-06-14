@@ -61,12 +61,12 @@ router.post('/dear', (req, res, next) => {
         }).fromFile(sfile).then((jsonObj)=>{
             tempDearStock.push(jsonObj)
         })
-        for (var sheet in jfile) {
-            for (var item in jfile[sheet]) {
-                if (jfile[sheet][item].Available > 0){
-                    dearInStock.push(jfile[sheet][item])
+        for (var sheet in tempDearStock) {
+            for (var item in tempDearStock[sheet]) {
+                if (tempDearStock[sheet][item].Available > 0){
+                    dearInStock.push(tempDearStock[sheet][item])
                 } else {
-                    dearOutStock.push(jfile[sheet][item])
+                    dearOutStock.push(tempDearStock[sheet][item])
                 }
             }
         }
