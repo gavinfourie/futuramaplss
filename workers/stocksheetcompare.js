@@ -70,7 +70,6 @@ router.post('/dear', (req, res, next) => {
                 }
             }
         }
-        console.log(dearOutStock)
         res.redirect('/stocksheetcompare/dylan')
     })
 })
@@ -99,6 +98,7 @@ router.post('/dylan', (req, res, next) => {
                 }
             }
         }
+        console.log(dylanInStock)
         res.redirect('/stocksheetcompare/schalk')
     })
 })
