@@ -193,7 +193,6 @@ router.get('/compare', (req, res) => {
     }
     let protoDylanInStock = _.uniqBy(protoAllInStock, 'SKU')
     let inStock = _.differenceBy(protoDylanInStock, protoMagentoInStock, 'SKU')
-    console.log(inStock)
     let tempChangeToIn = []
     for (let i = 0; i < inStock.length; i++) {
         if (inStock[i]['Product Name']) {
