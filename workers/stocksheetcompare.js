@@ -184,7 +184,13 @@ router.get('/compare', (req, res) => {
     // Make arrays of no duplicates
     let protoMagentoInStock = _.uniqBy(magento, 'SKU')
     let protoDearInStock = _.uniqBy(dearInStock, 'SKU')
-    let protoAllInStock = dylanInStock + nightvisionIn
+    let protoAllInStock = []
+    for (let x = 0; x < dylanInStock.length; x++) {
+        protoAllInStock.push(dylanInStock[x])
+    }
+    for (let x = 0; x < nightvisionIn.length; x++) {
+        protoAllInStock.push(nightvisionIn[x])
+    }
     let protoDylanInStock = _.uniqBy(protoAllInStock, 'SKU')
     let inStock = _.differenceBy(protoDylanInStock, protoMagentoInStock, 'SKU')
     console.log(inStock)
