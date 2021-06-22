@@ -143,7 +143,6 @@ router.get('/compare', (req, res) => {
             }
         }
     }
-    dearOutStock = []
 
     // Find items to change to out of stock from dylan
     let protoDylanOut = []
@@ -154,7 +153,6 @@ router.get('/compare', (req, res) => {
             }
         }
     }
-    dylanOutStock = []
 
     let protoChangeToOut = []
     let protoChangeToOutDear = []
@@ -167,7 +165,6 @@ router.get('/compare', (req, res) => {
             }
         }
     }
-    protoDearOut = []
 
     let changeToOut = []
     for (let i = 0; i < protoChangeToOut.length; i++) {
@@ -187,31 +184,21 @@ router.get('/compare', (req, res) => {
 
     let finalOut = _.uniqBy(changeToOut, 'SKU')
     let finalOutDear = _.uniqBy(changeToOutDear, 'SKU')
-    changeToOut = []
-    changeToOutDear = []
-    protoChangeToOut = []
-    protoChangeToOutDear = []
 
 
     // Make arrays of no duplicates
     let protoMagentoInStock = _.uniqBy(magento, 'SKU')
-    magento = []
     let protoDearInStock = _.uniqBy(dearInStock, 'SKU')
-    dearInStock = []
     let protoAllInStock = []
     for (let x = 0; x < dylanInStock.length; x++) {
         protoAllInStock.push(dylanInStock[x])
     }
-    dylanInStock = []
     for (let x = 0; x < nightvisionIn.length; x++) {
         protoAllInStock.push(nightvisionIn[x])
     }
-    nightvisionIn = []
     let protoDylanInStock = _.uniqBy(protoAllInStock, 'SKU')
     // find what both Ollie and Dear say are in stock
     let inStock = _.differenceBy(protoDylanInStock, protoMagentoInStock, 'SKU')
-    protoDylanInStock = []
-    protoMagentoInStock = []
     let tempChangeToIn = []
     for (let i = 0; i < inStock.length; i++) {
         if (inStock[i]['ProductName']) {
@@ -220,7 +207,6 @@ router.get('/compare', (req, res) => {
         }
     }
     let changeToInDylan = _.uniqBy(tempChangeToIn, 'SKU')
-    tempChangeToIn = []
     let changeToInDear = []
     for (let i = 0; i < protoDearInStock.length; i++) {
         for (let x = 0; x < changeToInDylan.length; x++) {
