@@ -222,7 +222,7 @@ router.get('/compare', (req, res) => {
             finalInDear.push(item)
         }
     }
-    _.uniqBy(finalInDear, 'SKU')
+    let finalFinishedInDear = _.uniqBy(finalInDear, 'SKU')
     // Creating styles for excel sheet being output
     const styles = {
         headerDark: {
@@ -274,7 +274,7 @@ router.get('/compare', (req, res) => {
             {
                 name: 'Now In Stock Dear',
                 specification: specification,
-                data: finalInDear
+                data: finalFinishedInDear
             }
         ]
     )
