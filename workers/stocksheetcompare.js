@@ -214,8 +214,8 @@ router.get('/compare', (req, res) => {
     protoMagentoInStock = []
     let tempChangeToIn = []
     for (let i = 0; i < inStock.length; i++) {
-        if (inStock[i]['Product Name']) {
-            let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['Product Name'] }
+        if (inStock[i]['ProductName']) {
+            let item = { 'SKU': inStock[i]['SKU'], 'Description': inStock[i]['ProductName'] }
             tempChangeToIn.push(item)
         }
     }
