@@ -122,7 +122,7 @@ router.post('/schalk', (req, res, next) => {
         })
         for (var sheet in jfile) {
             for (var item in jfile[sheet]) {
-                if (jfile[sheet][item].Quantity > 0 && jfile[sheet][item]['Product Name'].length > 1){
+                if (jfile[sheet][item].Quantity > 0 && jfile[sheet][item]['ProductName'].length > 1){
                     nightvisionIn.push(jfile[sheet][item])
                 }
             }
