@@ -229,7 +229,6 @@ router.get('/compare', (req, res) => {
             }
         }
     }
-    protoDearInStock = []
     let finalInDear = []
     for (let i = 0; i < changeToInDear.length; i++) {
         if (changeToInDear[i]['ProductName']) {
@@ -237,7 +236,6 @@ router.get('/compare', (req, res) => {
             finalInDear.push(item)
         }
     }
-    changeToInDear = []
     // Creating styles for excel sheet being output
     const styles = {
         headerDark: {
