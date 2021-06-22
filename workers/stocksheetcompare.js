@@ -192,10 +192,8 @@ router.get('/compare', (req, res) => {
         protoAllInStock.push(nightvisionIn[x])
     }
     let protoDylanInStock = _.uniqBy(protoAllInStock, 'SKU')
-    
+    // find what both Ollie and Dear say are in stock
     let inStock = _.differenceBy(protoDylanInStock, protoMagentoInStock, 'SKU')
-    console.log(inStock)
-    // Till here
     let tempChangeToIn = []
     for (let i = 0; i < inStock.length; i++) {
         if (inStock[i]['Product Name']) {
