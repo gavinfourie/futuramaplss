@@ -215,14 +215,15 @@ router.get('/compare', (req, res) => {
             }
         }
     }
+    let dearUnique = _.uniqBy(changeToInDear, 'SKU')
+    let dearAvailable = _.differenceBy(dearUnique, protoMagentoInStock, 'SKU')
     let finalInDear = []
-    for (let i = 0; i < changeToInDear.length; i++) {
-        if (changeToInDear[i]['ProductName']) {
-            let item = { 'SKU': changeToInDear[i]['SKU'], 'Description': changeToInDear[i]['ProductName'] }
+    for (let i = 0; i < dearAvailable.length; i++) {
+        if (dearAvailable[i]['ProductName']) {
+            let item = { 'SKU': dearAvailable[i]['SKU'], 'Description': dearAvailable[i]['ProductName'] }
             finalInDear.push(item)
         }
     }
-    let finalFinishedInDear = _.uniqBy(finalInDear, 'SKU')
     // Creating styles for excel sheet being output
     const styles = {
         headerDark: {
@@ -274,7 +275,7 @@ router.get('/compare', (req, res) => {
             {
                 name: 'Now In Stock Dear',
                 specification: specification,
-                data: finalFinishedInDear
+                data: finalInDear
             }
         ]
     )
